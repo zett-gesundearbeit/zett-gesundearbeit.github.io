@@ -10,22 +10,30 @@
 
   <meta
     name="description"
-    content="Ergonomie-Check-up für gesundes und ergonomisches Arbeiten."
+    content="ZeTT Gesunde Arbeit – Check-up für ergonomisches und gesundes Arbeiten."
   >
 
-  <title>Ergonomisches Arbeiten</title>
+  <title>ZeTT Gesunde Arbeit – Ergonomie-Check-up</title>
 
   <style>
     :root {
-      --primary: #087e8b;
-      --primary-dark: #075f69;
-      --secondary: #17324d;
-      --background: #f3f7f8;
+      --pink: #e5007d;
+      --magenta: #b0007d;
+      --purple: #662483;
+      --blue: #34358c;
+      --dark-purple: #4d236f;
+      --yellow: #f7b500;
+
+      --background: #f7f5f8;
       --surface: #ffffff;
-      --text: #1f2933;
-      --muted: #637381;
-      --border: #dce4e8;
-      --shadow: 0 14px 40px rgba(23, 50, 77, 0.1);
+      --text: #24202a;
+      --muted: #6c6573;
+      --border: #ded8e4;
+      --light-purple: #f3ecf7;
+      --light-pink: #fff0f7;
+
+      --shadow:
+        0 18px 55px rgba(77, 35, 111, 0.14);
     }
 
     * {
@@ -45,12 +53,16 @@
     }
 
     img {
-      max-width: 100%;
       display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
     }
 
     .container {
-      width: min(1120px, calc(100% - 40px));
+      width: min(1180px, calc(100% - 40px));
       margin: 0 auto;
     }
 
@@ -58,91 +70,155 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.97);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(10px);
     }
 
     .navigation {
-      min-height: 74px;
+      min-height: 78px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 30px;
+      gap: 28px;
     }
 
     .logo {
-      color: var(--secondary);
-      font-size: 1.3rem;
-      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--purple);
       text-decoration: none;
+    }
+
+    .logo-symbol {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #ffffff;
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink),
+          var(--purple)
+        );
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+
+    .logo-text {
+      line-height: 1.15;
+    }
+
+    .logo-text strong {
+      display: block;
+      font-size: 1.12rem;
+    }
+
+    .logo-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 26px;
+      gap: 25px;
     }
 
     .nav-links a {
-      color: var(--text);
+      color: var(--dark-purple);
       font-weight: 700;
       text-decoration: none;
     }
 
     .nav-links a:hover {
-      color: var(--primary);
+      color: var(--pink);
     }
 
     .nav-checkup {
-      padding: 10px 18px;
-      border-radius: 8px;
+      padding: 11px 18px;
+      border-radius: 9px;
       color: #ffffff !important;
-      background: var(--primary);
-    }
-
-    .nav-checkup:hover {
-      background: var(--primary-dark);
-    }
-
-    .hero {
-      padding: 110px 0;
-      color: #ffffff;
       background:
         linear-gradient(
-          125deg,
-          rgba(8, 126, 139, 0.97),
-          rgba(23, 50, 77, 0.97)
+          90deg,
+          var(--pink),
+          var(--purple)
         );
     }
 
+    .nav-checkup:hover {
+      filter: brightness(0.93);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0;
+      color: #ffffff;
+      background:
+        linear-gradient(
+          110deg,
+          var(--pink),
+          var(--purple) 58%,
+          var(--blue)
+        );
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .hero::before {
+      width: 360px;
+      height: 360px;
+      top: -190px;
+      right: 7%;
+    }
+
+    .hero::after {
+      width: 260px;
+      height: 260px;
+      bottom: -150px;
+      left: 10%;
+    }
+
     .hero-grid {
+      position: relative;
+      z-index: 1;
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
       align-items: center;
       gap: 60px;
     }
 
     .eyebrow {
       margin: 0 0 14px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 800;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
-      opacity: 0.9;
     }
 
     .hero h1 {
-      margin: 0 0 24px;
       max-width: 760px;
-      font-size: clamp(2.6rem, 6vw, 5rem);
+      margin: 0 0 24px;
+      font-size: clamp(2.6rem, 6vw, 5.1rem);
       line-height: 1.04;
     }
 
     .hero-text {
-      max-width: 670px;
+      max-width: 700px;
       margin: 0 0 34px;
-      font-size: 1.2rem;
+      font-size: 1.18rem;
     }
 
     .button-group {
@@ -155,13 +231,14 @@
       display: inline-block;
       padding: 15px 24px;
       border: 2px solid #ffffff;
-      border-radius: 9px;
-      color: var(--secondary);
+      border-radius: 10px;
+      color: var(--purple);
       background: #ffffff;
       font-weight: 800;
       text-decoration: none;
       transition:
         transform 0.2s ease,
+        filter 0.2s ease,
         background 0.2s ease,
         color 0.2s ease;
     }
@@ -176,35 +253,43 @@
     }
 
     .button-secondary:hover {
-      color: var(--secondary);
+      color: var(--purple);
       background: #ffffff;
     }
 
-    .hero-card {
-      padding: 34px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 22px;
+    .mascot-card {
+      position: relative;
+      min-height: 500px;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 26px;
       background: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      box-shadow:
+        0 24px 60px rgba(38, 20, 57, 0.24);
       backdrop-filter: blur(10px);
     }
 
-    .hero-card h2 {
-      margin: 0 0 12px;
-      font-size: 1.6rem;
+    .mascot-card img {
+      width: 100%;
+      max-height: 470px;
+      object-fit: contain;
     }
 
-    .hero-card p {
-      margin: 0 0 20px;
-    }
-
-    .hero-list {
-      margin: 0;
-      padding-left: 22px;
-    }
-
-    .hero-list li {
-      margin-bottom: 9px;
+    .mascot-note {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      max-width: 220px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      color: var(--dark-purple);
+      background: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow:
+        0 10px 30px rgba(38, 20, 57, 0.18);
     }
 
     section {
@@ -212,21 +297,21 @@
     }
 
     .section-heading {
-      max-width: 760px;
-      margin-bottom: 45px;
+      max-width: 780px;
+      margin-bottom: 46px;
     }
 
     .section-heading h2 {
       margin: 0 0 16px;
-      color: var(--secondary);
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--dark-purple);
+      font-size: clamp(2rem, 4vw, 3.3rem);
       line-height: 1.15;
     }
 
     .section-heading p {
       margin: 0;
       color: var(--muted);
-      font-size: 1.1rem;
+      font-size: 1.08rem;
     }
 
     .cards {
@@ -238,27 +323,32 @@
     .card {
       padding: 30px;
       border: 1px solid var(--border);
-      border-radius: 16px;
-      background: var(--surface);
+      border-radius: 17px;
+      background: #ffffff;
       box-shadow: var(--shadow);
     }
 
     .card-number {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       margin-bottom: 20px;
       display: grid;
       place-items: center;
       border-radius: 50%;
       color: #ffffff;
-      background: var(--primary);
-      font-weight: 800;
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink),
+          var(--purple)
+        );
+      font-weight: 900;
     }
 
     .card h3 {
       margin: 0 0 12px;
-      color: var(--secondary);
-      font-size: 1.25rem;
+      color: var(--dark-purple);
+      font-size: 1.28rem;
     }
 
     .card p {
@@ -270,136 +360,195 @@
       color: #ffffff;
       background:
         linear-gradient(
-          120deg,
-          var(--primary),
-          var(--secondary)
+          110deg,
+          var(--pink),
+          var(--purple),
+          var(--blue)
         );
     }
 
     .checkup-box {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
-      gap: 40px;
+      gap: 45px;
     }
 
     .checkup-box h2 {
       margin: 0 0 16px;
-      font-size: clamp(2.1rem, 4vw, 3.5rem);
+      font-size: clamp(2.1rem, 4vw, 3.6rem);
       line-height: 1.15;
     }
 
     .checkup-box p {
-      max-width: 700px;
+      max-width: 760px;
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1.08rem;
     }
 
     .checkup-button {
       white-space: nowrap;
     }
 
-    .benefits {
-      background: var(--background);
+    .topics {
+      background:
+        linear-gradient(
+          180deg,
+          #ffffff,
+          var(--background)
+        );
     }
 
-    .benefit-grid {
+    .topic-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+      gap: 22px;
     }
 
-    .benefit {
-      padding: 28px;
-      border-left: 5px solid var(--primary);
-      border-radius: 12px;
+    .topic {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 18px;
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
       background: #ffffff;
-      box-shadow: var(--shadow);
+      box-shadow:
+        0 10px 30px rgba(77, 35, 111, 0.08);
     }
 
-    .benefit h3 {
-      margin: 0 0 10px;
-      color: var(--secondary);
+    .topic-icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: #ffffff;
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink),
+          var(--purple)
+        );
+      font-size: 1.35rem;
+      font-weight: 900;
     }
 
-    .benefit p {
+    .topic h3 {
+      margin: 0 0 8px;
+      color: var(--dark-purple);
+    }
+
+    .topic p {
       margin: 0;
       color: var(--muted);
     }
 
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
+    .mascot-section {
+      background: #ffffff;
     }
 
-    .about-box {
-      min-height: 360px;
+    .mascot-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
+      align-items: center;
+      gap: 60px;
+    }
+
+    .mascot-visual {
+      min-height: 430px;
       display: grid;
       place-items: center;
-      padding: 40px;
-      border-radius: 22px;
-      color: #ffffff;
+      padding: 30px;
+      border-radius: 24px;
       background:
         linear-gradient(
-          140deg,
-          var(--primary),
-          var(--secondary)
+          145deg,
+          var(--light-pink),
+          var(--light-purple)
         );
-      text-align: center;
-      box-shadow: var(--shadow);
     }
 
-    .about-box strong {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 4rem;
-      line-height: 1;
+    .mascot-visual img {
+      max-height: 400px;
+      object-fit: contain;
     }
 
-    .about-content h2 {
+    .mascot-content h2 {
       margin: 0 0 18px;
-      color: var(--secondary);
-      font-size: clamp(2rem, 4vw, 3.1rem);
+      color: var(--dark-purple);
+      font-size: clamp(2rem, 4vw, 3.2rem);
       line-height: 1.15;
     }
 
-    .about-content p {
+    .mascot-content p {
       color: var(--muted);
     }
 
-    .contact {
-      text-align: center;
-      background: var(--secondary);
+    .check-list {
+      margin: 24px 0 30px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .check-list li {
+      position: relative;
+      margin-bottom: 12px;
+      padding-left: 30px;
+      color: var(--text);
+    }
+
+    .check-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--pink);
+      font-weight: 900;
+    }
+
+    .button-primary {
+      border-color: transparent;
       color: #ffffff;
+      background:
+        linear-gradient(
+          90deg,
+          var(--pink),
+          var(--purple)
+        );
+    }
+
+    .button-primary:hover {
+      filter: brightness(0.93);
+    }
+
+    .contact {
+      color: #ffffff;
+      text-align: center;
+      background: var(--dark-purple);
     }
 
     .contact h2 {
       margin: 0 0 16px;
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(2rem, 4vw, 3.1rem);
     }
 
     .contact p {
-      max-width: 650px;
+      max-width: 690px;
       margin: 0 auto 28px;
-      font-size: 1.1rem;
-    }
-
-    .contact a {
-      color: #ffffff;
+      font-size: 1.08rem;
     }
 
     footer {
-      padding: 35px 0;
-      background: #ffffff;
+      padding: 36px 0;
       border-top: 1px solid var(--border);
+      background: #ffffff;
     }
 
     .footer-content {
       display: flex;
       justify-content: space-between;
-      gap: 25px;
+      gap: 28px;
       color: var(--muted);
     }
 
@@ -415,12 +564,12 @@
     }
 
     .footer-links a:hover {
-      color: var(--primary);
+      color: var(--pink);
     }
 
-    @media (max-width: 850px) {
+    @media (max-width: 900px) {
       .hero-grid,
-      .about-grid,
+      .mascot-grid,
       .checkup-box {
         grid-template-columns: 1fr;
       }
@@ -429,16 +578,20 @@
         grid-template-columns: 1fr;
       }
 
-      .benefit-grid {
+      .topic-grid {
         grid-template-columns: 1fr;
       }
 
       .checkup-button {
         justify-self: start;
       }
+
+      .mascot-card {
+        min-height: 420px;
+      }
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 720px) {
       .nav-links a:not(.nav-checkup) {
         display: none;
       }
@@ -463,6 +616,30 @@
       .footer-content {
         flex-direction: column;
       }
+
+      .mascot-note {
+        position: static;
+        margin-top: 20px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .navigation {
+        min-height: 70px;
+      }
+
+      .logo-text span {
+        display: none;
+      }
+
+      .mascot-card,
+      .mascot-visual {
+        padding: 18px;
+      }
     }
   </style>
 </head>
@@ -471,13 +648,18 @@
   <header>
     <nav class="container navigation">
       <a class="logo" href="index.html">
-        ErgoCheck
+        <span class="logo-symbol">Z</span>
+
+        <span class="logo-text">
+          <strong>ZeTT Gesunde Arbeit</strong>
+          <span>Ergonomie und gesundes Arbeiten</span>
+        </span>
       </a>
 
       <div class="nav-links">
         <a href="#ablauf">Ablauf</a>
-        <a href="#vorteile">Vorteile</a>
-        <a href="#ueber-uns">Über uns</a>
+        <a href="#themen">Themen</a>
+        <a href="#maskottchen">ZeTT-Begleiter</a>
         <a href="#kontakt">Kontakt</a>
 
         <a class="nav-checkup" href="checkup.html">
@@ -492,17 +674,18 @@
       <div class="container hero-grid">
         <div>
           <p class="eyebrow">
-            Ergonomisch arbeiten
+            ZeTT Gesunde Arbeit
           </p>
 
           <h1>
-            Wie ergonomisch ist dein Arbeitsplatz?
+            Wie gesund und ergonomisch arbeitest du?
           </h1>
 
           <p class="hero-text">
-            Mit unserem kostenlosen Check-up prüfst du deinen
-            Arbeitsplatz und deine Arbeitsgewohnheiten. Anschließend
-            erhältst du konkrete Hinweise, was du verbessern kannst.
+            Der kostenlose ZeTT-Check-up bewertet deinen Arbeitsplatz,
+            deine Arbeitsmittel und deine Arbeitsorganisation. Du erhältst
+            eine gegliederte Auswertung, konkrete Verbesserungstipps und
+            passende Hilfsmittel aus der ERGOthek.
           </p>
 
           <div class="button-group">
@@ -511,26 +694,20 @@
             </a>
 
             <a class="button button-secondary" href="#ablauf">
-              Mehr erfahren
+              So funktioniert es
             </a>
           </div>
         </div>
 
-        <aside class="hero-card">
-          <h2>Das erwartet dich</h2>
+        <aside class="mascot-card">
+          <img
+            src="images/maskottchen.png"
+            alt="ZeTT-Maskottchen für gesundes und ergonomisches Arbeiten"
+          >
 
-          <p>
-            Der Check-up dauert nur wenige Minuten und wird direkt
-            im Browser ausgewertet.
-          </p>
-
-          <ul class="hero-list">
-            <li>10 kurze Fragen</li>
-            <li>Persönliche Auswertung</li>
-            <li>Konkrete Verbesserungstipps</li>
-            <li>Keine Anmeldung erforderlich</li>
-            <li>Keine Speicherung der Antworten</li>
-          </ul>
+          <div class="mascot-note">
+            Zehn Fragen. Vier Themenbereiche. Konkrete Empfehlungen.
+          </div>
         </aside>
       </div>
     </section>
@@ -538,13 +715,17 @@
     <section id="ablauf">
       <div class="container">
         <div class="section-heading">
+          <p class="eyebrow" style="color: #e5007d;">
+            Ablauf
+          </p>
+
           <h2>
-            So funktioniert der Ergonomie-Check-up
+            In drei Schritten zur persönlichen Auswertung
           </h2>
 
           <p>
-            In drei einfachen Schritten erhältst du eine erste
-            Einschätzung zu deinem Arbeitsplatz.
+            Der Check-up dauert nur wenige Minuten. Deine Antworten werden
+            direkt im Browser verarbeitet und nicht gespeichert.
           </p>
         </div>
 
@@ -552,33 +733,33 @@
           <article class="card">
             <div class="card-number">1</div>
 
-            <h3>Fragen beantworten</h3>
+            <h3>Zehn Fragen beantworten</h3>
 
             <p>
-              Beantworte zehn Fragen zu deinem Stuhl, Bildschirm,
-              deiner Haltung und deinen Arbeitsgewohnheiten.
+              Prüfe Arbeitsort, Sitzplatz, Bildschirm, Arbeitsmittel,
+              Bewegung und Erholungszeiten.
             </p>
           </article>
 
           <article class="card">
             <div class="card-number">2</div>
 
-            <h3>Ergebnis erhalten</h3>
+            <h3>Bereichswerte erhalten</h3>
 
             <p>
-              Deine Antworten werden direkt im Browser ausgewertet.
-              Du erhältst einen verständlichen Prozentwert.
+              Neben dem Gesamtergebnis siehst du getrennte Bewertungen
+              für vier relevante Themenbereiche.
             </p>
           </article>
 
           <article class="card">
             <div class="card-number">3</div>
 
-            <h3>Arbeitsplatz verbessern</h3>
+            <h3>Gezielt verbessern</h3>
 
             <p>
-              Auf Basis deiner Antworten bekommst du konkrete und
-              umsetzbare Tipps für ergonomischeres Arbeiten.
+              Du erhältst konkrete Handlungstipps und nur dort
+              Hilfsmittel-Empfehlungen, wo ein Bedarf erkennbar ist.
             </p>
           </article>
         </div>
@@ -589,117 +770,134 @@
       <div class="container checkup-box">
         <div>
           <h2>
-            Starte jetzt deinen kostenlosen Check-up
+            Starte jetzt den ZeTT-Check-up
           </h2>
 
           <p>
-            Finde heraus, welche Einstellungen und Gewohnheiten bereits
-            gut sind und wo konkreter Verbesserungsbedarf besteht.
+            Finde heraus, welche Bereiche bereits gut aufgestellt sind
+            und wo konkrete Verbesserungen sinnvoll sind.
           </p>
         </div>
 
-        <a class="button checkup-button" href="checkup.html">
+        <a
+          class="button checkup-button"
+          href="checkup.html"
+        >
           Check-up starten
         </a>
       </div>
     </section>
 
-    <section class="benefits" id="vorteile">
+    <section class="topics" id="themen">
       <div class="container">
         <div class="section-heading">
+          <p class="eyebrow" style="color: #e5007d;">
+            Themenbereiche
+          </p>
+
           <h2>
-            Warum ergonomisches Arbeiten wichtig ist
+            Der Check-up betrachtet mehr als nur den Bürostuhl
           </h2>
 
           <p>
-            Ergonomie betrifft nicht nur den Bürostuhl. Entscheidend ist
-            das Zusammenspiel aus Arbeitsmitteln, Haltung, Bewegung,
-            Beleuchtung und Arbeitsorganisation.
+            Ergonomisches Arbeiten entsteht aus dem Zusammenspiel von
+            Arbeitsplatz, Technik, Bewegung und Arbeitsorganisation.
           </p>
         </div>
 
-        <div class="benefit-grid">
-          <article class="benefit">
-            <h3>Körperliche Belastung reduzieren</h3>
+        <div class="topic-grid">
+          <article class="topic">
+            <div class="topic-icon">1</div>
 
-            <p>
-              Eine passende Arbeitsplatzgestaltung kann Fehlhaltungen
-              und unnötige Belastungen von Rücken, Nacken und Schultern
-              reduzieren.
-            </p>
+            <div>
+              <h3>Arbeitsplatz und Sitzen</h3>
+
+              <p>
+                Arbeitsfläche, Sitzhöhe, Rückenunterstützung und
+                Beinfreiheit werden gemeinsam betrachtet.
+              </p>
+            </div>
           </article>
 
-          <article class="benefit">
-            <h3>Bewegung fördern</h3>
+          <article class="topic">
+            <div class="topic-icon">2</div>
 
-            <p>
-              Regelmäßige Positionswechsel und kurze Bewegungspausen
-              verhindern langes starres Sitzen.
-            </p>
+            <div>
+              <h3>Bildschirm und Sehen</h3>
+
+              <p>
+                Bildschirmposition, Lesbarkeit, Abstand, Beleuchtung und
+                Spiegelungen beeinflussen die Belastung.
+              </p>
+            </div>
           </article>
 
-          <article class="benefit">
-            <h3>Augen entlasten</h3>
+          <article class="topic">
+            <div class="topic-icon">3</div>
 
-            <p>
-              Ein passender Bildschirmabstand, eine geeignete Höhe und
-              regelmäßige Sehpausen können die Augen entlasten.
-            </p>
+            <div>
+              <h3>Arbeitsmittel</h3>
+
+              <p>
+                Notebook, Tastatur, Maus und Unterarmposition müssen zur
+                Tätigkeit und zur Person passen.
+              </p>
+            </div>
           </article>
 
-          <article class="benefit">
-            <h3>Arbeitsorganisation verbessern</h3>
+          <article class="topic">
+            <div class="topic-icon">4</div>
 
-            <p>
-              Feste Pausen, klare Routinen und sinnvoll angeordnete
-              Arbeitsmittel erleichtern konzentriertes Arbeiten.
-            </p>
+            <div>
+              <h3>Bewegung und Organisation</h3>
+
+              <p>
+                Haltungswechsel, Bewegung, Kurzpausen und ein klares
+                Arbeitsende sind zentrale Bestandteile gesunder Arbeit.
+              </p>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="ueber-uns">
-      <div class="container about-grid">
-        <div class="about-box">
-          <div>
-            <strong>10</strong>
-            Fragen für eine erste ergonomische Einschätzung
-          </div>
+    <section class="mascot-section" id="maskottchen">
+      <div class="container mascot-grid">
+        <div class="mascot-visual">
+          <img
+            src="images/maskottchen.png"
+            alt="ZeTT-Maskottchen als digitaler Begleiter im Ergonomie-Check-up"
+          >
         </div>
 
-        <div class="about-content">
-          <p class="eyebrow" style="color: #087e8b;">
-            Über den Check-up
+        <div class="mascot-content">
+          <p class="eyebrow" style="color: #e5007d;">
+            Dein digitaler Begleiter
           </p>
 
           <h2>
-            Eine erste Orientierung für deinen Arbeitsplatz
+            Das ZeTT-Maskottchen begleitet dich durch den Check-up
           </h2>
 
           <p>
-            Der Check-up hilft dabei, typische ergonomische
-            Schwachstellen zu erkennen. Die Auswertung basiert auf
-            deinen Antworten und zeigt dir, welche Bereiche du zuerst
-            verbessern solltest.
+            Jede Frage kann mit einer passenden Maskottchen-Situation
+            bebildert werden. Dadurch werden Arbeitsplatzprobleme schneller
+            verständlich und die Empfehlungen anschaulicher.
           </p>
 
-          <p>
-            Die Ergebnisse ersetzen keine arbeitsmedizinische Beratung
-            oder professionelle Arbeitsplatzanalyse. Sie bieten jedoch
-            einen sinnvollen Ausgangspunkt für erste Anpassungen.
-          </p>
+          <ul class="check-list">
+            <li>klare und verständliche Fragen</li>
+            <li>visuelle Unterstützung durch das Maskottchen</li>
+            <li>Auswertung nach vier Themenbereichen</li>
+            <li>konkrete Verbesserungstipps</li>
+            <li>passende Hilfsmittel aus der ERGOthek</li>
+          </ul>
 
           <a
-            class="button"
+            class="button button-primary"
             href="checkup.html"
-            style="
-              color: #ffffff;
-              background: #087e8b;
-              border-color: #087e8b;
-            "
           >
-            Eigene Auswertung starten
+            Persönliche Auswertung starten
           </a>
         </div>
       </div>
@@ -707,16 +905,18 @@
 
     <section class="contact" id="kontakt">
       <div class="container">
-        <h2>Fragen zum ergonomischen Arbeiten?</h2>
+        <h2>
+          Fragen zu gesundem und ergonomischem Arbeiten?
+        </h2>
 
         <p>
-          Passe hier später deine eigene E-Mail-Adresse und die
-          Beschreibung deines Unternehmens an.
+          Ergänzt hier eure tatsächliche Kontaktadresse oder verlinkt
+          direkt auf die Kontaktseite des ZeTT.
         </p>
 
         <a
           class="button"
-          href="mailto:kontakt@musterfirma.de"
+          href="mailto:kontakt@zett-thueringen.de"
         >
           Kontakt aufnehmen
         </a>
@@ -727,7 +927,7 @@
   <footer>
     <div class="container footer-content">
       <div>
-        © 2026 ErgoCheck
+        © 2026 ZeTT Gesunde Arbeit
       </div>
 
       <div class="footer-links">
