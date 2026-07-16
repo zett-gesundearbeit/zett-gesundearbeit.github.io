@@ -77,13 +77,13 @@
 
     .hero {
       padding: 110px 0;
+      color: white;
       background:
         linear-gradient(
           120deg,
           rgba(8, 126, 139, 0.96),
           rgba(23, 50, 77, 0.96)
         );
-      color: white;
     }
 
     .hero-content {
@@ -102,18 +102,39 @@
       font-size: 1.25rem;
     }
 
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
     .button {
       display: inline-block;
       padding: 14px 24px;
+      border: 2px solid #ffffff;
       border-radius: 8px;
       background: #ffffff;
       color: #17324d;
       text-decoration: none;
       font-weight: 700;
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
     }
 
     .button:hover {
       transform: translateY(-2px);
+    }
+
+    .button-secondary {
+      background: transparent;
+      color: #ffffff;
+    }
+
+    .button-secondary:hover {
+      background: #ffffff;
+      color: #17324d;
     }
 
     section {
@@ -152,6 +173,22 @@
       color: #087e8b;
     }
 
+    .checkup-section {
+      background: #087e8b;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .checkup-section h2 {
+      color: #ffffff;
+    }
+
+    .checkup-section p {
+      max-width: 650px;
+      margin: 0 auto 28px;
+      font-size: 1.1rem;
+    }
+
     .about {
       background: #f3f7f8;
     }
@@ -159,15 +196,15 @@
     .contact {
       text-align: center;
       background: #17324d;
-      color: white;
+      color: #ffffff;
     }
 
     .contact h2 {
-      color: white;
+      color: #ffffff;
     }
 
     .contact a {
-      color: white;
+      color: #ffffff;
     }
 
     footer {
@@ -175,6 +212,10 @@
       text-align: center;
       color: #5d6874;
       background: #ffffff;
+    }
+
+    footer a {
+      color: #5d6874;
     }
 
     @media (max-width: 760px) {
@@ -189,6 +230,16 @@
       .cards {
         grid-template-columns: 1fr;
       }
+
+      .button-group {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .button {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -196,10 +247,13 @@
 <body>
   <header>
     <nav class="container">
-      <a class="logo" href="#">Musterfirma</a>
+      <a class="logo" href="index.html">
+        Musterfirma
+      </a>
 
       <div class="navigation">
         <a href="#leistungen">Leistungen</a>
+        <a href="#checkup">Check-up</a>
         <a href="#ueber-uns">Über uns</a>
         <a href="#kontakt">Kontakt</a>
       </div>
@@ -209,16 +263,24 @@
   <main>
     <section class="hero">
       <div class="container hero-content">
-        <h1>Professionelle Lösungen für Ihr Unternehmen</h1>
+        <h1>
+          Professionelle Lösungen für Ihr Unternehmen
+        </h1>
 
         <p>
           Wir unterstützen Organisationen mit fundierter Beratung,
           klaren Prozessen und praxisnahen Lösungen.
         </p>
 
-        <a class="button" href="#kontakt">
-          Kontakt aufnehmen
-        </a>
+        <div class="button-group">
+          <a class="button" href="checkup.html">
+            Check-up starten
+          </a>
+
+          <a class="button button-secondary" href="#kontakt">
+            Kontakt aufnehmen
+          </a>
+        </div>
       </div>
     </section>
 
@@ -234,6 +296,7 @@
         <div class="cards">
           <article class="card">
             <h3>Beratung</h3>
+
             <p>
               Individuelle Analyse und Entwicklung passender
               Handlungsempfehlungen.
@@ -242,6 +305,7 @@
 
           <article class="card">
             <h3>Konzeption</h3>
+
             <p>
               Strukturierte Konzepte, die sich praktisch und
               wirtschaftlich umsetzen lassen.
@@ -250,12 +314,28 @@
 
           <article class="card">
             <h3>Umsetzung</h3>
+
             <p>
               Begleitung von der Planung bis zur erfolgreichen
               Einführung.
             </p>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="checkup-section" id="checkup">
+      <div class="container">
+        <h2>Kostenloser Check-up</h2>
+
+        <p>
+          Beantworten Sie einige kurze Fragen und erhalten Sie direkt
+          eine erste Einschätzung mit individuellen Empfehlungen.
+        </p>
+
+        <a class="button" href="checkup.html">
+          Check-up jetzt starten
+        </a>
       </div>
     </section>
 
@@ -287,7 +367,9 @@
 
   <footer>
     <div class="container">
-      © 2026 Musterfirma · Impressum · Datenschutz
+      © 2026 Musterfirma ·
+      <a href="impressum.html">Impressum</a> ·
+      <a href="datenschutz.html">Datenschutz</a>
     </div>
   </footer>
 </body>
