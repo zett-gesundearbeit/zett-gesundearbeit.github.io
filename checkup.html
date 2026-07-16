@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Unternehmens-Check-up</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1f2933;
+      background: #f3f6f8;
+    }
+
+    .checkup {
+      width: min(700px, 100%);
+      margin: 0 auto;
+      padding: 40px;
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #17324d;
+    }
+
+    .question {
+      display: none;
+    }
+
+    .question.active {
+      display: block;
+    }
+
+    .question h2 {
+      font-size: 1.4rem;
+    }
+
+    .answers {
+      display: grid;
+      gap: 12px;
+      margin: 30px 0;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ccd5dd;
+      border-radius: 10px;
+      background: white;
+      color: #17324d;
+      font-size: 1rem;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    button:hover {
+      border-color: #087e8b;
+      background: #eefafa;
+    }
+
+    .progress-wrapper {
+      height: 10px;
+      margin-bottom: 30px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #e5e7eb;
+    }
+
+    .progress {
+      width: 0;
+      height: 100%;
+      background: #087e8b;
+      transition: width 0.3s ease;
+    }
+
+    .result {
+      display: none;
+      padding: 24px;
+      border-radius: 12px;
+      background: #eef7f8;
+    }
+
+    .restart {
+      margin-top: 20px;
+      text-align: center;
+      background: #17324d;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="checkup">
+    <h1>Ihr kostenloser Check-up</h1>
+
+    <div class="progress-wrapper">
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <form id="checkupForm">
+      <section class="question active">
+        <h2>1. Ist Ihr Arbeitsplatz ergonomisch eingerichtet?</h2>
+
+        <div class="answers">
+          <button type="button" data-points="0">Nein</button>
+          <button type="button" data-points="1">Teilweise</button>
+          <button type="button" data-points="2">Ja</button>
+        </div>
+      </section>
+
+      <section class="question">
+        <h2>2. Wechseln Sie regelmäßig Ihre Sitzposition?</h2>
+
+        <div class="answers">
+          <button type="button" data-points="0">Selten</button>
+          <button type="button" data-points="1">Gelegentlich</button>
+          <button type="button" data-points="2">Regelmäßig</button>
+        </div>
+      </section>
+
+      <section class="question">
+        <h2>3. Machen Sie während der Arbeit Bewegungspausen?</h2>
+
+        <div class="answers">
+          <button type="button" data-points="0">Nein</button>
+          <button type="button" data-points="1">Manchmal</button>
+          <button type="button" data-points="2">Mehrmals täglich</button>
+        </div>
+      </section>
+    </form>
+
+    <section class="result" id="result">
+      <h2 id="resultTitle"></h2>
+      <p id="resultText"></p>
+
+      <button class="restart" type="button" id="restart">
+        Check-up wiederholen
+      </button>
+    </section>
+  </main>
+
+  <script>
+    const questions = document.querySelectorAll(".question");
+    const answerButtons = document.querySelectorAll("[data-points]");
+    const progress = document.getElementById("progress");
+    const form = document.getElementById("checkupForm");
+    const result = document.getElementById("result");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultText = document.getElementById("resultText");
+    const restartButton = document.getElementById("restart");
+
+    let currentQuestion = 0;
+    let totalPoints = 0;
+
+    function updateProgress() {
+      const percentage =
+        (currentQuestion / questions.length) * 100;
+
+      progress.style.width = `${percentage}%`;
+    }
+
+    function showResult() {
+      form.style.display = "none";
+      result.style.display = "block";
+      progress.style.width = "100%";
+
+      if (totalPoints <= 2) {
+        resultTitle.textContent = "Deutlicher Verbesserungsbedarf";
+
+        resultText.textContent =
+          "Mehrere grundlegende Bereiche sollten verbessert werden. " +
+          "Beginnen Sie mit einer ergonomischen Arbeitsplatzgestaltung " +
+          "und festen Bewegungspausen.";
+      } else if (totalPoints <= 4) {
+        resultTitle.textContent = "Gute Grundlage";
+
+        resultText.textContent =
+          "Viele Grundlagen stimmen bereits. Einzelne Anpassungen können " +
+          "Ihre Arbeitsbedingungen weiter verbessern.";
+      } else {
+        resultTitle.textContent = "Sehr gutes Ergebnis";
+
+        resultText.textContent =
+          "Ihr Arbeitsplatz und Ihre Arbeitsgewohnheiten sind bereits " +
+          "gut aufgestellt.";
+      }
+    }
+
+    answerButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        totalPoints += Number(button.dataset.points);
+
+        questions[currentQuestion].classList.remove("active");
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+          questions[currentQuestion].classList.add("active");
+          updateProgress();
+        } else {
+          showResult();
+        }
+      });
+    });
+
+    restartButton.addEventListener("click", () => {
+      currentQuestion = 0;
+      totalPoints = 0;
+
+      result.style.display = "none";
+      form.style.display = "block";
+
+      questions.forEach((question) => {
+        question.classList.remove("active");
+      });
+
+      questions[0].classList.add("active");
+      updateProgress();
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>
