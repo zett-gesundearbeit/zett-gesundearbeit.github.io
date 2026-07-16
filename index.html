@@ -10,12 +10,24 @@
 
   <meta
     name="description"
-    content="Musterfirma – professionelle Lösungen für unsere Kunden."
+    content="Ergonomie-Check-up für gesundes und ergonomisches Arbeiten."
   >
 
-  <title>Musterfirma</title>
+  <title>Ergonomisches Arbeiten</title>
 
   <style>
+    :root {
+      --primary: #087e8b;
+      --primary-dark: #075f69;
+      --secondary: #17324d;
+      --background: #f3f7f8;
+      --surface: #ffffff;
+      --text: #1f2933;
+      --muted: #637381;
+      --border: #dce4e8;
+      --shadow: 0 14px 40px rgba(23, 50, 77, 0.1);
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -28,78 +40,109 @@
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       line-height: 1.6;
-      color: #1f2933;
-      background: #ffffff;
+      color: var(--text);
+      background: var(--surface);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
     }
 
     .container {
-      width: min(1120px, 90%);
+      width: min(1120px, calc(100% - 40px));
       margin: 0 auto;
     }
 
     header {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
       background: rgba(255, 255, 255, 0.96);
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    nav {
-      min-height: 72px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .logo {
-      font-size: 1.25rem;
-      font-weight: 700;
-      text-decoration: none;
-      color: #17324d;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
     }
 
     .navigation {
+      min-height: 74px;
       display: flex;
-      gap: 24px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
     }
 
-    .navigation a {
-      color: #1f2933;
+    .logo {
+      color: var(--secondary);
+      font-size: 1.3rem;
+      font-weight: 800;
       text-decoration: none;
-      font-weight: 600;
     }
 
-    .navigation a:hover {
-      color: #087e8b;
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-checkup {
+      padding: 10px 18px;
+      border-radius: 8px;
+      color: #ffffff !important;
+      background: var(--primary);
+    }
+
+    .nav-checkup:hover {
+      background: var(--primary-dark);
     }
 
     .hero {
       padding: 110px 0;
-      color: white;
+      color: #ffffff;
       background:
         linear-gradient(
-          120deg,
-          rgba(8, 126, 139, 0.96),
-          rgba(23, 50, 77, 0.96)
+          125deg,
+          rgba(8, 126, 139, 0.97),
+          rgba(23, 50, 77, 0.97)
         );
     }
 
-    .hero-content {
-      max-width: 760px;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.9;
     }
 
     .hero h1 {
       margin: 0 0 24px;
-      font-size: clamp(2.4rem, 6vw, 4.8rem);
-      line-height: 1.08;
+      max-width: 760px;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 1.04;
     }
 
-    .hero p {
-      max-width: 650px;
-      margin-bottom: 32px;
-      font-size: 1.25rem;
+    .hero-text {
+      max-width: 670px;
+      margin: 0 0 34px;
+      font-size: 1.2rem;
     }
 
     .button-group {
@@ -110,13 +153,13 @@
 
     .button {
       display: inline-block;
-      padding: 14px 24px;
+      padding: 15px 24px;
       border: 2px solid #ffffff;
-      border-radius: 8px;
+      border-radius: 9px;
+      color: var(--secondary);
       background: #ffffff;
-      color: #17324d;
+      font-weight: 800;
       text-decoration: none;
-      font-weight: 700;
       transition:
         transform 0.2s ease,
         background 0.2s ease,
@@ -128,29 +171,61 @@
     }
 
     .button-secondary {
-      background: transparent;
       color: #ffffff;
+      background: transparent;
     }
 
     .button-secondary:hover {
+      color: var(--secondary);
       background: #ffffff;
-      color: #17324d;
+    }
+
+    .hero-card {
+      padding: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-card h2 {
+      margin: 0 0 12px;
+      font-size: 1.6rem;
+    }
+
+    .hero-card p {
+      margin: 0 0 20px;
+    }
+
+    .hero-list {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .hero-list li {
+      margin-bottom: 9px;
     }
 
     section {
-      padding: 88px 0;
+      padding: 90px 0;
     }
 
-    section h2 {
-      margin-top: 0;
-      margin-bottom: 16px;
-      color: #17324d;
-      font-size: clamp(2rem, 4vw, 3rem);
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 45px;
     }
 
-    .intro {
-      max-width: 700px;
-      margin-bottom: 40px;
+    .section-heading h2 {
+      margin: 0 0 16px;
+      color: var(--secondary);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.15;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
       font-size: 1.1rem;
     }
 
@@ -162,45 +237,153 @@
 
     .card {
       padding: 30px;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      background: #ffffff;
-      box-shadow: 0 8px 30px rgba(23, 50, 77, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .card-number {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 20px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #ffffff;
+      background: var(--primary);
+      font-weight: 800;
     }
 
     .card h3 {
-      margin-top: 0;
-      color: #087e8b;
+      margin: 0 0 12px;
+      color: var(--secondary);
+      font-size: 1.25rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
     }
 
     .checkup-section {
-      background: #087e8b;
       color: #ffffff;
-      text-align: center;
+      background:
+        linear-gradient(
+          120deg,
+          var(--primary),
+          var(--secondary)
+        );
     }
 
-    .checkup-section h2 {
-      color: #ffffff;
+    .checkup-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 40px;
     }
 
-    .checkup-section p {
-      max-width: 650px;
-      margin: 0 auto 28px;
+    .checkup-box h2 {
+      margin: 0 0 16px;
+      font-size: clamp(2.1rem, 4vw, 3.5rem);
+      line-height: 1.15;
+    }
+
+    .checkup-box p {
+      max-width: 700px;
+      margin: 0;
       font-size: 1.1rem;
     }
 
-    .about {
-      background: #f3f7f8;
+    .checkup-button {
+      white-space: nowrap;
+    }
+
+    .benefits {
+      background: var(--background);
+    }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .benefit {
+      padding: 28px;
+      border-left: 5px solid var(--primary);
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .benefit h3 {
+      margin: 0 0 10px;
+      color: var(--secondary);
+    }
+
+    .benefit p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-box {
+      min-height: 360px;
+      display: grid;
+      place-items: center;
+      padding: 40px;
+      border-radius: 22px;
+      color: #ffffff;
+      background:
+        linear-gradient(
+          140deg,
+          var(--primary),
+          var(--secondary)
+        );
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .about-box strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 4rem;
+      line-height: 1;
+    }
+
+    .about-content h2 {
+      margin: 0 0 18px;
+      color: var(--secondary);
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 1.15;
+    }
+
+    .about-content p {
+      color: var(--muted);
     }
 
     .contact {
       text-align: center;
-      background: #17324d;
+      background: var(--secondary);
       color: #ffffff;
     }
 
     .contact h2 {
-      color: #ffffff;
+      margin: 0 0 16px;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .contact p {
+      max-width: 650px;
+      margin: 0 auto 28px;
+      font-size: 1.1rem;
     }
 
     .contact a {
@@ -208,18 +391,55 @@
     }
 
     footer {
-      padding: 32px 0;
-      text-align: center;
-      color: #5d6874;
+      padding: 35px 0;
       background: #ffffff;
+      border-top: 1px solid var(--border);
     }
 
-    footer a {
-      color: #5d6874;
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 25px;
+      color: var(--muted);
     }
 
-    @media (max-width: 760px) {
-      .navigation {
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    @media (max-width: 850px) {
+      .hero-grid,
+      .about-grid,
+      .checkup-box {
+        grid-template-columns: 1fr;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .benefit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .checkup-button {
+        justify-self: start;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav-links a:not(.nav-checkup) {
         display: none;
       }
 
@@ -227,18 +447,21 @@
         padding: 80px 0;
       }
 
-      .cards {
-        grid-template-columns: 1fr;
+      section {
+        padding: 70px 0;
       }
 
       .button-group {
         flex-direction: column;
-        align-items: flex-start;
       }
 
       .button {
         width: 100%;
         text-align: center;
+      }
+
+      .footer-content {
+        flex-direction: column;
       }
     }
   </style>
@@ -246,130 +469,272 @@
 
 <body>
   <header>
-    <nav class="container">
+    <nav class="container navigation">
       <a class="logo" href="index.html">
-        Musterfirma
+        ErgoCheck
       </a>
 
-      <div class="navigation">
-        <a href="#leistungen">Leistungen</a>
-        <a href="#checkup">Check-up</a>
+      <div class="nav-links">
+        <a href="#ablauf">Ablauf</a>
+        <a href="#vorteile">Vorteile</a>
         <a href="#ueber-uns">Über uns</a>
         <a href="#kontakt">Kontakt</a>
+
+        <a class="nav-checkup" href="checkup.html">
+          Check-up starten
+        </a>
       </div>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <div class="container hero-content">
-        <h1>
-          Professionelle Lösungen für Ihr Unternehmen
-        </h1>
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">
+            Ergonomisch arbeiten
+          </p>
 
-        <p>
-          Wir unterstützen Organisationen mit fundierter Beratung,
-          klaren Prozessen und praxisnahen Lösungen.
-        </p>
+          <h1>
+            Wie ergonomisch ist dein Arbeitsplatz?
+          </h1>
 
-        <div class="button-group">
-          <a class="button" href="checkup.html">
-            Check-up starten
-          </a>
+          <p class="hero-text">
+            Mit unserem kostenlosen Check-up prüfst du deinen
+            Arbeitsplatz und deine Arbeitsgewohnheiten. Anschließend
+            erhältst du konkrete Hinweise, was du verbessern kannst.
+          </p>
 
-          <a class="button button-secondary" href="#kontakt">
-            Kontakt aufnehmen
-          </a>
+          <div class="button-group">
+            <a class="button" href="checkup.html">
+              Ergonomie-Check-up starten
+            </a>
+
+            <a class="button button-secondary" href="#ablauf">
+              Mehr erfahren
+            </a>
+          </div>
         </div>
+
+        <aside class="hero-card">
+          <h2>Das erwartet dich</h2>
+
+          <p>
+            Der Check-up dauert nur wenige Minuten und wird direkt
+            im Browser ausgewertet.
+          </p>
+
+          <ul class="hero-list">
+            <li>10 kurze Fragen</li>
+            <li>Persönliche Auswertung</li>
+            <li>Konkrete Verbesserungstipps</li>
+            <li>Keine Anmeldung erforderlich</li>
+            <li>Keine Speicherung der Antworten</li>
+          </ul>
+        </aside>
       </div>
     </section>
 
-    <section id="leistungen">
+    <section id="ablauf">
       <div class="container">
-        <h2>Unsere Leistungen</h2>
+        <div class="section-heading">
+          <h2>
+            So funktioniert der Ergonomie-Check-up
+          </h2>
 
-        <p class="intro">
-          Beschreiben Sie hier kurz, welche Probleme Ihr Unternehmen
-          löst und für welche Zielgruppen Sie arbeiten.
-        </p>
+          <p>
+            In drei einfachen Schritten erhältst du eine erste
+            Einschätzung zu deinem Arbeitsplatz.
+          </p>
+        </div>
 
         <div class="cards">
           <article class="card">
-            <h3>Beratung</h3>
+            <div class="card-number">1</div>
+
+            <h3>Fragen beantworten</h3>
 
             <p>
-              Individuelle Analyse und Entwicklung passender
-              Handlungsempfehlungen.
+              Beantworte zehn Fragen zu deinem Stuhl, Bildschirm,
+              deiner Haltung und deinen Arbeitsgewohnheiten.
             </p>
           </article>
 
           <article class="card">
-            <h3>Konzeption</h3>
+            <div class="card-number">2</div>
+
+            <h3>Ergebnis erhalten</h3>
 
             <p>
-              Strukturierte Konzepte, die sich praktisch und
-              wirtschaftlich umsetzen lassen.
+              Deine Antworten werden direkt im Browser ausgewertet.
+              Du erhältst einen verständlichen Prozentwert.
             </p>
           </article>
 
           <article class="card">
-            <h3>Umsetzung</h3>
+            <div class="card-number">3</div>
+
+            <h3>Arbeitsplatz verbessern</h3>
 
             <p>
-              Begleitung von der Planung bis zur erfolgreichen
-              Einführung.
+              Auf Basis deiner Antworten bekommst du konkrete und
+              umsetzbare Tipps für ergonomischeres Arbeiten.
             </p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="checkup-section" id="checkup">
-      <div class="container">
-        <h2>Kostenloser Check-up</h2>
+    <section class="checkup-section">
+      <div class="container checkup-box">
+        <div>
+          <h2>
+            Starte jetzt deinen kostenlosen Check-up
+          </h2>
 
-        <p>
-          Beantworten Sie einige kurze Fragen und erhalten Sie direkt
-          eine erste Einschätzung mit individuellen Empfehlungen.
-        </p>
+          <p>
+            Finde heraus, welche Einstellungen und Gewohnheiten bereits
+            gut sind und wo konkreter Verbesserungsbedarf besteht.
+          </p>
+        </div>
 
-        <a class="button" href="checkup.html">
-          Check-up jetzt starten
+        <a class="button checkup-button" href="checkup.html">
+          Check-up starten
         </a>
       </div>
     </section>
 
-    <section class="about" id="ueber-uns">
+    <section class="benefits" id="vorteile">
       <div class="container">
-        <h2>Über uns</h2>
+        <div class="section-heading">
+          <h2>
+            Warum ergonomisches Arbeiten wichtig ist
+          </h2>
 
-        <p class="intro">
-          Hier können Sie Ihr Unternehmen, Ihre Erfahrung und Ihre
-          Arbeitsweise vorstellen. Konzentrieren Sie sich auf konkrete
-          Kompetenzen und Vorteile für Ihre Kunden.
-        </p>
+          <p>
+            Ergonomie betrifft nicht nur den Bürostuhl. Entscheidend ist
+            das Zusammenspiel aus Arbeitsmitteln, Haltung, Bewegung,
+            Beleuchtung und Arbeitsorganisation.
+          </p>
+        </div>
+
+        <div class="benefit-grid">
+          <article class="benefit">
+            <h3>Körperliche Belastung reduzieren</h3>
+
+            <p>
+              Eine passende Arbeitsplatzgestaltung kann Fehlhaltungen
+              und unnötige Belastungen von Rücken, Nacken und Schultern
+              reduzieren.
+            </p>
+          </article>
+
+          <article class="benefit">
+            <h3>Bewegung fördern</h3>
+
+            <p>
+              Regelmäßige Positionswechsel und kurze Bewegungspausen
+              verhindern langes starres Sitzen.
+            </p>
+          </article>
+
+          <article class="benefit">
+            <h3>Augen entlasten</h3>
+
+            <p>
+              Ein passender Bildschirmabstand, eine geeignete Höhe und
+              regelmäßige Sehpausen können die Augen entlasten.
+            </p>
+          </article>
+
+          <article class="benefit">
+            <h3>Arbeitsorganisation verbessern</h3>
+
+            <p>
+              Feste Pausen, klare Routinen und sinnvoll angeordnete
+              Arbeitsmittel erleichtern konzentriertes Arbeiten.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ueber-uns">
+      <div class="container about-grid">
+        <div class="about-box">
+          <div>
+            <strong>10</strong>
+            Fragen für eine erste ergonomische Einschätzung
+          </div>
+        </div>
+
+        <div class="about-content">
+          <p class="eyebrow" style="color: #087e8b;">
+            Über den Check-up
+          </p>
+
+          <h2>
+            Eine erste Orientierung für deinen Arbeitsplatz
+          </h2>
+
+          <p>
+            Der Check-up hilft dabei, typische ergonomische
+            Schwachstellen zu erkennen. Die Auswertung basiert auf
+            deinen Antworten und zeigt dir, welche Bereiche du zuerst
+            verbessern solltest.
+          </p>
+
+          <p>
+            Die Ergebnisse ersetzen keine arbeitsmedizinische Beratung
+            oder professionelle Arbeitsplatzanalyse. Sie bieten jedoch
+            einen sinnvollen Ausgangspunkt für erste Anpassungen.
+          </p>
+
+          <a
+            class="button"
+            href="checkup.html"
+            style="
+              color: #ffffff;
+              background: #087e8b;
+              border-color: #087e8b;
+            "
+          >
+            Eigene Auswertung starten
+          </a>
+        </div>
       </div>
     </section>
 
     <section class="contact" id="kontakt">
       <div class="container">
-        <h2>Kontakt</h2>
+        <h2>Fragen zum ergonomischen Arbeiten?</h2>
 
         <p>
-          Schreiben Sie uns unter
-          <a href="mailto:kontakt@musterfirma.de">
-            kontakt@musterfirma.de
-          </a>
+          Passe hier später deine eigene E-Mail-Adresse und die
+          Beschreibung deines Unternehmens an.
         </p>
+
+        <a
+          class="button"
+          href="mailto:kontakt@musterfirma.de"
+        >
+          Kontakt aufnehmen
+        </a>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container">
-      © 2026 Musterfirma ·
-      <a href="impressum.html">Impressum</a> ·
-      <a href="datenschutz.html">Datenschutz</a>
+    <div class="container footer-content">
+      <div>
+        © 2026 ErgoCheck
+      </div>
+
+      <div class="footer-links">
+        <a href="checkup.html">Check-up</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </div>
     </div>
   </footer>
 </body>
