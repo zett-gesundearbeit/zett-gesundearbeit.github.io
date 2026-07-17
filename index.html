@@ -2,9 +2,20 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ZeTT Gesunde Arbeit – kostenloser Check-up für ergonomisches und gesundes Arbeiten am Bildschirmarbeitsplatz.">
-  <title>ZeTT Gesunde Arbeit – Bildschirmarbeitsplatz-Check</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="ZeTT Gesunde Arbeit – Check-up für einen ergonomischen und gesunden Bildschirmarbeitsplatz."
+  >
+
+  <title>
+    ZeTT Gesunde Arbeit – Bildschirmarbeitsplatz-Check
+  </title>
 
   <style>
     :root {
@@ -12,10 +23,10 @@
       --magenta: #b0007d;
       --purple: #662483;
       --blue: #34358c;
-      --dark: #40205f;
+      --dark-purple: #40205f;
       --text: #28222d;
       --muted: #6f6775;
-      --surface: #ffffff;
+      --white: #ffffff;
       --soft: #f7f3f8;
       --border: #e2dbe6;
       --shadow: 0 18px 55px rgba(77, 35, 111, 0.14);
@@ -34,7 +45,7 @@
       font-family: Arial, Helvetica, sans-serif;
       line-height: 1.6;
       color: var(--text);
-      background: var(--surface);
+      background: var(--white);
     }
 
     img {
@@ -60,7 +71,7 @@
       backdrop-filter: blur(10px);
     }
 
-    nav {
+    .navigation {
       min-height: 78px;
       display: flex;
       align-items: center;
@@ -72,30 +83,40 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      color: var(--purple);
       text-decoration: none;
     }
 
-    .brand-mark {
+    .brand-symbol {
       width: 48px;
       height: 48px;
       display: grid;
       place-items: center;
       border-radius: 12px;
-      color: #ffffff;
-      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: var(--white);
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink),
+          var(--purple)
+        );
       font-size: 1.55rem;
       font-weight: 900;
     }
 
-    .brand strong {
-      display: block;
-      color: var(--purple);
-      line-height: 1.1;
+    .brand-text {
+      line-height: 1.15;
     }
 
-    .brand small {
+    .brand-text strong {
+      display: block;
+      font-size: 1.1rem;
+    }
+
+    .brand-text span {
       display: block;
       color: var(--muted);
+      font-size: 0.8rem;
     }
 
     .nav-links {
@@ -105,7 +126,7 @@
     }
 
     .nav-links a {
-      color: var(--dark);
+      color: var(--dark-purple);
       font-weight: 700;
       text-decoration: none;
     }
@@ -114,55 +135,65 @@
       color: var(--pink);
     }
 
-    .nav-cta {
+    .nav-checkup {
       padding: 11px 18px;
       border-radius: 9px;
-      color: #ffffff !important;
-      background: linear-gradient(90deg, var(--pink), var(--purple));
+      color: var(--white) !important;
+      background:
+        linear-gradient(
+          90deg,
+          var(--pink),
+          var(--purple)
+        );
     }
+
+    /* Titelbereich */
 
     .hero {
       position: relative;
       overflow: hidden;
-      padding: 96px 0;
-      color: #ffffff;
-      background: linear-gradient(
-        110deg,
-        var(--pink),
-        var(--purple) 58%,
-        var(--blue)
-      );
-    }
-
-    .hero::before,
-    .hero::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.09);
+      padding: 80px 0;
+      color: var(--white);
+      background:
+        linear-gradient(
+          110deg,
+          var(--pink),
+          var(--purple) 58%,
+          var(--blue)
+        );
     }
 
     .hero::before {
-      width: 360px;
-      height: 360px;
-      top: -200px;
-      right: 7%;
-    }
-
-    .hero::after {
-      width: 260px;
-      height: 260px;
-      bottom: -150px;
-      left: 10%;
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      top: -220px;
+      right: -80px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .hero-grid {
       position: relative;
       z-index: 1;
+
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+
+      /*
+        Linke Spalte: Überschrift und Text.
+        Rechte Spalte: ausschließlich das Maskottchen.
+      */
+      grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(330px, 0.85fr);
+
       align-items: center;
-      gap: 58px;
+      gap: 64px;
+    }
+
+    .hero-content {
+      min-width: 0;
     }
 
     .eyebrow {
@@ -174,16 +205,17 @@
     }
 
     .hero h1 {
-      max-width: 770px;
+      max-width: 760px;
       margin: 0 0 24px;
-      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-size: clamp(2.6rem, 5.4vw, 4.8rem);
       line-height: 1.04;
+      overflow-wrap: break-word;
     }
 
     .hero-text {
-      max-width: 720px;
+      max-width: 700px;
       margin: 0 0 34px;
-      font-size: 1.18rem;
+      font-size: 1.17rem;
     }
 
     .button-group {
@@ -195,16 +227,15 @@
     .button {
       display: inline-block;
       padding: 15px 24px;
-      border: 2px solid #ffffff;
+      border: 2px solid var(--white);
       border-radius: 10px;
       color: var(--purple);
-      background: #ffffff;
+      background: var(--white);
       font-weight: 800;
       text-align: center;
       text-decoration: none;
       transition:
         transform 0.2s ease,
-        filter 0.2s ease,
         background 0.2s ease,
         color 0.2s ease;
     }
@@ -214,47 +245,40 @@
     }
 
     .button-secondary {
-      color: #ffffff;
+      color: var(--white);
       background: transparent;
     }
 
     .button-secondary:hover {
       color: var(--purple);
-      background: #ffffff;
+      background: var(--white);
     }
 
-    .mascot-card {
-      position: relative;
-      min-height: 500px;
-      display: grid;
-      place-items: center;
-      padding: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      border-radius: 26px;
-      background: rgba(255, 255, 255, 0.13);
-      box-shadow: 0 24px 60px rgba(38, 20, 57, 0.24);
-      backdrop-filter: blur(10px);
-    }
+    /*
+      Das Maskottchen bleibt vollständig in seiner eigenen Spalte.
+      Es wird nicht absolut positioniert und kann den Titel deshalb
+      nicht überdecken.
+    */
 
-    .mascot-card img {
+    .hero-mascot {
       width: 100%;
-      max-height: 470px;
-      object-fit: contain;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .mascot-note {
-      position: absolute;
-      right: 18px;
-      bottom: 18px;
-      max-width: 230px;
-      padding: 13px 15px;
-      border-radius: 12px;
-      color: var(--dark);
-      background: #ffffff;
-      font-size: 0.9rem;
-      font-weight: 700;
-      box-shadow: 0 10px 30px rgba(38, 20, 57, 0.18);
+    .hero-mascot img {
+      width: 100%;
+      max-width: 470px;
+      max-height: 600px;
+      object-fit: contain;
+      object-position: center;
+      border-radius: 24px;
+      box-shadow: 0 24px 60px rgba(34, 13, 58, 0.28);
     }
+
+    /* Inhaltsbereiche */
 
     section {
       padding: 88px 0;
@@ -267,7 +291,7 @@
 
     .section-heading h2 {
       margin: 0 0 16px;
-      color: var(--dark);
+      color: var(--dark-purple);
       font-size: clamp(2rem, 4vw, 3.25rem);
       line-height: 1.15;
     }
@@ -288,7 +312,7 @@
       padding: 30px;
       border: 1px solid var(--border);
       border-radius: 17px;
-      background: #ffffff;
+      background: var(--white);
       box-shadow: var(--shadow);
     }
 
@@ -299,14 +323,19 @@
       display: grid;
       place-items: center;
       border-radius: 50%;
-      color: #ffffff;
-      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: var(--white);
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink),
+          var(--purple)
+        );
       font-weight: 900;
     }
 
     .step h3 {
       margin: 0 0 12px;
-      color: var(--dark);
+      color: var(--dark-purple);
       font-size: 1.27rem;
     }
 
@@ -316,7 +345,12 @@
     }
 
     .topics {
-      background: linear-gradient(180deg, #ffffff, var(--soft));
+      background:
+        linear-gradient(
+          180deg,
+          var(--white),
+          var(--soft)
+        );
     }
 
     .topic-grid {
@@ -332,7 +366,7 @@
       padding: 26px;
       border: 1px solid var(--border);
       border-radius: 15px;
-      background: #ffffff;
+      background: var(--white);
       box-shadow: 0 10px 30px rgba(77, 35, 111, 0.08);
     }
 
@@ -342,15 +376,20 @@
       display: grid;
       place-items: center;
       border-radius: 14px;
-      color: #ffffff;
-      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: var(--white);
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink),
+          var(--purple)
+        );
       font-size: 1.3rem;
       font-weight: 900;
     }
 
     .topic h3 {
       margin: 0 0 8px;
-      color: var(--dark);
+      color: var(--dark-purple);
     }
 
     .topic p {
@@ -358,95 +397,34 @@
       color: var(--muted);
     }
 
-    .cta {
-      color: #ffffff;
-      background: linear-gradient(
-        110deg,
-        var(--pink),
-        var(--purple),
-        var(--blue)
-      );
+    .checkup-section {
+      color: var(--white);
+      background:
+        linear-gradient(
+          110deg,
+          var(--pink),
+          var(--purple),
+          var(--blue)
+        );
     }
 
-    .cta-grid {
+    .checkup-grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
       gap: 42px;
     }
 
-    .cta h2 {
+    .checkup-grid h2 {
       margin: 0 0 16px;
       font-size: clamp(2.1rem, 4vw, 3.5rem);
       line-height: 1.15;
     }
 
-    .cta p {
+    .checkup-grid p {
       max-width: 760px;
       margin: 0;
       font-size: 1.08rem;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      align-items: center;
-      gap: 60px;
-    }
-
-    .info-visual {
-      min-height: 420px;
-      display: grid;
-      place-items: center;
-      padding: 28px;
-      border-radius: 24px;
-      background: linear-gradient(145deg, #fff0f7, #f2eafa);
-    }
-
-    .info-visual img {
-      max-height: 390px;
-      object-fit: contain;
-    }
-
-    .info-content h2 {
-      margin: 0 0 18px;
-      color: var(--dark);
-      font-size: clamp(2rem, 4vw, 3.15rem);
-      line-height: 1.15;
-    }
-
-    .info-content p {
-      color: var(--muted);
-    }
-
-    .check-list {
-      margin: 24px 0 30px;
-      padding: 0;
-      list-style: none;
-    }
-
-    .check-list li {
-      position: relative;
-      margin-bottom: 12px;
-      padding-left: 30px;
-    }
-
-    .check-list li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--pink);
-      font-weight: 900;
-    }
-
-    .button-primary {
-      border-color: transparent;
-      color: #ffffff;
-      background: linear-gradient(90deg, var(--pink), var(--purple));
-    }
-
-    .button-primary:hover {
-      filter: brightness(0.93);
     }
 
     .notice {
@@ -460,7 +438,7 @@
     footer {
       padding: 36px 0;
       border-top: 1px solid var(--border);
-      background: #ffffff;
+      background: var(--white);
     }
 
     .footer-content {
@@ -477,6 +455,7 @@
     }
 
     .footer-links a {
+      color: var(--muted);
       text-decoration: none;
     }
 
@@ -484,33 +463,69 @@
       color: var(--pink);
     }
 
-    @media (max-width: 900px) {
-      .hero-grid,
-      .info-grid,
-      .cta-grid {
-        grid-template-columns: 1fr;
+    /* Tablet */
+
+    @media (max-width: 960px) {
+      .hero-grid {
+        grid-template-columns:
+          minmax(0, 1.1fr)
+          minmax(280px, 0.9fr);
+
+        gap: 36px;
+      }
+
+      .hero-mascot img {
+        max-width: 390px;
       }
 
       .steps {
         grid-template-columns: 1fr;
       }
+    }
 
-      .topic-grid {
+    /*
+      Auf kleineren Bildschirmen steht das Maskottchen unter dem Titel.
+      Es überlappt auch dort keinen Text.
+    */
+
+    @media (max-width: 780px) {
+      .hero-grid {
         grid-template-columns: 1fr;
       }
 
-      .mascot-card {
-        min-height: 420px;
+      .hero-content {
+        order: 1;
+      }
+
+      .hero-mascot {
+        order: 2;
+      }
+
+      .hero-mascot img {
+        width: min(100%, 430px);
+      }
+
+      .topic-grid,
+      .checkup-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links a:not(.nav-checkup) {
+        display: none;
       }
     }
 
-    @media (max-width: 720px) {
-      .nav-links a:not(.nav-cta) {
-        display: none;
+    @media (max-width: 600px) {
+      .container {
+        width: min(100% - 28px, 1180px);
       }
 
       .hero {
-        padding: 76px 0;
+        padding: 64px 0;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.3rem, 12vw, 3.5rem);
       }
 
       section {
@@ -525,28 +540,12 @@
         width: 100%;
       }
 
-      .footer-content {
-        flex-direction: column;
-      }
-
-      .mascot-note {
-        position: static;
-        margin-top: 18px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .container {
-        width: min(100% - 28px, 1180px);
-      }
-
-      .brand small {
+      .brand-text span {
         display: none;
       }
 
-      .mascot-card,
-      .info-visual {
-        padding: 18px;
+      .footer-content {
+        flex-direction: column;
       }
     }
   </style>
@@ -554,13 +553,13 @@
 
 <body>
   <header>
-    <nav class="container">
+    <nav class="container navigation">
       <a class="brand" href="index.html">
-        <span class="brand-mark">Z</span>
+        <span class="brand-symbol">Z</span>
 
-        <span>
+        <span class="brand-text">
           <strong>ZeTT Gesunde Arbeit</strong>
-          <small>Bildschirmarbeitsplatz-Check</small>
+          <span>Bildschirmarbeitsplatz-Check</span>
         </span>
       </a>
 
@@ -569,7 +568,7 @@
         <a href="#themen">Prüfbereiche</a>
         <a href="#hinweise">Hinweise</a>
 
-        <a class="nav-cta" href="checkup.html">
+        <a class="nav-checkup" href="checkup.html">
           Check starten
         </a>
       </div>
@@ -578,45 +577,31 @@
 
   <main>
     <section class="hero">
-  <div class="container hero-grid">
-    <div>
-      <p class="eyebrow">
-        ZeTT Gesunde Arbeit
-      </p>
+      <div class="container hero-grid">
 
-      <h1>
-        Wie gut ist dein Bildschirmarbeitsplatz eingerichtet?
-      </h1>
+        <!-- Linke Spalte: ausschließlich Überschrift und Text -->
 
-      <p class="hero-text">
-        Prüfe in zehn Fragen deinen Sitzplatz, Bildschirm,
-        Notebook, Tastatur, Maus, Beleuchtung, Kommunikation
-        und deine Arbeitsunterbrechungen.
-      </p>
+        <div class="hero-content">
+          <p class="eyebrow">
+            ZeTT Gesunde Arbeit
+          </p>
 
-      <div class="button-group">
-        <a class="button" href="checkup.html">
-          Bildschirmarbeitsplatz prüfen
-        </a>
+          <h1>
+            Wie gut ist dein Bildschirmarbeitsplatz eingerichtet?
+          </h1>
 
-        <a class="button button-secondary" href="#ablauf">
-          Mehr erfahren
-        </a>
-      </div>
-    </div>
+          <p class="hero-text">
+            Prüfe in zehn Fragen deinen Sitzplatz, Bildschirm,
+            Notebook, Tastatur, Maus, Beleuchtung, Kommunikation
+            und deine Arbeitsunterbrechungen. Anschließend erhältst
+            du konkrete Maßnahmen und individuell passende
+            Hilfsmittel aus der ERGOthek.
+          </p>
 
-    <aside class="mascot-card">
-      <img
-        src="images/maskottchen.png"
-        alt="ZeTT-Maskottchen für gesundes Arbeiten am Bildschirmarbeitsplatz"
-      >
-
-      <div class="mascot-note">
-        10 Fragen · 4 Prüfbereiche · individuelle Empfehlungen
-      </div>
-    </aside>
-  </div>
-</section>
+          <div class="button-group">
+            <a class="button" href="checkup.html">
+              Bildschirmarbeitsplatz prüfen
+            </a>
 
             <a class="button button-secondary" href="#ablauf">
               Mehr erfahren
@@ -624,33 +609,31 @@
           </div>
         </div>
 
-        <aside class="mascot-card">
+        <!-- Rechte Spalte: ausschließlich das Maskottchen -->
+
+        <div class="hero-mascot">
           <img
-            src="images/maskottchen.png"
+            src="images/maskottchen-titel.png"
             alt="ZeTT-Maskottchen für gesundes Arbeiten am Bildschirmarbeitsplatz"
           >
-
-          <div class="mascot-note">
-            10 Fragen · 4 Prüfbereiche · individuelle Empfehlungen
-          </div>
-        </aside>
+        </div>
       </div>
     </section>
 
     <section id="ablauf">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow" style="color:#e5007d;">
+          <p class="eyebrow" style="color: #e5007d;">
             Ablauf
           </p>
 
           <h2>
-            Vom Selbstcheck zur konkreten Verbesserung
+            In drei Schritten zur persönlichen Auswertung
           </h2>
 
           <p>
-            Die Antworten werden ausschließlich im Browser verarbeitet.
-            Es ist keine Anmeldung erforderlich.
+            Der Check dauert nur wenige Minuten. Die Antworten werden
+            direkt im Browser verarbeitet und nicht gespeichert.
           </p>
         </div>
 
@@ -661,9 +644,8 @@
             <h3>Zehn Fragen beantworten</h3>
 
             <p>
-              Bewerte die Bedingungen an deinem tatsächlichen
-              Bildschirmarbeitsplatz – nicht nur die vorhandene
-              Ausstattung.
+              Bewerte die tatsächlichen Bedingungen an deinem
+              Bildschirmarbeitsplatz.
             </p>
           </article>
 
@@ -673,21 +655,19 @@
             <h3>Vier Bereichswerte erhalten</h3>
 
             <p>
-              Die Auswertung trennt Arbeitsplatz und Sitzen,
-              Bildschirm und Sehen, Arbeitsmittel sowie
-              Arbeitsorganisation.
+              Die Auswertung unterscheidet Sitzen, Bildschirm,
+              Arbeitsmittel sowie Organisation und Bewegung.
             </p>
           </article>
 
           <article class="step">
             <div class="step-number">3</div>
 
-            <h3>Prioritäten erkennen</h3>
+            <h3>Gezielt verbessern</h3>
 
             <p>
-              Zuerst erscheinen organisatorische und technische
-              Verbesserungen. Hilfsmittel werden nur bei passenden
-              Problembereichen vorgeschlagen.
+              Du erhältst priorisierte Maßnahmen und passende
+              Hilfsmittel für deine konkreten Problembereiche.
             </p>
           </article>
         </div>
@@ -697,18 +677,17 @@
     <section class="topics" id="themen">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow" style="color:#e5007d;">
+          <p class="eyebrow" style="color: #e5007d;">
             Prüfbereiche
           </p>
 
           <h2>
-            Der Check betrachtet den gesamten Bildschirmarbeitsplatz
+            Der gesamte Bildschirmarbeitsplatz im Blick
           </h2>
 
           <p>
-            Ein einzelnes Möbelstück entscheidet nicht über die
-            Ergonomie. Relevant ist das Zusammenspiel aus Einrichtung,
-            Arbeitsmitteln, Umgebung und Arbeitsweise.
+            Ergonomisches Arbeiten entsteht durch das Zusammenspiel
+            von Einrichtung, Technik, Arbeitsumgebung und Arbeitsweise.
           </p>
         </div>
 
@@ -721,8 +700,7 @@
 
               <p>
                 Arbeitsfläche, Beinfreiheit, Sitzhöhe,
-                Fußposition, Rückenunterstützung und
-                Haltungswechsel.
+                Fußposition und Rückenunterstützung.
               </p>
             </div>
           </article>
@@ -734,8 +712,8 @@
               <h3>Bildschirm und Sehen</h3>
 
               <p>
-                Position, Sehabstand, Lesbarkeit, Kontrast,
-                Helligkeit, Spiegelungen und Beleuchtung.
+                Bildschirmposition, Lesbarkeit, Helligkeit,
+                Beleuchtung und Spiegelungen.
               </p>
             </div>
           </article>
@@ -747,8 +725,8 @@
               <h3>Arbeitsmittel</h3>
 
               <p>
-                Notebook-Ausstattung sowie die körpernahe
-                Position von Tastatur, Maus und Unterarmen.
+                Notebook, Tastatur, Maus und die Position
+                von Händen und Unterarmen.
               </p>
             </div>
           </article>
@@ -760,8 +738,8 @@
               <h3>Organisation und Bewegung</h3>
 
               <p>
-                Telefonie, Videokonferenzen, Umgebungslärm,
-                Aufgabenwechsel, Sehpausen und Bewegung.
+                Kommunikation, Umgebungslärm, Aufgabenwechsel,
+                Sehpausen und Bewegung.
               </p>
             </div>
           </article>
@@ -769,17 +747,16 @@
       </div>
     </section>
 
-    <section class="cta">
-      <div class="container cta-grid">
+    <section class="checkup-section">
+      <div class="container checkup-grid">
         <div>
           <h2>
-            Starte jetzt den ZeTT-Bildschirmarbeitsplatz-Check
+            Starte jetzt den Bildschirmarbeitsplatz-Check
           </h2>
 
           <p>
-            Die Auswertung zeigt dir, welche Veränderungen zuerst
-            sinnvoll sind und welche Hilfsmittel du anschließend
-            praktisch erproben könntest.
+            Finde heraus, welche Bedingungen bereits gut sind und
+            welche Veränderungen zuerst sinnvoll wären.
           </p>
         </div>
 
@@ -790,50 +767,12 @@
     </section>
 
     <section id="hinweise">
-      <div class="container info-grid">
-        <div class="info-visual">
-          <img
-            src="images/maskottchen.png"
-            alt="ZeTT-Maskottchen begleitet den Bildschirmarbeitsplatz-Check"
-          >
-        </div>
-
-        <div class="info-content">
-          <p class="eyebrow" style="color:#e5007d;">
-            Wichtig
-          </p>
-
-          <h2>
-            Erst einstellen und organisieren, dann Hilfsmittel auswählen
-          </h2>
-
-          <p>
-            Viele Probleme lassen sich bereits durch eine andere
-            Anordnung, passende Einstellungen, bessere Lesbarkeit
-            oder regelmäßige Arbeitsunterbrechungen reduzieren.
-          </p>
-
-          <ul class="check-list">
-            <li>Maßnahmen nach Dringlichkeit sortiert</li>
-            <li>keine pauschale Produktempfehlung</li>
-            <li>direkte Links zu passenden ERGOthek-Hilfsmitteln</li>
-            <li>keine Speicherung der Antworten</li>
-          </ul>
-
-          <a class="button button-primary" href="checkup.html">
-            Persönliche Auswertung starten
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section style="padding-top:0;">
       <div class="container">
         <div class="notice">
-          Der Selbstcheck ist eine Orientierungshilfe. Er ersetzt keine
-          Gefährdungsbeurteilung, arbeitsmedizinische Vorsorge,
-          augenärztliche Untersuchung oder individuelle ergonomische
-          Beratung.
+          Der Check ist eine unverbindliche Orientierungshilfe. Er
+          ersetzt keine Gefährdungsbeurteilung, arbeitsmedizinische
+          Vorsorge, augenärztliche Untersuchung oder individuelle
+          ergonomische Beratung.
         </div>
       </div>
     </section>
@@ -847,14 +786,6 @@
 
       <div class="footer-links">
         <a href="checkup.html">Check-up</a>
-
-        <a
-          href="https://zett-thueringen.de/mobiles-arbeiten/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          ZeTT-Angebot
-        </a>
 
         <a
           href="https://ergo-thek.booqableshop.com/collections/ergothek"
