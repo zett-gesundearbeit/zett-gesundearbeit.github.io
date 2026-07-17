@@ -2,18 +2,9 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="ZeTT-Check-up für ergonomisches und gesundes Arbeiten."
-  >
-
-  <title>ZeTT Ergonomie-Check-up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ZeTT-Check für ergonomisches und gesundes Arbeiten am Bildschirmarbeitsplatz.">
+  <title>ZeTT Bildschirmarbeitsplatz-Check</title>
 
   <style>
     :root {
@@ -21,17 +12,17 @@
       --magenta: #b0007d;
       --purple: #662483;
       --blue: #34358c;
-      --dark-purple: #4d236f;
-      --background: #f6f4f8;
+      --dark: #40205f;
+      --text: #28222d;
+      --muted: #6f6775;
       --surface: #ffffff;
-      --text: #24202a;
-      --muted: #6c6573;
-      --border: #ded8e4;
-      --light-purple: #f3ecf7;
+      --soft: #f7f3f8;
       --light-pink: #fff0f7;
-      --success: #368449;
-      --warning: #b36b00;
-      --danger: #bc2844;
+      --light-purple: #f1e9f6;
+      --border: #e2dbe6;
+      --good: #267a48;
+      --warning: #9c6500;
+      --critical: #b32648;
       --shadow: 0 18px 55px rgba(77, 35, 111, 0.14);
     }
 
@@ -55,11 +46,10 @@
           rgba(229, 0, 125, 0.05),
           rgba(52, 53, 140, 0.07)
         ),
-        var(--background);
+        var(--soft);
     }
 
-    button,
-    input {
+    button {
       font: inherit;
     }
 
@@ -73,12 +63,12 @@
     }
 
     .page-header {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.97);
       border-bottom: 1px solid var(--border);
     }
 
     .header-content {
-      width: min(1100px, calc(100% - 32px));
+      width: min(1080px, calc(100% - 32px));
       min-height: 76px;
       margin: 0 auto;
       display: flex;
@@ -87,14 +77,14 @@
       gap: 24px;
     }
 
-    .logo {
+    .brand {
       color: var(--purple);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       text-decoration: none;
     }
 
-    .logo span {
+    .brand span {
       color: var(--pink);
     }
 
@@ -109,11 +99,11 @@
     }
 
     main {
-      width: min(960px, calc(100% - 32px));
-      margin: 48px auto;
+      width: min(980px, calc(100% - 32px));
+      margin: 46px auto;
     }
 
-    .checkup-card {
+    .check-card {
       overflow: hidden;
       border: 1px solid var(--border);
       border-radius: 24px;
@@ -124,15 +114,14 @@
     .intro {
       position: relative;
       overflow: hidden;
-      padding: 48px;
+      padding: 46px 48px;
       color: #ffffff;
-      background:
-        linear-gradient(
-          110deg,
-          var(--pink),
-          var(--purple) 58%,
-          var(--blue)
-        );
+      background: linear-gradient(
+        110deg,
+        var(--pink),
+        var(--purple) 58%,
+        var(--blue)
+      );
     }
 
     .intro::after {
@@ -141,14 +130,14 @@
       width: 320px;
       height: 320px;
       right: -110px;
-      bottom: -180px;
+      bottom: -190px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.1);
     }
 
     .eyebrow {
       margin: 0 0 10px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 800;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -157,16 +146,16 @@
     .intro h1 {
       position: relative;
       z-index: 1;
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 0 18px;
-      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-size: clamp(2rem, 6vw, 3.75rem);
       line-height: 1.08;
     }
 
     .intro p {
       position: relative;
       z-index: 1;
-      max-width: 720px;
+      max-width: 760px;
       margin: 0;
       font-size: 1.08rem;
     }
@@ -188,60 +177,31 @@
     .progress-track {
       width: 100%;
       height: 12px;
-      margin-bottom: 38px;
+      margin-bottom: 36px;
       overflow: hidden;
       border-radius: 999px;
-      background: #ebe6ee;
+      background: #ece7ef;
     }
 
     .progress-bar {
       width: 0;
       height: 100%;
       border-radius: inherit;
-      background:
-        linear-gradient(
-          90deg,
-          var(--pink),
-          var(--purple),
-          var(--blue)
-        );
+      background: linear-gradient(
+        90deg,
+        var(--pink),
+        var(--purple),
+        var(--blue)
+      );
       transition: width 0.3s ease;
-    }
-
-    .question {
-      display: none;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .question.active {
-      display: block;
     }
 
     .question-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 260px;
+      grid-template-columns: minmax(0, 1fr) 270px;
       align-items: center;
       gap: 36px;
-    }
-
-    .question-image-wrapper {
-      min-height: 260px;
-      display: grid;
-      place-items: center;
-      padding: 20px;
-      border-radius: 20px;
-      background:
-        linear-gradient(
-          145deg,
-          var(--light-pink),
-          var(--light-purple)
-        );
-    }
-
-    .question-image {
-      width: 100%;
-      max-height: 250px;
-      object-fit: contain;
+      animation: fade-in 0.28s ease;
     }
 
     .category {
@@ -251,18 +211,18 @@
       border-radius: 999px;
       color: var(--purple);
       background: var(--light-purple);
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       font-weight: 800;
     }
 
-    .question h2 {
+    .question-title {
       margin: 0 0 12px;
-      color: var(--dark-purple);
+      color: var(--dark);
       font-size: clamp(1.5rem, 4vw, 2.15rem);
-      line-height: 1.25;
+      line-height: 1.24;
     }
 
-    .question-description {
+    .question-help {
       margin: 0 0 26px;
       color: var(--muted);
     }
@@ -296,7 +256,26 @@
       outline: none;
     }
 
-    .quiz-navigation {
+    .image-box {
+      min-height: 270px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      border-radius: 20px;
+      background: linear-gradient(
+        145deg,
+        var(--light-pink),
+        var(--light-purple)
+      );
+    }
+
+    .question-image {
+      width: 100%;
+      max-height: 255px;
+      object-fit: contain;
+    }
+
+    .navigation {
       display: flex;
       justify-content: flex-start;
       margin-top: 30px;
@@ -314,12 +293,12 @@
     }
 
     .back-button:hover {
-      background: #e9dcef;
+      background: #e7daee;
     }
 
     .result {
       display: none;
-      animation: fadeIn 0.35s ease;
+      animation: fade-in 0.35s ease;
     }
 
     .result.visible {
@@ -327,8 +306,8 @@
     }
 
     .score-circle {
-      width: 160px;
-      height: 160px;
+      width: 165px;
+      height: 165px;
       margin: 0 auto 24px;
       display: grid;
       place-items: center;
@@ -350,20 +329,20 @@
       display: block;
       margin-top: 6px;
       color: var(--muted);
-      font-size: 0.83rem;
+      font-size: 0.8rem;
       font-weight: 700;
       text-align: center;
     }
 
     .result-header {
-      max-width: 720px;
-      margin: 0 auto 32px;
+      max-width: 740px;
+      margin: 0 auto 34px;
       text-align: center;
     }
 
     .result-header h2 {
       margin: 0 0 10px;
-      color: var(--dark-purple);
+      color: var(--dark);
       font-size: clamp(1.9rem, 5vw, 2.9rem);
       line-height: 1.15;
     }
@@ -376,7 +355,7 @@
 
     .section-title {
       margin: 40px 0 18px;
-      color: var(--dark-purple);
+      color: var(--dark);
       font-size: 1.55rem;
     }
 
@@ -386,28 +365,28 @@
       gap: 18px;
     }
 
-    .category-result {
+    .category-card {
       padding: 20px;
       border: 1px solid var(--border);
       border-radius: 14px;
       background: #ffffff;
     }
 
-    .category-result-header {
+    .category-card-header {
       display: flex;
       justify-content: space-between;
       gap: 16px;
       margin-bottom: 10px;
     }
 
-    .category-result h3 {
+    .category-card h3 {
       margin: 0;
       color: var(--purple);
-      font-size: 1.05rem;
+      font-size: 1.04rem;
     }
 
     .category-score {
-      color: var(--dark-purple);
+      color: var(--dark);
       font-weight: 800;
     }
 
@@ -419,21 +398,23 @@
     }
 
     .category-bar-value {
-      width: 0;
       height: 100%;
       border-radius: inherit;
-      background:
-        linear-gradient(
-          90deg,
-          var(--pink),
-          var(--purple)
-        );
+      background: linear-gradient(90deg, var(--pink), var(--purple));
     }
 
     .category-message {
       margin: 12px 0 0;
       color: var(--muted);
       font-size: 0.92rem;
+    }
+
+    .priority-note {
+      padding: 20px;
+      border-left: 5px solid var(--pink);
+      border-radius: 12px;
+      color: var(--muted);
+      background: var(--soft);
     }
 
     .tips-list {
@@ -450,6 +431,28 @@
       border-left: 5px solid var(--pink);
       border-radius: 13px;
       background: #ffffff;
+    }
+
+    .tip-card.urgent {
+      border-left-color: var(--critical);
+      background: #fff8fa;
+    }
+
+    .tip-badge {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      color: var(--purple);
+      background: var(--light-purple);
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .tip-card.urgent .tip-badge {
+      color: var(--critical);
+      background: #ffe7ed;
     }
 
     .tip-card h4 {
@@ -475,12 +478,7 @@
       padding: 22px;
       border: 1px solid var(--border);
       border-radius: 15px;
-      background:
-        linear-gradient(
-          145deg,
-          #ffffff,
-          #faf7fb
-        );
+      background: linear-gradient(145deg, #ffffff, #faf7fb);
       box-shadow: 0 8px 26px rgba(77, 35, 111, 0.08);
     }
 
@@ -491,14 +489,14 @@
       border-radius: 999px;
       color: var(--purple);
       background: var(--light-purple);
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 800;
       text-transform: uppercase;
     }
 
     .product-card h4 {
       margin: 0 0 9px;
-      color: var(--dark-purple);
+      color: var(--dark);
       font-size: 1.16rem;
       line-height: 1.3;
     }
@@ -514,12 +512,7 @@
       padding: 11px 16px;
       border-radius: 8px;
       color: #ffffff;
-      background:
-        linear-gradient(
-          90deg,
-          var(--pink),
-          var(--purple)
-        );
+      background: linear-gradient(90deg, var(--pink), var(--purple));
       font-weight: 800;
       text-align: center;
       text-decoration: none;
@@ -562,12 +555,7 @@
     .restart-button {
       border: 0;
       color: #ffffff;
-      background:
-        linear-gradient(
-          90deg,
-          var(--pink),
-          var(--purple)
-        );
+      background: linear-gradient(90deg, var(--pink), var(--purple));
     }
 
     .home-button {
@@ -585,7 +573,7 @@
       font-size: 0.88rem;
     }
 
-    @keyframes fadeIn {
+    @keyframes fade-in {
       from {
         opacity: 0;
         transform: translateY(8px);
@@ -597,18 +585,18 @@
       }
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 820px) {
       .question-grid {
         grid-template-columns: 1fr;
       }
 
-      .question-image-wrapper {
-        min-height: 180px;
+      .image-box {
+        min-height: 190px;
         order: -1;
       }
 
       .question-image {
-        max-height: 190px;
+        max-height: 185px;
       }
 
       .category-results,
@@ -650,7 +638,7 @@
 <body>
   <header class="page-header">
     <div class="header-content">
-      <a class="logo" href="index.html">
+      <a class="brand" href="index.html">
         <span>ZeTT</span> Gesunde Arbeit
       </a>
 
@@ -661,683 +649,45 @@
   </header>
 
   <main>
-    <article class="checkup-card">
+    <article class="check-card">
       <section class="intro">
         <p class="eyebrow">
-          Kostenloser Selbstcheck
+          Bildschirmarbeitsplatz-Check
         </p>
 
         <h1>
-          Wie ergonomisch und gesund arbeitest du?
+          Wie ergonomisch und gesund ist dein Bildschirmarbeitsplatz?
         </h1>
 
         <p>
-          Beantworte zehn Fragen zu deinem Arbeitsplatz, deinen
-          Arbeitsmitteln und deiner Arbeitsorganisation. Anschließend
-          erhältst du eine nach Themenbereichen gegliederte Auswertung,
-          konkrete Tipps und passende Hilfsmittel.
+          Bewerte zehn konkrete Aspekte deines Arbeitsplatzes.
+          Anschließend erhältst du Bereichswerte, priorisierte
+          Verbesserungsmaßnahmen und passende, individuell ausgewählte
+          Hilfsmittel aus der ERGOthek.
         </p>
       </section>
 
       <section class="content">
         <div id="quizArea">
           <div class="progress-info">
-            <span id="questionCounter">
-              Frage 1 von 10
-            </span>
-
-            <span id="progressPercent">
-              0 %
-            </span>
+            <span id="questionCounter">Frage 1 von 10</span>
+            <span id="progressPercent">0 %</span>
           </div>
 
           <div
             class="progress-track"
             role="progressbar"
-            aria-label="Fortschritt des Check-ups"
+            aria-label="Fortschritt des Bildschirmarbeitsplatz-Checks"
             aria-valuemin="0"
             aria-valuemax="100"
             aria-valuenow="0"
           >
-            <div
-              class="progress-bar"
-              id="progressBar"
-            ></div>
+            <div class="progress-bar" id="progressBar"></div>
           </div>
 
-          <form id="checkupForm">
+          <div id="questionContainer"></div>
 
-            <!-- Frage 1 -->
-            <section
-              class="question active"
-              data-category="arbeitsplatz"
-            >
-              <div class="question-grid">
-                <div>
-                  <span class="category">
-                    Arbeitsplatz und Sitzen
-                  </span>
-
-                  <h2>
-                    Arbeitest du bei längerer Bildschirmarbeit an einem
-                    geeigneten Tisch?
-                  </h2>
-
-                  <p class="question-description">
-                    Der Arbeitsplatz sollte ausreichend Fläche,
-                    Beinfreiheit und eine stabile Arbeitsposition bieten.
-                  </p>
-
-                  <div class="answers">
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="0"
-                      data-problem="arbeitsort"
-                    >
-                      Nein, häufig arbeite ich auf dem Sofa, im Bett oder
-                      an einem ungeeigneten Platz.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="1"
-                      data-problem="arbeitsort"
-                    >
-                      Teilweise, der Arbeitsplatz ist jedoch beengt oder
-                      nur provisorisch.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="2"
-                    >
-                      Ja, ich habe eine ausreichend große und freie
-                      Arbeitsfläche.
-                    </button>
-                  </div>
-                </div>
-
-                <div class="question-image-wrapper">
-                  <img
-                    class="question-image"
-                    src="images/maskottchen-arbeitsplatz.png"
-                    alt="ZeTT-Maskottchen an einem geeigneten Schreibtisch"
-                  >
-                </div>
-              </div>
-            </section>
-
-            <!-- Frage 2 -->
-            <section
-              class="question"
-              data-category="arbeitsplatz"
-            >
-              <div class="question-grid">
-                <div>
-                  <span class="category">
-                    Arbeitsplatz und Sitzen
-                  </span>
-
-                  <h2>
-                    Kannst du so sitzen, dass Füße und Unterarme gut
-                    abgestützt sind?
-                  </h2>
-
-                  <p class="question-description">
-                    Beide Füße sollten sicher aufstehen. Die Unterarme
-                    sollten locker auf Tischhöhe liegen können.
-                  </p>
-
-                  <div class="answers">
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="0"
-                      data-problem="sitzhoehe"
-                    >
-                      Nein, Stuhl oder Tisch passen deutlich nicht zu
-                      meiner Körpergröße.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="1"
-                      data-problem="sitzhoehe"
-                    >
-                      Teilweise, aber Füße oder Arme sind nicht optimal
-                      positioniert.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="2"
-                    >
-                      Ja, Sitzhöhe, Tischhöhe und Körperposition passen
-                      zusammen.
-                    </button>
-                  </div>
-                </div>
-
-                <div class="question-image-wrapper">
-                  <img
-                    class="question-image"
-                    src="images/maskottchen-stuhl.png"
-                    alt="ZeTT-Maskottchen stellt einen Bürostuhl ein"
-                  >
-                </div>
-              </div>
-            </section>
-
-            <!-- Frage 3 -->
-            <section
-              class="question"
-              data-category="arbeitsplatz"
-            >
-              <div class="question-grid">
-                <div>
-                  <span class="category">
-                    Arbeitsplatz und Sitzen
-                  </span>
-
-                  <h2>
-                    Kannst du die Rückenlehne nutzen und deine Beine frei
-                    bewegen?
-                  </h2>
-
-                  <p class="question-description">
-                    Die Rückenlehne sollte den Rücken unterstützen.
-                    Unter dem Tisch sollte ausreichend Bewegungsraum
-                    vorhanden sein.
-                  </p>
-
-                  <div class="answers">
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="0"
-                      data-problem="ruecken"
-                    >
-                      Nein, ich sitze häufig ohne Rückenunterstützung,
-                      verdreht oder eingeengt.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="1"
-                      data-problem="ruecken"
-                    >
-                      Teilweise, Rückenlehne oder Beinfreiheit sind
-                      eingeschränkt.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="2"
-                    >
-                      Ja, mein Rücken wird unterstützt und meine Beine
-                      haben ausreichend Platz.
-                    </button>
-                  </div>
-                </div>
-
-                <div class="question-image-wrapper">
-                  <img
-                    class="question-image"
-                    src="images/maskottchen-ruecken.png"
-                    alt="ZeTT-Maskottchen zeigt eine unterstützte Sitzhaltung"
-                  >
-                </div>
-              </div>
-            </section>
-
-            <!-- Frage 4 -->
-            <section
-              class="question"
-              data-category="bildschirm"
-            >
-              <div class="question-grid">
-                <div>
-                  <span class="category">
-                    Bildschirm und Sehen
-                  </span>
-
-                  <h2>
-                    Steht dein Hauptbildschirm frontal und in einer
-                    angenehmen Höhe?
-                  </h2>
-
-                  <p class="question-description">
-                    Du solltest mit weitgehend geradem Kopf und leicht
-                    gesenktem Blick arbeiten können.
-                  </p>
-
-                  <div class="answers">
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="0"
-                      data-problem="bildschirmposition"
-                    >
-                      Nein, ich muss den Kopf deutlich senken, anheben
-                      oder drehen.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="1"
-                      data-problem="bildschirmposition"
-                    >
-                      Teilweise, die Position ist nicht durchgehend
-                      angenehm.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="2"
-                    >
-                      Ja, der Bildschirm steht frontal und in passender
-                      Höhe.
-                    </button>
-                  </div>
-                </div>
-
-                <div class="question-image-wrapper">
-                  <img
-                    class="question-image"
-                    src="images/maskottchen-bildschirm.png"
-                    alt="ZeTT-Maskottchen richtet einen Bildschirm aus"
-                  >
-                </div>
-              </div>
-            </section>
-
-            <!-- Frage 5 -->
-            <section
-              class="question"
-              data-category="bildschirm"
-            >
-              <div class="question-grid">
-                <div>
-                  <span class="category">
-                    Bildschirm und Sehen
-                  </span>
-
-                  <h2>
-                    Kannst du alle Bildschirminhalte gut lesen, ohne dich
-                    vorzubeugen?
-                  </h2>
-
-                  <p class="question-description">
-                    Bildschirmabstand, Schriftgröße, Kontrast und
-                    Darstellung sollten zu deiner Arbeit passen.
-                  </p>
-
-                  <div class="answers">
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="0"
-                      data-problem="lesbarkeit"
-                    >
-                      Nein, ich beuge mich häufig vor oder kneife die
-                      Augen zusammen.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="1"
-                      data-problem="lesbarkeit"
-                    >
-                      Teilweise, bei kleinen Texten oder bestimmten
-                      Anwendungen entstehen Probleme.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="2"
-                    >
-                      Ja, Abstand, Schriftgröße und Darstellung sind
-                      angenehm.
-                    </button>
-                  </div>
-                </div>
-
-                <div class="question-image-wrapper">
-                  <img
-                    class="question-image"
-                    src="images/maskottchen-abstand.png"
-                    alt="ZeTT-Maskottchen prüft den Abstand zum Bildschirm"
-                  >
-                </div>
-              </div>
-            </section>
-
-            <!-- Frage 6 -->
-            <section
-              class="question"
-              data-category="arbeitsmittel"
-            >
-              <div class="question-grid">
-                <div>
-                  <span class="category">
-                    Arbeitsmittel
-                  </span>
-
-                  <h2>
-                    Nutzt du bei längerer Notebook-Arbeit geeignete
-                    Zusatzgeräte?
-                  </h2>
-
-                  <p class="question-description">
-                    Separate Tastatur und Maus oder ein externer Bildschirm
-                    ermöglichen eine günstigere Arbeitsposition.
-                  </p>
-
-                  <div class="answers">
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="0"
-                      data-problem="notebook"
-                    >
-                      Nein, ich arbeite lange ausschließlich direkt am
-                      Notebook.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="1"
-                      data-problem="notebook"
-                    >
-                      Teilweise, externe Geräte stehen nicht immer zur
-                      Verfügung.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="2"
-                    >
-                      Ja, ich nutze separate Eingabegeräte und eine
-                      geeignete Bildschirmposition.
-                    </button>
-                  </div>
-                </div>
-
-                <div class="question-image-wrapper">
-                  <img
-                    class="question-image"
-                    src="images/maskottchen-notebook.png"
-                    alt="ZeTT-Maskottchen nutzt Laptopständer und externe Eingabegeräte"
-                  >
-                </div>
-              </div>
-            </section>
-
-            <!-- Frage 7 -->
-            <section
-              class="question"
-              data-category="arbeitsmittel"
-            >
-              <div class="question-grid">
-                <div>
-                  <span class="category">
-                    Arbeitsmittel
-                  </span>
-
-                  <h2>
-                    Kannst du Tastatur und Maus in entspannter Haltung
-                    bedienen?
-                  </h2>
-
-                  <p class="question-description">
-                    Schultern sollten locker bleiben. Arme sollten nicht
-                    weit ausgestreckt und Handgelenke nicht stark
-                    abgeknickt sein.
-                  </p>
-
-                  <div class="answers">
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="0"
-                      data-problem="eingabegeraete"
-                    >
-                      Nein, dabei entstehen regelmäßig ungünstige
-                      Haltungen oder Beschwerden.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="1"
-                      data-problem="eingabegeraete"
-                    >
-                      Teilweise, die Haltung ist nur zeitweise entspannt.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="2"
-                    >
-                      Ja, Arbeitsmittel und Unterarme sind gut
-                      positioniert.
-                    </button>
-                  </div>
-                </div>
-
-                <div class="question-image-wrapper">
-                  <img
-                    class="question-image"
-                    src="images/maskottchen-maus.png"
-                    alt="ZeTT-Maskottchen zeigt eine entspannte Arm- und Handhaltung"
-                  >
-                </div>
-              </div>
-            </section>
-
-            <!-- Frage 8 -->
-            <section
-              class="question"
-              data-category="bildschirm"
-            >
-              <div class="question-grid">
-                <div>
-                  <span class="category">
-                    Bildschirm und Sehen
-                  </span>
-
-                  <h2>
-                    Kannst du ohne störende Blendung und Spiegelungen
-                    arbeiten?
-                  </h2>
-
-                  <p class="question-description">
-                    Fenster, Leuchten und starke Helligkeitsunterschiede
-                    sollten die Bildschirmarbeit nicht beeinträchtigen.
-                  </p>
-
-                  <div class="answers">
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="0"
-                      data-problem="beleuchtung"
-                    >
-                      Nein, Blendung oder Spiegelungen treten häufig auf.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="1"
-                      data-problem="beleuchtung"
-                    >
-                      Teilweise, abhängig von Tageszeit oder
-                      Bildschirmposition.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="2"
-                    >
-                      Ja, Bildschirm und Beleuchtung sind gut aufeinander
-                      abgestimmt.
-                    </button>
-                  </div>
-                </div>
-
-                <div class="question-image-wrapper">
-                  <img
-                    class="question-image"
-                    src="images/maskottchen-licht.png"
-                    alt="ZeTT-Maskottchen reduziert Blendung am Bildschirm"
-                  >
-                </div>
-              </div>
-            </section>
-
-            <!-- Frage 9 -->
-            <section
-              class="question"
-              data-category="organisation"
-            >
-              <div class="question-grid">
-                <div>
-                  <span class="category">
-                    Bewegung und Organisation
-                  </span>
-
-                  <h2>
-                    Unterbrichst du langes Sitzen regelmäßig durch
-                    Bewegung?
-                  </h2>
-
-                  <p class="question-description">
-                    Positionswechsel, Aufstehen und kurze Wege sollten
-                    über den Arbeitstag verteilt stattfinden.
-                  </p>
-
-                  <div class="answers">
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="0"
-                      data-problem="bewegung"
-                    >
-                      Nein, ich bleibe häufig über lange Zeit nahezu
-                      unbewegt sitzen.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="1"
-                      data-problem="bewegung"
-                    >
-                      Teilweise, aber nicht regelmäßig.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="2"
-                    >
-                      Ja, ich wechsle häufig die Position und bewege mich
-                      über den Tag verteilt.
-                    </button>
-                  </div>
-                </div>
-
-                <div class="question-image-wrapper">
-                  <img
-                    class="question-image"
-                    src="images/maskottchen-bewegung.png"
-                    alt="ZeTT-Maskottchen macht eine Bewegungspause"
-                  >
-                </div>
-              </div>
-            </section>
-
-            <!-- Frage 10 -->
-            <section
-              class="question"
-              data-category="organisation"
-            >
-              <div class="question-grid">
-                <div>
-                  <span class="category">
-                    Bewegung und Organisation
-                  </span>
-
-                  <h2>
-                    Unterbrichst du intensive Bildschirmarbeit und beendest
-                    du deinen Arbeitstag klar?
-                  </h2>
-
-                  <p class="question-description">
-                    Regelmäßige Unterbrechungen und ein verlässliches
-                    Arbeitsende unterstützen Erholung und Konzentration.
-                  </p>
-
-                  <div class="answers">
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="0"
-                      data-problem="pausen"
-                    >
-                      Nein, ich arbeite häufig lange ohne Unterbrechung
-                      und bin danach weiter erreichbar.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="1"
-                      data-problem="pausen"
-                    >
-                      Teilweise, Pausen oder Arbeitsende gelingen nicht
-                      immer.
-                    </button>
-
-                    <button
-                      class="answer-button"
-                      type="button"
-                      data-points="2"
-                    >
-                      Ja, ich mache geeignete Unterbrechungen und habe
-                      ein klares Arbeitsende.
-                    </button>
-                  </div>
-                </div>
-
-                <div class="question-image-wrapper">
-                  <img
-                    class="question-image"
-                    src="images/maskottchen-pause.png"
-                    alt="ZeTT-Maskottchen macht Pause und beendet die Arbeit"
-                  >
-                </div>
-              </div>
-            </section>
-          </form>
-
-          <div class="quiz-navigation">
+          <div class="navigation">
             <button
               class="back-button"
               type="button"
@@ -1351,13 +701,8 @@
         <section class="result" id="result">
           <div class="score-circle">
             <div>
-              <strong id="scoreValue">
-                0 %
-              </strong>
-
-              <span>
-                Gesamtergebnis
-              </span>
+              <strong id="scoreValue">0 %</strong>
+              <span>Gesamtergebnis</span>
             </div>
           </div>
 
@@ -1370,7 +715,7 @@
           </div>
 
           <h3 class="section-title">
-            Ergebnisse nach Themenbereichen
+            Ergebnisse nach Prüfbereichen
           </h3>
 
           <div
@@ -1379,32 +724,41 @@
           ></div>
 
           <h3 class="section-title">
-            Deine wichtigsten Verbesserungstipps
+            Was du zuerst verbessern solltest
           </h3>
+
+          <div class="priority-note">
+            Einstellungen, Anordnung und Arbeitsorganisation haben
+            Vorrang. Hilfsmittel sind Ergänzungen und sollten möglichst
+            praktisch erprobt werden.
+          </div>
 
           <ul
             class="tips-list"
             id="tipsList"
+            style="margin-top:18px;"
           ></ul>
 
-          <h3 class="section-title">
-            Passende Hilfsmittel aus der ERGOthek
-          </h3>
+          <div id="productSection">
+            <h3 class="section-title">
+              Passende Hilfsmittel aus der ERGOthek
+            </h3>
 
-          <div
-            class="products"
-            id="productsList"
-          ></div>
+            <div
+              class="products"
+              id="productsList"
+            ></div>
 
-          <div class="collection-link">
-            Alle Hilfsmittel findest du in der
-            <a
-              href="https://ergo-thek.booqableshop.com/collections/ergothek"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ERGOthek
-            </a>.
+            <div class="collection-link">
+              Alle verfügbaren Hilfsmittel findest du in der
+              <a
+                href="https://ergo-thek.booqableshop.com/collections/ergothek"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                vollständigen ERGOthek
+              </a>.
+            </div>
           </div>
 
           <div class="result-actions">
@@ -1413,24 +767,20 @@
               type="button"
               id="restartButton"
             >
-              Check-up wiederholen
+              Check wiederholen
             </button>
 
-            <a
-              class="home-button"
-              href="index.html"
-            >
+            <a class="home-button" href="index.html">
               Zur Startseite
             </a>
           </div>
 
           <p class="notice">
-            Der Check-up dient als unverbindliche Orientierung. Er
-            ersetzt keine medizinische Diagnose, arbeitsmedizinische
-            Beratung oder professionelle Arbeitsplatzbeurteilung.
-            Hilfsmittel sollten passend zur Person und zur konkreten
-            Arbeitssituation ausgewählt und möglichst praktisch erprobt
-            werden. Die Antworten werden nur lokal im Browser verarbeitet.
+            Der Check ist eine unverbindliche Orientierungshilfe.
+            Er ersetzt keine Gefährdungsbeurteilung, arbeitsmedizinische
+            Vorsorge, augenärztliche Untersuchung, medizinische Diagnose
+            oder individuelle ergonomische Beratung. Die Antworten werden
+            ausschließlich im Browser verarbeitet und nicht gespeichert.
           </p>
         </section>
       </section>
@@ -1438,418 +788,816 @@
   </main>
 
   <script>
-    const questions = Array.from(
-      document.querySelectorAll(".question")
-    );
+    "use strict";
 
-    const answerButtons = document.querySelectorAll(
-      ".answer-button"
-    );
-
-    const quizArea = document.getElementById("quizArea");
-    const result = document.getElementById("result");
-
-    const questionCounter = document.getElementById(
-      "questionCounter"
-    );
-
-    const progressPercent = document.getElementById(
-      "progressPercent"
-    );
-
-    const progressBar = document.getElementById(
-      "progressBar"
-    );
-
-    const progressTrack = document.querySelector(
-      ".progress-track"
-    );
-
-    const backButton = document.getElementById(
-      "backButton"
-    );
-
-    const restartButton = document.getElementById(
-      "restartButton"
-    );
-
-    const scoreValue = document.getElementById(
-      "scoreValue"
-    );
-
-    const resultTitle = document.getElementById(
-      "resultTitle"
-    );
-
-    const resultText = document.getElementById(
-      "resultText"
-    );
-
-    const categoryResults = document.getElementById(
-      "categoryResults"
-    );
-
-    const tipsList = document.getElementById(
-      "tipsList"
-    );
-
-    const productsList = document.getElementById(
-      "productsList"
-    );
-
-    let currentQuestion = 0;
-    let answers = [];
-
-    const categoryLibrary = {
-      arbeitsplatz: {
+    const CATEGORY_DATA = {
+      workplace: {
         title: "Arbeitsplatz und Sitzen",
         questionCount: 3
       },
 
-      bildschirm: {
+      screen: {
         title: "Bildschirm und Sehen",
         questionCount: 3
       },
 
-      arbeitsmittel: {
+      equipment: {
         title: "Arbeitsmittel",
         questionCount: 2
       },
 
       organisation: {
-        title: "Bewegung und Organisation",
+        title: "Organisation und Bewegung",
         questionCount: 2
       }
     };
 
-    const tipLibrary = {
-      arbeitsort: {
-        title: "Geeigneten Arbeitsort einrichten",
-        text:
-          "Nutze für längere Arbeitsphasen einen stabilen Tisch mit " +
-          "ausreichend Arbeitsfläche und Beinfreiheit. Sofa, Bett und " +
-          "niedrige Couchtische sind für längere Bildschirmarbeit ungeeignet."
+    const QUESTIONS = [
+      {
+        category: "workplace",
+        categoryLabel: "Arbeitsplatz und Sitzen",
+        title:
+          "Bietet dein Bildschirmarbeitsplatz ausreichend Arbeitsfläche und freie Beinfreiheit?",
+        help:
+          "Häufig benötigte Arbeitsmittel sollten gut erreichbar sein. Unter dem Tisch sollte nichts die Beinbewegung oder eine gerade Sitzposition behindern.",
+        image: "images/maskottchen-arbeitsplatz.png",
+        imageAlt:
+          "ZeTT-Maskottchen an einem aufgeräumten Bildschirmarbeitsplatz",
+        answers: [
+          {
+            text:
+              "Nein, die Fläche ist deutlich zu klein, instabil oder der Beinraum ist eingeschränkt.",
+            score: 0,
+            severity: 2,
+            problem: "workspace"
+          },
+          {
+            text:
+              "Teilweise, einzelne Gegenstände oder die Anordnung schränken mich ein.",
+            score: 1,
+            severity: 1,
+            problem: "workspace"
+          },
+          {
+            text:
+              "Ja, Arbeitsfläche, Erreichbarkeit und Beinfreiheit passen.",
+            score: 2,
+            severity: 0,
+            problem: null
+          }
+        ]
       },
 
-      sitzhoehe: {
-        title: "Stuhl- und Tischhöhe aufeinander abstimmen",
-        text:
-          "Stelle den Stuhl so ein, dass die Füße sicher aufstehen und " +
-          "die Unterarme locker auf Tischhöhe liegen können. Reichen die " +
-          "Füße nicht bis zum Boden, kann eine Fußstütze sinnvoll sein."
+      {
+        category: "workplace",
+        categoryLabel: "Arbeitsplatz und Sitzen",
+        title:
+          "Sind Stuhl, Tischhöhe, Unterarme und Fußposition sinnvoll aufeinander abgestimmt?",
+        help:
+          "Die Schultern sollten locker bleiben, die Unterarme entspannt aufliegen können und beide Füße sollten sicher abgestützt sein.",
+        image: "images/maskottchen-stuhl.png",
+        imageAlt:
+          "ZeTT-Maskottchen stellt Sitzhöhe und Fußposition ein",
+        answers: [
+          {
+            text:
+              "Nein, Schultern, Arme oder Füße befinden sich regelmäßig in einer ungünstigen Position.",
+            score: 0,
+            severity: 2,
+            problem: "seatHeight"
+          },
+          {
+            text:
+              "Teilweise, mindestens ein Bereich ist nicht gut angepasst.",
+            score: 1,
+            severity: 1,
+            problem: "seatHeight"
+          },
+          {
+            text:
+              "Ja, Sitzhöhe, Tischhöhe, Arme und Füße sind gut abgestimmt.",
+            score: 2,
+            severity: 0,
+            problem: null
+          }
+        ]
       },
 
-      ruecken: {
-        title: "Rückenlehne und Beinfreiheit nutzen",
-        text:
-          "Rücke mit dem Becken ausreichend weit nach hinten und nutze " +
-          "die Rückenlehne. Entferne Gegenstände unter dem Tisch, die " +
-          "Bewegung und Beinfreiheit einschränken."
+      {
+        category: "workplace",
+        categoryLabel: "Arbeitsplatz und Sitzen",
+        title:
+          "Unterstützt dein Stuhl den Rücken und ermöglicht er wechselnde Sitzhaltungen?",
+        help:
+          "Die Rückenlehne sollte nutzbar sein. Gleichzeitig solltest du nicht dauerhaft starr in einer einzigen Haltung sitzen.",
+        image: "images/maskottchen-ruecken.png",
+        imageAlt:
+          "ZeTT-Maskottchen zeigt Rückenunterstützung und dynamisches Sitzen",
+        answers: [
+          {
+            text:
+              "Nein, ich sitze meist ohne Rückenunterstützung oder lange nahezu unbewegt.",
+            score: 0,
+            severity: 2,
+            problem: "dynamicSitting"
+          },
+          {
+            text:
+              "Teilweise, Rückenlehne oder Haltungswechsel nutze ich nur eingeschränkt.",
+            score: 1,
+            severity: 1,
+            problem: "dynamicSitting"
+          },
+          {
+            text:
+              "Ja, der Rücken wird unterstützt und ich wechsle regelmäßig die Sitzhaltung.",
+            score: 2,
+            severity: 0,
+            problem: null
+          }
+        ]
       },
 
-      bildschirmposition: {
-        title: "Bildschirm frontal ausrichten",
-        text:
-          "Stelle den Hauptbildschirm direkt vor dir auf. Richte die Höhe " +
-          "so aus, dass du mit weitgehend geradem Kopf und leicht gesenktem " +
-          "Blick arbeiten kannst."
+      {
+        category: "screen",
+        categoryLabel: "Bildschirm und Sehen",
+        title:
+          "Steht dein Hauptbildschirm frontal, in angenehmer Höhe und in passendem Sehabstand?",
+        help:
+          "Du solltest ohne deutliches Drehen, Anheben oder starkes Senken des Kopfes arbeiten und Inhalte ohne Vorbeugen erkennen können.",
+        image: "images/maskottchen-bildschirm.png",
+        imageAlt:
+          "ZeTT-Maskottchen richtet Bildschirmhöhe und Abstand aus",
+        answers: [
+          {
+            text:
+              "Nein, ich drehe oder neige den Kopf deutlich oder beuge mich häufig nach vorn.",
+            score: 0,
+            severity: 2,
+            problem: "monitorPosition"
+          },
+          {
+            text:
+              "Teilweise, Höhe, Ausrichtung oder Abstand sind noch nicht durchgehend angenehm.",
+            score: 1,
+            severity: 1,
+            problem: "monitorPosition"
+          },
+          {
+            text:
+              "Ja, Bildschirmposition und Sehabstand passen zu meiner Arbeit.",
+            score: 2,
+            severity: 0,
+            problem: null
+          }
+        ]
       },
 
-      lesbarkeit: {
-        title: "Lesbarkeit statt Vorbeugen verbessern",
-        text:
-          "Vergrößere Schrift und Darstellung, passe Kontrast und " +
-          "Helligkeit an und prüfe den Bildschirmabstand. Beuge dich nicht " +
-          "dauerhaft nach vorne, um kleine Inhalte lesen zu können."
+      {
+        category: "screen",
+        categoryLabel: "Bildschirm und Sehen",
+        title:
+          "Sind Schrift, Symbole, Kontrast und Bildschirmhelligkeit gut erkennbar?",
+        help:
+          "Die Darstellung sollte sich anpassen lassen, ohne dass du die Augen zusammenkneifst, dich vorbeugst oder wegen zu kleiner Inhalte ermüdest.",
+        image: "images/maskottchen-abstand.png",
+        imageAlt:
+          "ZeTT-Maskottchen prüft Lesbarkeit und Darstellung am Bildschirm",
+        answers: [
+          {
+            text:
+              "Nein, kleine oder kontrastarme Inhalte belasten mich regelmäßig.",
+            score: 0,
+            severity: 2,
+            problem: "readability"
+          },
+          {
+            text:
+              "Teilweise, bei bestimmten Programmen oder Inhalten ist die Darstellung ungünstig.",
+            score: 1,
+            severity: 1,
+            problem: "readability"
+          },
+          {
+            text:
+              "Ja, Darstellung und Helligkeit sind gut angepasst.",
+            score: 2,
+            severity: 0,
+            problem: null
+          }
+        ]
       },
 
-      notebook: {
-        title: "Notebook für längere Arbeit ergänzen",
-        text:
-          "Nutze bei längerer Notebook-Arbeit eine separate Tastatur und " +
-          "Maus. Hebe den Laptop mit einem geeigneten Ständer an oder " +
-          "verwende einen zusätzlichen Bildschirm."
+      {
+        category: "screen",
+        categoryLabel: "Bildschirm und Sehen",
+        title:
+          "Kannst du ohne störende Blendung, Spiegelungen und starke Helligkeitsunterschiede arbeiten?",
+        help:
+          "Fenster und Leuchten sollten sich nicht störend im Bildschirm spiegeln. Der Arbeitsplatz sollte ausreichend und gleichmäßig beleuchtet sein.",
+        image: "images/maskottchen-licht.png",
+        imageAlt:
+          "ZeTT-Maskottchen reduziert Blendung am Bildschirm",
+        answers: [
+          {
+            text:
+              "Nein, Blendung oder Spiegelungen beeinträchtigen mich häufig.",
+            score: 0,
+            severity: 2,
+            problem: "lighting"
+          },
+          {
+            text:
+              "Teilweise, die Bedingungen hängen stark von Tageszeit oder Wetter ab.",
+            score: 1,
+            severity: 1,
+            problem: "lighting"
+          },
+          {
+            text:
+              "Ja, Beleuchtung und Bildschirmposition verhindern störende Reflexionen.",
+            score: 2,
+            severity: 0,
+            problem: null
+          }
+        ]
       },
 
-      eingabegeraete: {
-        title: "Maus und Tastatur körpernah positionieren",
-        text:
-          "Positioniere Tastatur und Maus nah am Körper. Halte die " +
-          "Schultern locker und vermeide stark abgeknickte Handgelenke. " +
-          "Ergonomische Eingabegeräte können anschließend erprobt werden."
+      {
+        category: "equipment",
+        categoryLabel: "Arbeitsmittel",
+        title:
+          "Nutzt du bei längerer Notebook-Arbeit eine separate Tastatur und Maus oder einen externen Bildschirm?",
+        help:
+          "Beim Notebook sind Bildschirm und Tastatur fest miteinander verbunden. Zusatzgeräte ermöglichen eine unabhängig anpassbare Bildschirm- und Handposition.",
+        image: "images/maskottchen-notebook.png",
+        imageAlt:
+          "ZeTT-Maskottchen arbeitet mit Laptopständer und externer Tastatur",
+        answers: [
+          {
+            text:
+              "Nein, ich arbeite länger direkt am Notebook ohne geeignete Zusatzgeräte.",
+            score: 0,
+            severity: 2,
+            problem: "laptop"
+          },
+          {
+            text:
+              "Teilweise, Zusatzgeräte stehen nicht immer zur Verfügung.",
+            score: 1,
+            severity: 1,
+            problem: "laptop"
+          },
+          {
+            text:
+              "Ja, ich nutze eine getrennte Bildschirm- und Eingabeposition.",
+            score: 2,
+            severity: 0,
+            problem: null
+          },
+          {
+            text:
+              "Ich nutze kein Notebook als Hauptarbeitsgerät.",
+            score: 2,
+            severity: 0,
+            problem: null
+          }
+        ]
       },
 
-      beleuchtung: {
-        title: "Blendung und Spiegelungen reduzieren",
-        text:
-          "Stelle den Bildschirm möglichst seitlich zum Fenster auf. " +
-          "Vermeide direkte Lichtquellen im Blickfeld und nutze bei Bedarf " +
-          "Sonnenschutz oder eine passend positionierte Arbeitsplatzleuchte."
+      {
+        category: "equipment",
+        categoryLabel: "Arbeitsmittel",
+        title:
+          "Kannst du Tastatur und Maus körpernah mit lockeren Schultern und weitgehend neutralen Handgelenken bedienen?",
+        help:
+          "Du solltest die Arme nicht weit nach vorn strecken müssen. Maus und Tastatur sollten zur Tätigkeit, Handgröße und Nutzungshäufigkeit passen.",
+        image: "images/maskottchen-maus.png",
+        imageAlt:
+          "ZeTT-Maskottchen zeigt eine entspannte Haltung an Maus und Tastatur",
+        answers: [
+          {
+            text:
+              "Nein, Schultern, Unterarme, Hände oder Handgelenke sind regelmäßig angespannt.",
+            score: 0,
+            severity: 2,
+            problem: "inputDevices"
+          },
+          {
+            text:
+              "Teilweise, die Haltung ist nur zeitweise entspannt.",
+            score: 1,
+            severity: 1,
+            problem: "inputDevices"
+          },
+          {
+            text:
+              "Ja, Tastatur, Maus und Unterarme sind gut positioniert.",
+            score: 2,
+            severity: 0,
+            problem: null
+          }
+        ]
       },
 
-      bewegung: {
-        title: "Langes Sitzen regelmäßig unterbrechen",
-        text:
-          "Wechsle häufig zwischen unterschiedlichen Sitzpositionen. " +
-          "Stehe regelmäßig auf, gehe kurze Wege und nutze Telefonate oder " +
-          "Abstimmungen für zusätzliche Bewegung."
+      {
+        category: "organisation",
+        categoryLabel: "Organisation und Bewegung",
+        title:
+          "Kannst du telefonieren und an Videokonferenzen teilnehmen, ohne den Hörer einzuklemmen und ohne dauerhaft störenden Umgebungslärm?",
+        help:
+          "Längere Gespräche sollten eine freie und entspannte Kopfhaltung ermöglichen. Störgeräusche und häufige Unterbrechungen sollten begrenzt werden.",
+        image: "images/maskottchen-headset.png",
+        imageAlt:
+          "ZeTT-Maskottchen nutzt ein Headset für eine Videokonferenz",
+        answers: [
+          {
+            text:
+              "Nein, ich klemme häufig Telefon oder Smartphone ein oder werde stark durch Lärm gestört.",
+            score: 0,
+            severity: 2,
+            problem: "communication"
+          },
+          {
+            text:
+              "Teilweise, bei längeren Gesprächen oder in lauter Umgebung entstehen Belastungen.",
+            score: 1,
+            severity: 1,
+            problem: "communication"
+          },
+          {
+            text:
+              "Ja, Kommunikation und akustische Bedingungen sind gut organisiert.",
+            score: 2,
+            severity: 0,
+            problem: null
+          }
+        ]
       },
 
-      pausen: {
-        title: "Pausen und Arbeitsende klar organisieren",
+      {
+        category: "organisation",
+        categoryLabel: "Organisation und Bewegung",
+        title:
+          "Unterbrichst du längere Bildschirmphasen regelmäßig durch Aufgabenwechsel, Blick in die Ferne, Aufstehen und Bewegung?",
+        help:
+          "Nicht eine vermeintlich perfekte Dauerhaltung, sondern regelmäßige Veränderung entlastet Augen und Bewegungsapparat.",
+        image: "images/maskottchen-bewegung.png",
+        imageAlt:
+          "ZeTT-Maskottchen macht eine aktive Pause vom Bildschirm",
+        answers: [
+          {
+            text:
+              "Nein, ich arbeite häufig lange ohne nennenswerte Unterbrechung am Bildschirm.",
+            score: 0,
+            severity: 2,
+            problem: "movement"
+          },
+          {
+            text:
+              "Teilweise, ich unterbreche die Bildschirmarbeit noch unregelmäßig.",
+            score: 1,
+            severity: 1,
+            problem: "movement"
+          },
+          {
+            text:
+              "Ja, ich wechsle Aufgaben, entlaste die Augen und bewege mich regelmäßig.",
+            score: 2,
+            severity: 0,
+            problem: null
+          }
+        ]
+      }
+    ];
+
+    const TIP_DATA = {
+      workspace: {
+        title: "Arbeitsfläche und Beinraum neu ordnen",
         text:
-          "Plane kurze Unterbrechungen bewusst ein. Lege außerdem ein " +
-          "klares Arbeitsende fest, schließe Arbeitsprogramme und reduziere " +
-          "vermeidbare Erreichbarkeit außerhalb der Arbeitszeit."
+          "Entferne Gegenstände aus dem Beinraum und ordne häufig genutzte Arbeitsmittel im direkten Greifbereich an. Nutze für längere Bildschirmarbeit eine stabile und ausreichend große Arbeitsfläche."
+      },
+
+      seatHeight: {
+        title: "Stuhl, Tisch und Fußposition abstimmen",
+        text:
+          "Richte zuerst die Arbeitshöhe für locker hängende Schultern und entspannte Unterarme ein. Stelle danach den Stuhl passend ein. Erreichen die Füße den Boden dann nicht sicher, kann eine verstellbare Fußstütze sinnvoll sein."
+      },
+
+      dynamicSitting: {
+        title: "Rückenlehne nutzen und Haltung wechseln",
+        text:
+          "Nutze die Sitzfläche bis zur Rückenlehne und passe deren Unterstützung an. Wechsle regelmäßig zwischen unterschiedlichen Sitzpositionen. Dynamische Sitzhilfen sind eine zeitweise Ergänzung, kein pauschaler Ersatz für einen passenden Bürostuhl."
+      },
+
+      monitorPosition: {
+        title: "Hauptbildschirm frontal und passend positionieren",
+        text:
+          "Stelle den überwiegend genutzten Bildschirm direkt vor dir auf. Passe Höhe, Neigung, Abstand und Schriftgröße gemeinsam an, sodass du mit weitgehend geradem Kopf und leicht gesenktem Blick arbeiten kannst."
+      },
+
+      readability: {
+        title: "Darstellung anpassen statt vorzubeugen",
+        text:
+          "Vergrößere Schrift, Symbole und Zoomstufe. Passe Helligkeit und Kontrast an die Umgebung an. Bleiben Sehprobleme oder Beschwerden bestehen, sollte die Sehfähigkeit fachlich geprüft werden."
+      },
+
+      lighting: {
+        title: "Blendung und Reflexionen reduzieren",
+        text:
+          "Richte den Bildschirm möglichst so aus, dass Fenster seitlich liegen. Nutze vorhandenen Sonnenschutz und positioniere Leuchten so, dass weder direkte Blendung noch störende Spiegelungen entstehen."
+      },
+
+      laptop: {
+        title: "Notebook-Arbeitsplatz technisch ergänzen",
+        text:
+          "Nutze bei längerer Arbeit eine separate Tastatur und Maus. Hebe das Notebook mit einem stabilen Ständer an oder nutze einen externen Bildschirm. Arbeite nicht dauerhaft mit hochgestelltem Notebook ohne externe Eingabegeräte."
+      },
+
+      inputDevices: {
+        title: "Tastatur, Maus und Unterarme entlastend anordnen",
+        text:
+          "Lege Tastatur und Maus nah an den Körper. Halte die Tastatur möglichst flach und vermeide dauerhaft abgeknickte Handgelenke. Prüfe erst die Anordnung und erprobe danach bei Bedarf alternative Eingabegeräte."
+      },
+
+      communication: {
+        title: "Telefonie und Videokonferenzen entlastend organisieren",
+        text:
+          "Klemme Telefon oder Smartphone nicht zwischen Kopf und Schulter. Nutze bei längeren Gesprächen eine Freisprechlösung oder ein geeignetes Headset. Reduziere Störquellen und plane konzentrierte Arbeitsphasen."
+      },
+
+      movement: {
+        title: "Bildschirmphasen regelmäßig unterbrechen",
+        text:
+          "Wechsle Aufgaben, schaue regelmäßig in die Ferne, stehe auf und gehe kurze Wege. Nutze Telefonate oder kurze Abstimmungen für Bewegung. Kleine, häufige Unterbrechungen sind praktikabler als ausschließlich eine lange Ausgleichspause."
       }
     };
 
-    const productLibrary = {
-      sitzhoehe: [
+    const PRODUCT_DATA = {
+      seatHeight: [
         {
-          name: "Fußstütze",
-          text:
-            "Kann sicheren Bodenkontakt ermöglichen, wenn die Füße den " +
-            "Boden bei geeigneter Arbeitshöhe nicht erreichen."
+          name: "04. Fußstütze (Ergo-Finland)",
+          description:
+            "Zum Erproben, wenn die Füße nach passender Einstellung von Stuhl und Arbeitshöhe nicht sicher abgestützt werden können.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/04-fussstutze-ergo-finland"
         }
       ],
 
-      ruecken: [
+      dynamicSitting: [
         {
-          name: "Orthopädisches Sitzkissen",
-          text:
-            "Kann zeitweise als ergänzende Sitzunterlage erprobt werden. " +
-            "Es ersetzt jedoch keinen passend eingestellten Stuhl."
+          name: "01. Freischwingender Hocker (Aeris)",
+          description:
+            "Eine zeitweise Alternative für aktiveres, bewegtes Sitzen. Vor dem Einsatz individuell einstellen und praktisch testen.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/01-freischwingender-hocker-aeris"
         }
       ],
 
-      bildschirmposition: [
+      monitorPosition: [
         {
-          name: "Laptopständer",
-          text:
-            "Hebt einen Notebook-Bildschirm an und ermöglicht zusammen " +
-            "mit externer Tastatur und Maus eine günstigere Position."
+          name: "06. Organizer mit Laptopständer (Gustav)",
+          description:
+            "Kann einen Notebook-Bildschirm anheben. Für längere Arbeit nur zusammen mit separater Tastatur und Maus einsetzen.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/06-organizer-mit-laptopstander-gustav"
         }
       ],
 
-      lesbarkeit: [
+      readability: [
         {
-          name: "Laptopständer oder zusätzlicher Bildschirm",
-          text:
-            "Kann eine größere und besser positionierbare Anzeigefläche " +
-            "ermöglichen."
+          name: "05. Desktop-Paket (Microsoft)",
+          description:
+            "Kann eine getrennte und besser anpassbare Bildschirm- und Eingabeposition unterstützen.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/05-desktop-paket-microsoft"
         }
       ],
 
-      notebook: [
+      laptop: [
         {
-          name: "Organizer mit Laptopständer",
-          text:
-            "Ermöglicht eine erhöhte Notebook-Position und sollte mit " +
-            "separater Tastatur und Maus verwendet werden."
+          name: "06. Organizer mit Laptopständer (Gustav)",
+          description:
+            "Hebt das Notebook an und schafft zusammen mit externen Eingabegeräten eine getrennte Bildschirm- und Handposition.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/06-organizer-mit-laptopstander-gustav"
         },
 
         {
-          name: "Desktop-Paket",
-          text:
-            "Kann externe Eingabegeräte und eine besser anpassbare " +
-            "Bildschirmarbeitsumgebung bereitstellen."
+          name: "05. Desktop-Paket (Microsoft)",
+          description:
+            "Ergänzung für eine externe und flexibel positionierbare Arbeitsplatzausstattung.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/05-desktop-paket-microsoft"
         }
       ],
 
-      eingabegeraete: [
+      inputDevices: [
         {
-          name: "Ergonomische Maus",
-          text:
-            "Kann eine neutralere Hand- und Unterarmposition unterstützen."
+          name: "09. Ergo-Maus (Cherry)",
+          description:
+            "Geneigte Mausform zum praktischen Vergleich mit einer klassischen Maus.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/09-ergo-maus-medium-cherry"
         },
 
         {
-          name: "Geteilte Tastatur",
-          text:
-            "Kann eine variablere Position von Händen, Armen und Schultern " +
-            "ermöglichen."
+          name: "20. Split Break Tastatur (R-Go)",
+          description:
+            "Geteilte, flache Tastatur zum Erproben einer variableren Hand- und Armposition.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/split-break-tastatur-r-go"
         },
 
         {
-          name: "Unterarmstütze",
-          text:
-            "Kann Unterarme unterstützen und die Haltearbeit von Schultern " +
-            "und Armen reduzieren."
+          name: "07. Unterarmstütze (IO-Rest)",
+          description:
+            "Kann die Unterarme unterstützen, wenn Tischform, Tätigkeit und Körpermaße dazu passen.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/07-unterarmstutze-io-rest"
         }
       ],
 
-      bewegung: [
+      communication: [
         {
-          name: "Freischwingender Hocker",
-          text:
-            "Kann zeitweise dynamischeres Sitzen und häufigere " +
-            "Positionswechsel unterstützen."
-        },
-
-        {
-          name: "Schreibtischfahrrad",
-          text:
-            "Kann an einem geeigneten Sitz-Steh-Arbeitsplatz für leichte " +
-            "Bewegung genutzt werden."
-        },
-
-        {
-          name: "Übungsmatte",
-          text:
-            "Eignet sich als Unterlage für kurze aktive Pausen und " +
-            "Bewegungsübungen."
+          name: "23. Headset Adapt 660 (Sennheiser Epos)",
+          description:
+            "Für freihändige Telefonie und Videokonferenzen; kann zugleich störende Umgebungsgeräusche reduzieren.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/23-headset-adapt-660-sennheiser-epos"
         }
       ],
 
-      pausen: [
+      movement: [
         {
-          name: "Blackroll-Set oder Übungsmatte",
-          text:
-            "Kann für kurze aktive Arbeitsunterbrechungen genutzt werden."
+          name: "03. Balancierbrett (Gymba)",
+          description:
+            "Zum Erproben kleiner Bewegungen beim Arbeiten im Stehen an einem geeigneten Sitz-Steh-Arbeitsplatz.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/03-balancierbrett-gymba"
+        },
+
+        {
+          name: "18. Schreibtischfahrrad (Deskbike)",
+          description:
+            "Ermöglicht leichte Bewegung an einem dafür geeigneten Sitz-Steh-Schreibtisch.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/18-schreibtischfahrrad-deskbike"
+        },
+
+        {
+          name: "19. Übungsmatte (Sissel)",
+          description:
+            "Unterlage für kurze Bewegungs- und Mobilisationseinheiten außerhalb der eigentlichen Bildschirmarbeit.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/ubungsmatte-sissel"
+        },
+
+        {
+          name: "14. Blackbox Standard (Blackroll)",
+          description:
+            "Set für aktive Unterbrechungen, Selbstmassage und funktionelle Übungen.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/12-blackbox-standard-blackroll"
         }
       ]
     };
 
+    const quizArea = document.getElementById("quizArea");
+    const questionContainer = document.getElementById(
+      "questionContainer"
+    );
+    const questionCounter = document.getElementById(
+      "questionCounter"
+    );
+    const progressPercent = document.getElementById(
+      "progressPercent"
+    );
+    const progressBar = document.getElementById(
+      "progressBar"
+    );
+    const progressTrack = document.querySelector(
+      ".progress-track"
+    );
+    const backButton = document.getElementById(
+      "backButton"
+    );
+    const result = document.getElementById("result");
+    const scoreValue = document.getElementById(
+      "scoreValue"
+    );
+    const resultTitle = document.getElementById(
+      "resultTitle"
+    );
+    const resultText = document.getElementById(
+      "resultText"
+    );
+    const categoryResults = document.getElementById(
+      "categoryResults"
+    );
+    const tipsList = document.getElementById(
+      "tipsList"
+    );
+    const productSection = document.getElementById(
+      "productSection"
+    );
+    const productsList = document.getElementById(
+      "productsList"
+    );
+    const restartButton = document.getElementById(
+      "restartButton"
+    );
+
+    let currentQuestion = 0;
+    let answers = [];
+
     function updateProgress() {
       const completed = answers.length;
-
       const percentage = Math.round(
-        (completed / questions.length) * 100
+        (completed / QUESTIONS.length) * 100
       );
 
       questionCounter.textContent =
-        `Frage ${currentQuestion + 1} von ${questions.length}`;
-
-      progressPercent.textContent =
-        `${percentage} %`;
-
-      progressBar.style.width =
-        `${percentage}%`;
-
+        `Frage ${currentQuestion + 1} von ${QUESTIONS.length}`;
+      progressPercent.textContent = `${percentage} %`;
+      progressBar.style.width = `${percentage}%`;
       progressTrack.setAttribute(
         "aria-valuenow",
-        percentage
+        String(percentage)
       );
 
       backButton.style.display =
         currentQuestion > 0 ? "inline-block" : "none";
     }
 
-    function showQuestion(index) {
-      questions.forEach((question, questionIndex) => {
-        question.classList.toggle(
-          "active",
-          questionIndex === index
-        );
-      });
+    function renderQuestion() {
+      const question = QUESTIONS[currentQuestion];
 
-      currentQuestion = index;
+      const answerMarkup = question.answers
+        .map(
+          (answer, index) => `
+            <button
+              class="answer-button"
+              type="button"
+              data-answer-index="${index}"
+            >
+              ${answer.text}
+            </button>
+          `
+        )
+        .join("");
+
+      questionContainer.innerHTML = `
+        <div class="question-grid">
+          <div>
+            <span class="category">
+              ${question.categoryLabel}
+            </span>
+
+            <h2 class="question-title">
+              ${question.title}
+            </h2>
+
+            <p class="question-help">
+              ${question.help}
+            </p>
+
+            <div class="answers">
+              ${answerMarkup}
+            </div>
+          </div>
+
+          <div class="image-box">
+            <img
+              class="question-image"
+              src="${question.image}"
+              alt="${question.imageAlt}"
+              onerror="
+                this.onerror=null;
+                this.src='images/maskottchen.png';
+              "
+            >
+          </div>
+        </div>
+      `;
+
+      questionContainer
+        .querySelectorAll("[data-answer-index]")
+        .forEach((button) => {
+          button.addEventListener("click", () => {
+            const answerIndex = Number(
+              button.dataset.answerIndex
+            );
+            saveAnswer(answerIndex);
+          });
+        });
+
       updateProgress();
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
     }
 
-    function saveAnswer(button) {
-      const question = questions[currentQuestion];
+    function saveAnswer(answerIndex) {
+      const question = QUESTIONS[currentQuestion];
+      const selected = question.answers[answerIndex];
 
       answers[currentQuestion] = {
-        points: Number(button.dataset.points),
-        problem: button.dataset.problem || null,
-        category: question.dataset.category
+        score: selected.score,
+        severity: selected.severity,
+        problem: selected.problem,
+        category: question.category,
+        questionIndex: currentQuestion
       };
 
-      if (currentQuestion < questions.length - 1) {
-        showQuestion(currentQuestion + 1);
+      if (currentQuestion < QUESTIONS.length - 1) {
+        currentQuestion += 1;
+        renderQuestion();
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
       } else {
         showResult();
       }
     }
 
-    function calculateOverallResult() {
-      const totalPoints = answers.reduce(
-        (sum, answer) => sum + answer.points,
+    function calculateOverall() {
+      const points = answers.reduce(
+        (sum, answer) => sum + answer.score,
         0
       );
 
-      const maximumPoints = questions.length * 2;
-
       return Math.round(
-        (totalPoints / maximumPoints) * 100
+        (points / (QUESTIONS.length * 2)) * 100
       );
     }
 
-    function calculateCategoryResults() {
-      const results = {};
+    function calculateCategories() {
+      const values = {};
 
-      Object.keys(categoryLibrary).forEach((categoryKey) => {
+      Object.keys(CATEGORY_DATA).forEach((key) => {
         const categoryAnswers = answers.filter(
-          (answer) => answer.category === categoryKey
+          (answer) => answer.category === key
         );
 
         const points = categoryAnswers.reduce(
-          (sum, answer) => sum + answer.points,
+          (sum, answer) => sum + answer.score,
           0
         );
 
         const maximum =
-          categoryLibrary[categoryKey].questionCount * 2;
+          CATEGORY_DATA[key].questionCount * 2;
 
-        results[categoryKey] = Math.round(
+        values[key] = Math.round(
           (points / maximum) * 100
         );
       });
 
-      return results;
+      return values;
     }
 
-    function getCategoryMessage(percentage) {
-      if (percentage < 40) {
-        return "In diesem Bereich besteht deutlicher Handlungsbedarf.";
+    function categoryMessage(value) {
+      if (value < 40) {
+        return "Hier besteht deutlicher Handlungsbedarf.";
       }
 
-      if (percentage < 70) {
+      if (value < 70) {
         return "Mehrere gezielte Verbesserungen sind sinnvoll.";
       }
 
-      if (percentage < 90) {
+      if (value < 90) {
         return "Gute Grundlage mit einzelnen Verbesserungsmöglichkeiten.";
       }
 
       return "Dieser Bereich ist bereits sehr gut aufgestellt.";
     }
 
-    function renderCategoryResults(results) {
+    function renderCategories(values) {
       categoryResults.innerHTML = "";
 
-      Object.entries(categoryLibrary).forEach(
-        ([categoryKey, category]) => {
-          const percentage = results[categoryKey];
-
+      Object.entries(CATEGORY_DATA).forEach(
+        ([key, category]) => {
+          const value = values[key];
           const card = document.createElement("article");
 
-          card.className = "category-result";
-
+          card.className = "category-card";
           card.innerHTML = `
-            <div class="category-result-header">
+            <div class="category-card-header">
               <h3>${category.title}</h3>
+
               <span class="category-score">
-                ${percentage} %
+                ${value} %
               </span>
             </div>
 
             <div class="category-bar">
               <div
                 class="category-bar-value"
-                style="width: ${percentage}%"
+                style="width:${value}%"
               ></div>
             </div>
 
             <p class="category-message">
-              ${getCategoryMessage(percentage)}
+              ${categoryMessage(value)}
             </p>
           `;
 
@@ -1858,32 +1606,54 @@
       );
     }
 
-    function getRelevantProblems() {
-      return [
-        ...new Set(
-          answers
-            .filter((answer) => answer.problem)
-            .sort((a, b) => a.points - b.points)
-            .map((answer) => answer.problem)
+    function relevantProblems() {
+      const sorted = answers
+        .filter(
+          (answer) =>
+            answer.problem && answer.severity > 0
         )
-      ];
+        .sort(
+          (a, b) =>
+            b.severity - a.severity ||
+            a.questionIndex - b.questionIndex
+        );
+
+      const unique = [];
+
+      sorted.forEach((answer) => {
+        const exists = unique.some(
+          (item) => item.problem === answer.problem
+        );
+
+        if (!exists) {
+          unique.push(answer);
+        }
+      });
+
+      return unique;
     }
 
-    function renderTips(problems) {
+    function renderTips(problemAnswers) {
       tipsList.innerHTML = "";
 
-      if (problems.length === 0) {
+      if (problemAnswers.length === 0) {
         const item = document.createElement("li");
 
         item.className = "tip-card";
-
         item.innerHTML = `
-          <h4>Gute Standards beibehalten</h4>
+          <span class="tip-badge">
+            Beibehalten
+          </span>
+
+          <h4>
+            Gute Arbeitsbedingungen regelmäßig überprüfen
+          </h4>
 
           <p>
-            Dein Arbeitsplatz und deine Arbeitsorganisation sind bereits
-            gut aufgestellt. Prüfe die Einstellungen trotzdem regelmäßig
-            und behalte Bewegung, Haltungswechsel und Erholungsphasen bei.
+            Deine Antworten zeigen aktuell keinen deutlichen
+            Verbesserungsbedarf. Prüfe Einstellungen und
+            Arbeitsorganisation trotzdem erneut, wenn sich Tätigkeit,
+            Arbeitsplatz oder Beschwerden verändern.
           </p>
         `;
 
@@ -1891,19 +1661,26 @@
         return;
       }
 
-      problems.slice(0, 7).forEach((problem) => {
-        const tip = tipLibrary[problem];
+      problemAnswers.forEach((answer) => {
+        const tip = TIP_DATA[answer.problem];
 
         if (!tip) {
           return;
         }
 
         const item = document.createElement("li");
+        const urgent = answer.severity === 2;
 
-        item.className = "tip-card";
+        item.className =
+          urgent ? "tip-card urgent" : "tip-card";
 
         item.innerHTML = `
+          <span class="tip-badge">
+            ${urgent ? "Hohe Priorität" : "Verbesserung sinnvoll"}
+          </span>
+
           <h4>${tip.title}</h4>
+
           <p>${tip.text}</p>
         `;
 
@@ -1911,88 +1688,71 @@
       });
     }
 
-    function getRecommendedProducts(problems) {
+    function recommendedProducts(problemAnswers) {
       const products = [];
 
-      problems.forEach((problem) => {
-        const matchingProducts =
-          productLibrary[problem] || [];
+      problemAnswers.forEach((answer) => {
+        const matching =
+          PRODUCT_DATA[answer.problem] || [];
 
-        matchingProducts.forEach((product) => {
-          const alreadyIncluded = products.some(
-            (existingProduct) =>
-              existingProduct.name === product.name
+        matching.forEach((product) => {
+          const existing = products.find(
+            (item) => item.url === product.url
           );
 
-          if (!alreadyIncluded) {
-            products.push(product);
+          if (existing) {
+            existing.priority = Math.max(
+              existing.priority,
+              answer.severity
+            );
+            return;
           }
+
+          products.push({
+            ...product,
+            priority: answer.severity
+          });
         });
       });
 
-      return products.slice(0, 6);
+      return products
+        .sort((a, b) => b.priority - a.priority)
+        .slice(0, 6);
     }
 
-    function renderProducts(problems) {
+    function renderProducts(problemAnswers) {
       productsList.innerHTML = "";
 
-      const products = getRecommendedProducts(problems);
+      const products =
+        recommendedProducts(problemAnswers);
 
       if (products.length === 0) {
-        const card = document.createElement("article");
-
-        card.className = "product-card";
-
-        card.innerHTML = `
-          <span class="product-label">
-            Derzeit kein konkreter Bedarf
-          </span>
-
-          <h4>
-            Gute Einstellungen beibehalten
-          </h4>
-
-          <p>
-            Aus deinen Antworten ergibt sich aktuell keine eindeutige
-            Hilfsmittel-Empfehlung. Hilfsmittel sollten nur bei einem
-            konkreten Bedarf eingesetzt werden.
-          </p>
-
-          <a
-            class="product-button"
-            href="https://ergo-thek.booqableshop.com/collections/ergothek"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            ERGOthek ansehen
-          </a>
-        `;
-
-        productsList.appendChild(card);
+        productSection.style.display = "none";
         return;
       }
+
+      productSection.style.display = "block";
 
       products.forEach((product) => {
         const card = document.createElement("article");
 
         card.className = "product-card";
-
         card.innerHTML = `
           <span class="product-label">
-            Mögliche Ergänzung
+            Passend zu deiner Auswertung
           </span>
 
           <h4>${product.name}</h4>
 
-          <p>${product.text}</p>
+          <p>${product.description}</p>
 
           <a
             class="product-button"
-            href="https://ergo-thek.booqableshop.com/collections/ergothek"
+            href="${product.url}"
             target="_blank"
             rel="noopener noreferrer"
           >
-            In der ERGOthek ansehen
+            Hilfsmittel ansehen
           </a>
         `;
 
@@ -2000,52 +1760,58 @@
       });
     }
 
-    function setOverallResultText(percentage) {
-      if (percentage < 40) {
+    function setOverallText(value) {
+      if (value < 40) {
         resultTitle.textContent =
           "Deutlicher Verbesserungsbedarf";
 
         resultText.textContent =
-          "Mehrere zentrale Bereiche deines Arbeitsplatzes und deiner " +
-          "Arbeitsorganisation sollten überprüft werden. Beginne mit den " +
-          "niedrigsten Themenwerten und setze die Empfehlungen schrittweise um.";
-      } else if (percentage < 70) {
+          "Mehrere Bedingungen deines Bildschirmarbeitsplatzes " +
+          "sollten zeitnah überprüft werden. Beginne mit den als " +
+          "hohe Priorität markierten Maßnahmen.";
+        return;
+      }
+
+      if (value < 70) {
         resultTitle.textContent =
           "Solide Grundlage mit Verbesserungspotenzial";
 
         resultText.textContent =
-          "Einige ergonomische Voraussetzungen sind bereits vorhanden. " +
-          "In mehreren Bereichen sind jedoch gezielte Anpassungen sinnvoll.";
-      } else if (percentage < 90) {
-        resultTitle.textContent =
-          "Gutes ergonomisches Arbeitsumfeld";
-
-        resultText.textContent =
-          "Dein Arbeitsplatz ist insgesamt gut aufgestellt. Einzelne " +
-          "Einstellungen oder Arbeitsgewohnheiten können weiter verbessert werden.";
-      } else {
-        resultTitle.textContent =
-          "Sehr gutes Ergebnis";
-
-        resultText.textContent =
-          "Du setzt bereits viele zentrale Prinzipien gesundheitsgerechter " +
-          "Bildschirmarbeit um. Behalte die guten Einstellungen und Routinen bei.";
+          "Einige Bedingungen passen bereits. In mehreren Bereichen " +
+          "sind jedoch gezielte Anpassungen sinnvoll.";
+        return;
       }
+
+      if (value < 90) {
+        resultTitle.textContent =
+          "Guter Bildschirmarbeitsplatz";
+
+        resultText.textContent =
+          "Die wesentlichen Grundlagen sind vorhanden. Einzelne " +
+          "Einstellungen oder Gewohnheiten lassen sich noch verbessern.";
+        return;
+      }
+
+      resultTitle.textContent =
+        "Sehr gutes Ergebnis";
+
+      resultText.textContent =
+        "Dein Bildschirmarbeitsplatz ist nach deinen Angaben " +
+        "sehr gut aufgestellt. Behalte die Bedingungen und " +
+        "regelmäßigen Arbeitsunterbrechungen bei.";
     }
 
     function showResult() {
-      const overallResult = calculateOverallResult();
-      const categoryResultData = calculateCategoryResults();
-      const problems = getRelevantProblems();
+      const overall = calculateOverall();
+      const categories = calculateCategories();
+      const problems = relevantProblems();
 
       quizArea.style.display = "none";
       result.classList.add("visible");
 
-      scoreValue.textContent =
-        `${overallResult} %`;
-
-      setOverallResultText(overallResult);
-      renderCategoryResults(categoryResultData);
+      scoreValue.textContent = `${overall} %`;
+      setOverallText(overall);
+      renderCategories(categories);
       renderTips(problems);
       renderProducts(problems);
 
@@ -2055,38 +1821,40 @@
       });
     }
 
-    function restartCheckup() {
+    function restart() {
       answers = [];
       currentQuestion = 0;
 
       result.classList.remove("visible");
       quizArea.style.display = "block";
+      productSection.style.display = "block";
 
-      showQuestion(0);
-    }
+      renderQuestion();
 
-    answerButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        saveAnswer(button);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
       });
-    });
+    }
 
     backButton.addEventListener("click", () => {
       if (currentQuestion === 0) {
         return;
       }
 
-      answers.splice(currentQuestion - 1);
+      answers = answers.slice(0, currentQuestion - 1);
+      currentQuestion -= 1;
+      renderQuestion();
 
-      showQuestion(currentQuestion - 1);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     });
 
-    restartButton.addEventListener(
-      "click",
-      restartCheckup
-    );
+    restartButton.addEventListener("click", restart);
 
-    updateProgress();
+    renderQuestion();
   </script>
 </body>
 </html>
