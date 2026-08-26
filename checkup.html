@@ -523,16 +523,35 @@
     }
 
     .collection-link {
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 12px;
-      background: var(--light-purple);
+      margin-top: 30px;
+      padding: 24px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #fff0f7, #f1e9f6);
       text-align: center;
+      border: 2px solid var(--pink);
+    }
+
+    .collection-link p {
+      margin: 0 0 16px;
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 500;
     }
 
     .collection-link a {
-      color: var(--purple);
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 9px;
+      color: #ffffff;
+      background: linear-gradient(90deg, var(--pink), var(--purple));
       font-weight: 800;
+      text-decoration: none;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .collection-link a:hover {
+      transform: translateY(-2px);
+      filter: brightness(0.92);
     }
 
     .result-actions {
@@ -639,7 +658,7 @@
   <header class="page-header">
     <div class="header-content">
       <a class="brand" href="index.html">
-        <span>ZeTT</span> Gesunde Arbeit
+        <span>Gesunde mobile Arbeit</span>
       </a>
 
       <a class="home-link" href="index.html">
@@ -750,14 +769,16 @@
             ></div>
 
             <div class="collection-link">
-              Alle verfügbaren Hilfsmittel findest du in der
+              <p>
+                Die oben empfohlenen Hilfsmittel sind eine Auswahl. Entdecke alle verfügbaren Hilfsmittel:
+              </p>
               <a
                 href="https://ergo-thek.booqableshop.com/collections/ergothek"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                vollständigen ERGOthek
-              </a>.
+                Zur vollständigen ERGOthek →
+              </a>
             </div>
           </div>
 
@@ -817,30 +838,30 @@
         category: "workplace",
         categoryLabel: "Arbeitsplatz und Sitzen",
         title:
-          "Bietet dein Bildschirmarbeitsplatz ausreichend Arbeitsfläche und freie Beinfreiheit?",
+          "Bietet dein mobiler Arbeitsplatz ausreichend Fläche und Beinfreiheit?",
         help:
-          "Häufig benötigte Arbeitsmittel sollten gut erreichbar sein. Unter dem Tisch sollte nichts die Beinbewegung oder eine gerade Sitzposition behindern.",
+          "Egal ob im Homeoffice, im Büro oder unterwegs: Der Arbeitsplatz sollte stabil sein und benötigte Geräte erreichbar. Beine und Bewegungsfreiheit sollten nicht behindert sein.",
         image: "images/maskottchen-arbeitsplatz.png",
         imageAlt:
           "ZeTT-Maskottchen an einem aufgeräumten Bildschirmarbeitsplatz",
         answers: [
           {
             text:
-              "Nein, die Fläche ist deutlich zu klein, instabil oder der Beinraum ist eingeschränkt.",
+              "Nein, der Platz ist zu klein, instabil oder der Beinraum ist eingeschränkt.",
             score: 0,
             severity: 2,
             problem: "workspace"
           },
           {
             text:
-              "Teilweise, einzelne Gegenstände oder die Anordnung schränken mich ein.",
+              "Teilweise, manchmal schränkt die Anordnung mich ein oder der Platz variiert.",
             score: 1,
             severity: 1,
             problem: "workspace"
           },
           {
             text:
-              "Ja, Arbeitsfläche, Erreichbarkeit und Beinfreiheit passen.",
+              "Ja, der Arbeitsplatz bietet genug Fläche, Stabilität und Beinfreiheit.",
             score: 2,
             severity: 0,
             problem: null
@@ -852,30 +873,30 @@
         category: "workplace",
         categoryLabel: "Arbeitsplatz und Sitzen",
         title:
-          "Sind Stuhl, Tischhöhe, Unterarme und Fußposition sinnvoll aufeinander abgestimmt?",
+          "Sind deine Sitzhöhe, Tischhöhe und Armposition sinnvoll aufeinander abgestimmt?",
         help:
-          "Die Schultern sollten locker bleiben, die Unterarme entspannt aufliegen können und beide Füße sollten sicher abgestützt sein.",
+          "Ob mobil oder stationär: Schultern sollten locker bleiben, Unterarme entspannt aufliegen können, beide Füße sicher abgestützt sein. Bei mobiler Arbeit kann dies eine besondere Herausforderung sein.",
         image: "images/maskottchen-stuhl.png",
         imageAlt:
           "ZeTT-Maskottchen stellt Sitzhöhe und Fußposition ein",
         answers: [
           {
             text:
-              "Nein, Schultern, Arme oder Füße befinden sich regelmäßig in einer ungünstigen Position.",
+              "Nein, Schultern, Arme oder Füße befinden sich häufig in ungünstiger Position.",
             score: 0,
             severity: 2,
             problem: "seatHeight"
           },
           {
             text:
-              "Teilweise, mindestens ein Bereich ist nicht gut angepasst.",
+              "Teilweise, mindestens ein Bereich ist nicht ideal angepasst.",
             score: 1,
             severity: 1,
             problem: "seatHeight"
           },
           {
             text:
-              "Ja, Sitzhöhe, Tischhöhe, Arme und Füße sind gut abgestimmt.",
+              "Ja, Sitzhöhe und Armposition sind gut aufeinander abgestimmt.",
             score: 2,
             severity: 0,
             problem: null
