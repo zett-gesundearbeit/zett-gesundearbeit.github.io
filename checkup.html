@@ -78,14 +78,25 @@
     }
 
     .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       color: var(--purple);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 800;
       text-decoration: none;
     }
 
-    .brand span {
-      color: var(--pink);
+    .brand-logo {
+      height: 40px;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand-logo img {
+      height: 100%;
+      width: auto;
+      max-width: 130px;
     }
 
     .home-link {
@@ -658,7 +669,11 @@
   <header class="page-header">
     <div class="header-content">
       <a class="brand" href="index.html">
-        <span>Gesunde mobile Arbeit</span>
+        <div class="brand-logo">
+          <img src="images/cropped-ZeTT_Wort-Bild-Marke.png" alt="ZeTT - Zentrum Digitale Transformation Thüringen" />
+        </div>
+        <span style="color: var(--muted); margin: 0 12px;">|</span>
+        <span>Gesunde Arbeit</span>
       </a>
 
       <a class="home-link" href="index.html">
@@ -838,9 +853,9 @@
         category: "workplace",
         categoryLabel: "Arbeitsplatz und Sitzen",
         title:
-          "Bietet dein mobiler Arbeitsplatz ausreichend Fläche und Beinfreiheit?",
+          "Bietet dein Bildschirmarbeitsplatz ausreichend Fläche und Beinfreiheit?",
         help:
-          "Egal ob im Homeoffice, im Büro oder unterwegs: Der Arbeitsplatz sollte stabil sein und benötigte Geräte erreichbar. Beine und Bewegungsfreiheit sollten nicht behindert sein.",
+          "Arbeitsmittel sollten gut erreichbar sein. Unter dem Tisch oder in deinem Arbeitsbereich sollte nichts die Beinbewegung oder eine gerade Sitzposition behindern.",
         image: "images/maskottchen-arbeitsplatz.png",
         imageAlt:
           "ZeTT-Maskottchen an einem aufgeräumten Bildschirmarbeitsplatz",
@@ -854,7 +869,7 @@
           },
           {
             text:
-              "Teilweise, manchmal schränkt die Anordnung mich ein oder der Platz variiert.",
+              "Teilweise, manchmal schränkt die Anordnung mich ein.",
             score: 1,
             severity: 1,
             problem: "workspace"
@@ -875,7 +890,7 @@
         title:
           "Sind deine Sitzhöhe, Tischhöhe und Armposition sinnvoll aufeinander abgestimmt?",
         help:
-          "Ob mobil oder stationär: Schultern sollten locker bleiben, Unterarme entspannt aufliegen können, beide Füße sicher abgestützt sein. Bei mobiler Arbeit kann dies eine besondere Herausforderung sein.",
+          "Schultern sollten locker bleiben, Unterarme entspannt aufliegen können, beide Füße sicher abgestützt sein.",
         image: "images/maskottchen-stuhl.png",
         imageAlt:
           "ZeTT-Maskottchen stellt Sitzhöhe und Fußposition ein",
