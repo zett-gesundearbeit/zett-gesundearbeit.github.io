@@ -209,10 +209,53 @@
 
     .question-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 270px;
+      grid-template-columns: minmax(0, 1fr);
       align-items: center;
       gap: 36px;
       animation: fade-in 0.28s ease;
+    }
+
+    .image-screen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, var(--light-pink), var(--light-purple));
+      z-index: 100;
+      animation: fade-in 0.28s ease;
+      overflow: auto;
+    }
+
+    .image-screen.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .image-screen-content {
+      max-width: 90%;
+      max-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-screen-content img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    .image-screen-footer {
+      margin-top: 40px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
     }
 
     .category {
@@ -268,22 +311,11 @@
     }
 
     .image-box {
-      min-height: 270px;
-      display: grid;
-      place-items: center;
-      padding: 18px;
-      border-radius: 20px;
-      background: linear-gradient(
-        145deg,
-        var(--light-pink),
-        var(--light-purple)
-      );
+      display: none;
     }
 
     .question-image {
-      width: 100%;
-      max-height: 255px;
-      object-fit: contain;
+      display: none;
     }
 
     .navigation {
@@ -683,6 +715,17 @@
   </header>
 
   <main>
+    <div id="imageScreen" class="image-screen">
+      <div class="image-screen-content">
+        <img id="imageScreenImg" src="" alt="" />
+      </div>
+      <div class="image-screen-footer">
+        <button id="continueButton" class="next-button" type="button">
+          Weiter zur nächsten Frage
+        </button>
+      </div>
+    </div>
+
     <article class="check-card">
       <section class="intro">
         <p class="eyebrow">
@@ -1443,6 +1486,15 @@
     const restartButton = document.getElementById(
       "restartButton"
     );
+    const imageScreen = document.getElementById(
+      "imageScreen"
+    );
+    const imageScreenImg = document.getElementById(
+      "imageScreenImg"
+    );
+    const continueButton = document.getElementById(
+      "continueButton"
+    );
 
     let currentQuestion = 0;
     let answers = [];
@@ -1542,6 +1594,23 @@
         category: question.category,
         questionIndex: currentQuestion
       };
+
+      showImage();
+    }
+
+    function showImage() {
+      const question = QUESTIONS[currentQuestion];
+      imageScreenImg.src = question.image;
+      imageScreenImg.alt = question.imageAlt;
+      imageScreen.classList.add("active");
+      window.scrollTo({
+        top: 0,
+        behavior: "instant"
+      });
+    }
+
+    function continueToNextQuestion() {
+      imageScreen.classList.remove("active");
 
       if (currentQuestion < QUESTIONS.length - 1) {
         currentQuestion += 1;
@@ -1887,6 +1956,8 @@
         behavior: "smooth"
       });
     });
+
+    continueButton.addEventListener("click", continueToNextQuestion);
 
     restartButton.addEventListener("click", restart);
 
