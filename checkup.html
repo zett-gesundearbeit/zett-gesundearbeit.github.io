@@ -1602,6 +1602,14 @@
       const question = QUESTIONS[currentQuestion];
       imageScreenImg.src = question.image;
       imageScreenImg.alt = question.imageAlt;
+      
+      // Button-Text basierend auf der aktuellen Frage anpassen
+      if (currentQuestion === QUESTIONS.length - 1) {
+        continueButton.textContent = "Weiter zum Ergebnis";
+      } else {
+        continueButton.textContent = "Weiter zur nächsten Frage";
+      }
+      
       imageScreen.classList.add("active");
       window.scrollTo({
         top: 0,
