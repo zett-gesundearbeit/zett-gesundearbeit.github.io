@@ -878,7 +878,7 @@
               "Teilweise: Ich kann meine Haltung verändern, werde dabei aber nicht durchgehend unterstützt.",
             score: 1,
             severity: 1,
-            problem: "seatHeight"
+            problem: "dynamicSitting"
           },
           {
             text:
@@ -913,14 +913,14 @@
               "Teilweise: Das gelingt mir nur auf einer Seite oder mit etwas Ausweichen.",
             score: 1,
             severity: 1,
-            problem: "dynamicSitting"
+            problem: "inputDevices"
           },
           {
             text:
               "Nein: Ich muss die Schultern hochziehen, mich vorbeugen oder die Arme ohne Unterstützung halten.",
             score: 0,
             severity: 2,
-            problem: "seatHeight"
+            problem: "inputDevices"
           }
         ]
       },
@@ -1046,7 +1046,7 @@
               "Ja: Ich nutze zusätzliche Geräte und kann Bildschirm und Tastatur passend positionieren.",
             score: 2,
             severity: 0,
-            problem: "laptop"
+            problem: null
           },
           {
             text:
@@ -1180,21 +1180,21 @@
 
     const TIP_DATA = {
       workspace: {
-        title: "Arbeitsfläche und Beinraum neu ordnen",
+        title: "Sitzposition und Fußstützung anpassen",
         text:
-          "Entferne Gegenstände aus dem Beinraum und ordne häufig genutzte Arbeitsmittel im direkten Greifbereich an. Nutze für längere Bildschirmarbeit eine stabile und ausreichend große Arbeitsfläche."
+          "Rutsche mit dem Becken bis an die Rückenlehne. Stelle die Sitzhöhe so ein, dass beide Füße vollständig auf dem Boden stehen. Wenn das nicht möglich ist, nutze eine passende Fußstütze und achte darauf, dass die Sitzkante nicht in die Kniekehlen drückt."
       },
 
       seatHeight: {
-        title: "Stuhl, Tisch und Fußposition abstimmen",
+        title: "Arbeitshöhe und Armposition abstimmen",
         text:
-          "Richte zuerst die Arbeitshöhe für locker hängende Schultern und entspannte Unterarme ein. Stelle danach den Stuhl passend ein. Erreichen die Füße den Boden dann nicht sicher, kann eine verstellbare Fußstütze sinnvoll sein."
+          "Stelle Tisch, Stuhl und Armlehnen so ein, dass du deine Unterarme ablegen kannst, ohne die Schultern hochzuziehen oder dich nach vorn zu beugen."
       },
 
       dynamicSitting: {
-        title: "Rückenlehne nutzen und Haltung wechseln",
+        title: "Bewegliche Rückenlehne nutzen",
         text:
-          "Nutze die Sitzfläche bis zur Rückenlehne und passe deren Unterstützung an. Wechsle regelmäßig zwischen unterschiedlichen Sitzpositionen. Dynamische Sitzhilfen sind eine zeitweise Ergänzung, kein pauschaler Ersatz für einen passenden Bürostuhl."
+          "Prüfe, ob die Rückenlehne beim Zurücklehnen und Aufrichten mitgeht und dir in beiden Positionen Halt gibt. Stelle den Widerstand passend ein und wechsle regelmäßig die Sitzhaltung."
       },
 
       monitorPosition: {
@@ -1222,15 +1222,15 @@
       },
 
       inputDevices: {
-        title: "Tastatur, Maus und Unterarme entlastend anordnen",
+        title: "Unterarme, Tastatur und Maus körpernah anordnen",
         text:
-          "Lege Tastatur und Maus nah an den Körper. Halte die Tastatur möglichst flach und vermeide dauerhaft abgeknickte Handgelenke. Prüfe erst die Anordnung und erprobe danach bei Bedarf alternative Eingabegeräte."
+          "Positioniere Tastatur und Maus so, dass die Oberarme nah am Körper bleiben und die Handgelenke möglichst gerade sind. Lege die Unterarme ab, ohne die Schultern hochzuziehen oder dich vorzubeugen."
       },
 
       communication: {
-        title: "Telefonie und Videokonferenzen entlastend organisieren",
+        title: "Ruhe für konzentriertes Arbeiten schaffen",
         text:
-          "Klemme Telefon oder Smartphone nicht zwischen Kopf und Schulter. Nutze bei längeren Gesprächen eine Freisprechlösung oder ein geeignetes Headset. Reduziere Störquellen und plane konzentrierte Arbeitsphasen."
+          "Reduziere störende Gespräche, Telefonate und andere Geräusche. Nutze bei Bedarf einen ruhigeren Arbeitsplatz, vereinbare störungsarme Zeiten oder verwende eine geeignete Freisprech- beziehungsweise Headset-Lösung."
       },
 
       movement: {
@@ -1241,6 +1241,16 @@
     };
 
     const PRODUCT_DATA = {
+      workspace: [
+        {
+          name: "04. Fußstütze (Ergo-Finland)",
+          description:
+            "Zum Erproben, wenn die Füße trotz passender Sitzhöhe nicht sicher und vollständig auf dem Boden stehen.",
+          url:
+            "https://ergo-thek.booqableshop.com/products/04-fussstutze-ergo-finland"
+        }
+      ],
+
       seatHeight: [
         {
           name: "04. Fußstütze (Ergo-Finland)",
