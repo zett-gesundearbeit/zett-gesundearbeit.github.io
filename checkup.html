@@ -215,49 +215,6 @@
       animation: fade-in 0.28s ease;
     }
 
-    .image-screen {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, var(--light-pink), var(--light-purple));
-      z-index: 100;
-      animation: fade-in 0.28s ease;
-      overflow: auto;
-    }
-
-    .image-screen.active {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-    }
-
-    .image-screen-content {
-      max-width: 90%;
-      max-height: 80vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .image-screen-content img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      border-radius: 12px;
-    }
-
-    .image-screen-footer {
-      margin-top: 40px;
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-    }
-
     .category {
       display: inline-block;
       margin-bottom: 14px;
@@ -308,14 +265,6 @@
       background: var(--light-pink);
       transform: translateY(-1px);
       outline: none;
-    }
-
-    .image-box {
-      display: none;
-    }
-
-    .question-image {
-      display: none;
     }
 
     .navigation {
@@ -652,15 +601,6 @@
         grid-template-columns: 1fr;
       }
 
-      .image-box {
-        min-height: 190px;
-        order: -1;
-      }
-
-      .question-image {
-        max-height: 185px;
-      }
-
       .category-results,
       .products {
         grid-template-columns: 1fr;
@@ -715,17 +655,6 @@
   </header>
 
   <main>
-    <div id="imageScreen" class="image-screen">
-      <div class="image-screen-content">
-        <img id="imageScreenImg" src="" alt="" />
-      </div>
-      <div class="image-screen-footer">
-        <button id="continueButton" class="next-button" type="button">
-          Weiter zur nächsten Frage
-        </button>
-      </div>
-    </div>
-
     <article class="check-card">
       <section class="intro">
         <p class="eyebrow">
@@ -1485,16 +1414,6 @@
     const restartButton = document.getElementById(
       "restartButton"
     );
-    const imageScreen = document.getElementById(
-      "imageScreen"
-    );
-    const imageScreenImg = document.getElementById(
-      "imageScreenImg"
-    );
-    const continueButton = document.getElementById(
-      "continueButton"
-    );
-
     let currentQuestion = 0;
     let answers = [];
 
@@ -1553,18 +1472,6 @@
               ${answerMarkup}
             </div>
           </div>
-
-          <div class="image-box">
-            <img
-              class="question-image"
-              src="${question.image}"
-              alt="${question.imageAlt}"
-              onerror="
-                this.onerror=null;
-                this.src='images/maskottchen.png';
-              "
-            >
-          </div>
         </div>
       `;
 
@@ -1593,31 +1500,6 @@
         category: question.category,
         questionIndex: currentQuestion
       };
-
-      showImage();
-    }
-
-    function showImage() {
-      const question = QUESTIONS[currentQuestion];
-      imageScreenImg.src = question.image;
-      imageScreenImg.alt = question.imageAlt;
-      
-      // Button-Text basierend auf der aktuellen Frage anpassen
-      if (currentQuestion === QUESTIONS.length - 1) {
-        continueButton.textContent = "Weiter zum Ergebnis";
-      } else {
-        continueButton.textContent = "Weiter zur nächsten Frage";
-      }
-      
-      imageScreen.classList.add("active");
-      window.scrollTo({
-        top: 0,
-        behavior: "instant"
-      });
-    }
-
-    function continueToNextQuestion() {
-      imageScreen.classList.remove("active");
 
       if (currentQuestion < QUESTIONS.length - 1) {
         currentQuestion += 1;
@@ -1963,8 +1845,6 @@
         behavior: "smooth"
       });
     });
-
-    continueButton.addEventListener("click", continueToNextQuestion);
 
     restartButton.addEventListener("click", restart);
 
