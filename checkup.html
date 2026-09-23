@@ -729,7 +729,7 @@
     <article class="check-card">
       <section class="intro">
         <p class="eyebrow">
-          Bildschirmarbeitsplatz-Check
+          Dein Bildschirmarbeitsplatz-Check
         </p>
 
         <h1>
@@ -737,10 +737,9 @@
         </h1>
 
         <p>
-          Bewerte zehn konkrete Aspekte deines Arbeitsplatzes.
-          Anschließend erhältst du Bereichswerte, priorisierte
-          Verbesserungsmaßnahmen und passende, individuell ausgewählte
-          Hilfsmittel aus der ERGOthek.
+          Beantworte die Fragen für deinen üblichen Arbeitsplatz.
+          Probiere die beschriebenen Situationen kurz aus. Bei Fragen
+          zu deinen Gewohnheiten denke an einen typischen Arbeitstag.
         </p>
       </section>
 
@@ -877,7 +876,7 @@
 
       screen: {
         title: "Bildschirm und Sehen",
-        questionCount: 3
+        questionCount: 2
       },
 
       equipment: {
@@ -887,7 +886,7 @@
 
       organisation: {
         title: "Organisation und Bewegung",
-        questionCount: 2
+        questionCount: 3
       }
     };
 
@@ -896,33 +895,33 @@
         category: "workplace",
         categoryLabel: "Arbeitsplatz und Sitzen",
         title:
-          "Bietet dein Bildschirmarbeitsplatz ausreichend Arbeitsfläche, Stabilität und volle Beinfreiheit?",
+          "Kannst du mit angelehntem Rücken sitzen, während deine Füße vollständig auf dem Boden oder einer Fußstütze stehen?",
         help:
-          "Der Arbeitsplatz sollte stabil sein und häufig genutzte Arbeitsmittel im direkten Greifbereich liegen. Unter dem Tisch sollte nichts die Beinbewegung, das Aufstehen oder eine gerade Sitzposition behindern. Mindestens 65 cm Freihöhe und 80 cm Breite sind ideal.",
+          "Rutsche dafür mit dem Becken nach hinten an die Rückenlehne. Die Sitzkante sollte nicht in deine Kniekehlen drücken.",
         image: "images/01_arbeitsplatz_beinfreiheit.png",
         imageAlt:
           "Arbeitsplatz mit ausreichend Fläche und Beinfreiheit",
         answers: [
           {
             text:
-              "Nein, der Platz ist sehr eng, instabil oder der Beinraum ist deutlich eingeschränkt.",
-            score: 0,
-            severity: 2,
-            problem: "workspace"
+              "Ja: Mein Rücken findet Halt und meine Füße stehen vollständig auf.",
+            score: 2,
+            severity: 0,
+            problem: null
           },
           {
             text:
-              "Teilweise, Fläche oder Beinfreiheit sind teilweise begrenzt.",
+              "Teilweise: Das gelingt mir nur eingeschränkt.",
             score: 1,
             severity: 1,
             problem: "workspace"
           },
           {
             text:
-              "Ja, der Arbeitsplatz bietet viel Fläche, ist stabil und ich habe volle Beinfreiheit.",
-            score: 2,
-            severity: 0,
-            problem: null
+              "Nein: Ich kann nicht gleichzeitig angelehnt sitzen und meine Füße vollständig aufstellen.",
+            score: 0,
+            severity: 2,
+            problem: "workspace"
           }
         ]
       },
@@ -931,33 +930,33 @@
         category: "workplace",
         categoryLabel: "Arbeitsplatz und Sitzen",
         title:
-          "Sind Sitzhöhe, Tischhöhe und Armposition ideal aufeinander abgestimmt?",
+          "Unterstützt dich dein Stuhl auch dann, wenn du deine Sitzhaltung veränderst?",
         help:
-          "Die Tischhöhe sollte so eingestellt sein, dass deine Schultern locker hängen und deine Unterarme beim Arbeiten horizontal und entspannt sind. Deine Hüften sollten leicht höher liegen als deine Knie, und beide Füße sollten sicher auf dem Boden oder einer verstellbaren Fußstütze aufliegen.",
+          "Lehne dich etwas zurück und setze dich wieder aufrechter hin. Die Rückenlehne sollte deine Bewegung mitmachen und dir dabei Halt geben.",
         image: "images/02_sitzhoehe_armposition.png",
         imageAlt:
           "Sitzhöhe und Armposition richtig abstimmen",
         answers: [
           {
             text:
-              "Nein, Sitzhöhe oder Armposition sind deutlich falsch, Unbehagen ist häufig.",
-            score: 0,
-            severity: 2,
-            problem: "seatHeight"
+              "Ja: Die Rückenlehne bewegt sich mit und gibt mir Halt.",
+            score: 2,
+            severity: 0,
+            problem: null
           },
           {
             text:
-              "Teilweise, mindestens ein Bereich ist nicht ideal (Hüfte, Knie, Schultern oder Füße).",
+              "Teilweise: Ich kann meine Haltung verändern, werde dabei aber nicht durchgehend unterstützt.",
             score: 1,
             severity: 1,
             problem: "seatHeight"
           },
           {
             text:
-              "Ja, Sitzhöhe, Tischhöhe und Armposition sind optimal aufeinander abgestimmt.",
-            score: 2,
-            severity: 0,
-            problem: null
+              "Nein: Die Rückenlehne bleibt starr oder gibt mir beim Bewegen keinen Halt.",
+            score: 0,
+            severity: 2,
+            problem: "dynamicSitting"
           }
         ]
       },
@@ -966,33 +965,33 @@
         category: "workplace",
         categoryLabel: "Arbeitsplatz und Sitzen",
         title:
-          "Unterstützt dein Stuhl den Rücken und ermöglicht er regelmäßige Haltungswechsel?",
+          "Kannst du deine Unterarme ablegen, während deine Schultern locker bleiben?",
         help:
-          "Nutze die Sitzfläche bis zur Rückenlehne und passe deren Unterstützung an deine Bedürfnisse an. Wechsle regelmäßig zwischen unterschiedlichen Sitzhaltungen – dynamisches Sitzen ist wichtiger als eine starre Haltung. Dynamische Sitzhilfen sind eine zeitweise Ergänzung, kein Ersatz für einen passenden Stuhl.",
+          "Lege die Unterarme auf den Tisch oder die Armlehnen. Du solltest dafür weder die Schultern hochziehen noch den Oberkörper nach vorne beugen müssen.",
         image: "images/03_rueckenstuetze_dynamisches_sitzen.png",
         imageAlt:
           "Stuhl mit Rückenstütze für dynamisches Sitzen",
         answers: [
           {
             text:
-              "Nein, ich sitze meist ohne Rückenunterstützung oder lange nahezu unbewegt.",
-            score: 0,
-            severity: 2,
-            problem: "dynamicSitting"
+              "Ja: Ich kann meine Unterarme mit lockeren Schultern ablegen.",
+            score: 2,
+            severity: 0,
+            problem: null
           },
           {
             text:
-              "Teilweise, Rückenlehne oder Haltungswechsel nutze ich nur eingeschränkt.",
+              "Teilweise: Das gelingt mir nur auf einer Seite oder mit etwas Ausweichen.",
             score: 1,
             severity: 1,
             problem: "dynamicSitting"
           },
           {
             text:
-              "Ja, der Rücken wird unterstützt und ich wechsle regelmäßig die Sitzhaltung.",
-            score: 2,
-            severity: 0,
-            problem: null
+              "Nein: Ich muss die Schultern hochziehen, mich vorbeugen oder die Arme ohne Unterstützung halten.",
+            score: 0,
+            severity: 2,
+            problem: "seatHeight"
           }
         ]
       },
@@ -1001,33 +1000,33 @@
         category: "screen",
         categoryLabel: "Bildschirm und Sehen",
         title:
-          "Steht dein Hauptbildschirm frontal mit angenehmer Höhe und Sehabstand?",
+          "Kannst du auf deinen Hauptbildschirm schauen, ohne den Kopf dauerhaft zu drehen, anzuheben oder stark nach unten zu neigen?",
         help:
-          "Stelle den überwiegend genutzten Bildschirm direkt vor dir auf. Du solltest mit weitgehend geradem Kopf und leicht gesenktem Blick arbeiten können – ohne Drehen oder Vorlehnen. Passe Höhe, Neigung, Abstand und Schriftgröße gemeinsam an. Ein höhenverstellbarer Tisch oder ein Monitorständer ermöglichen flexible Anpassungen.",
+          "Prüfe das mit einem geöffneten Dokument in deiner üblichen Sitzposition. Ein leicht gesenkter Blick ist in Ordnung.",
         image: "images/04_bildschirmhoehe_sehabstand.png",
         imageAlt:
           "Bildschirmhöhe und flexible Arbeitsplatz-Höhenverstellung",
         answers: [
           {
             text:
-              "Nein, Höhe oder Abstand sind schlecht, und Tischhöhe ist nicht anpassbar.",
-            score: 0,
-            severity: 2,
-            problem: "monitorPosition"
+              "Ja: Ich kann mit entspannter Kopfhaltung auf den Bildschirm schauen.",
+            score: 2,
+            severity: 0,
+            problem: null
           },
           {
             text:
-              "Teilweise, Bildschirmposition ist OK, aber Tischhöhe ist nicht verstellbar.",
+              "Teilweise: Für einen Teil meiner Arbeit muss ich den Kopf ungünstig halten.",
             score: 1,
             severity: 1,
             problem: "monitorPosition"
           },
           {
             text:
-              "Ja, Bildschirmposition passt und ich kann die Höhe anpassen oder alternieren.",
-            score: 2,
-            severity: 0,
-            problem: null
+              "Nein: Ich muss den Kopf beim Arbeiten überwiegend drehen, anheben oder stark senken.",
+            score: 0,
+            severity: 2,
+            problem: "monitorPosition"
           }
         ]
       },
@@ -1036,68 +1035,68 @@
         category: "screen",
         categoryLabel: "Bildschirm und Sehen",
         title:
-          "Sind Schrift, Symbole, Kontrast und Helligkeit gut erkennbar?",
+          "Kannst du bei deinem üblichen Licht arbeiten, ohne geblendet oder durch Spiegelungen gestört zu werden?",
         help:
-          "Schrift und Symbole sollten ohne Anstrengung lesbar sein. Vergrößere Schrift und Zoomstufe bei Bedarf. Passe Bildschirmhelligkeit und Kontrast an die Umgebung an. Falls Sehprobleme bestehen, lasse deine Sehfähigkeit fachlich prüfen – vermeide auf keinen Fall zu viel Zeit mit ungünstigen Bedingungen.",
+          "Achte auf Fenster, Lampen und Reflexionen im Bildschirm. Auch Unterlagen auf dem Tisch sollten gut lesbar sein.",
         image: "images/05_lesbarkeit_kontrast.png",
         imageAlt:
           "Lesbarkeit und Kontrast optimieren",
         answers: [
           {
             text:
-              "Nein, kleine oder kontrastarme Inhalte belasten mich regelmäßig.",
-            score: 0,
-            severity: 2,
-            problem: "readability"
-          },
-          {
-            text:
-              "Teilweise, bei bestimmten Programmen oder Inhalten ist die Darstellung ungünstig.",
-            score: 1,
-            severity: 1,
-            problem: "readability"
-          },
-          {
-            text:
-              "Ja, Darstellung und Helligkeit sind gut angepasst.",
+              "Ja: Das Licht passt und ich werde nicht durch Blendung oder Spiegelungen gestört.",
             score: 2,
             severity: 0,
             problem: null
+          },
+          {
+            text:
+              "Teilweise: Zu bestimmten Tageszeiten oder bei einzelnen Aufgaben stört mich das Licht.",
+            score: 1,
+            severity: 1,
+            problem: "lighting"
+          },
+          {
+            text:
+              "Nein: Blendung, Spiegelungen oder zu wenig Licht erschweren meine Arbeit häufig.",
+            score: 0,
+            severity: 2,
+            problem: "lighting"
           }
         ]
       },
 
       {
-        category: "screen",
-        categoryLabel: "Bildschirm und Umgebung",
+        category: "equipment",
+        categoryLabel: "Arbeitsmittel",
         title:
-          "Ist die Beleuchtung ausreichend und frei von Blendung und störenden Reflexionen?",
+          "Kannst du tippen und die Maus bedienen, ohne weit greifen oder deine Handgelenke deutlich abknicken zu müssen?",
         help:
-          "Ausreichendes Licht verhindert Augenbelastung und ungünstige Kopfhaltungen. Richte deinen Bildschirm so aus, dass Fenster möglichst seitlich liegen. Nutze Sonnenschutz und positioniere Leuchten so, dass weder direkte Blendung noch störende Reflexionen auf dem Bildschirm entstehen.",
+          "Probiere beides kurz aus. Deine Oberarme sollten nahe am Körper bleiben und deine Hände möglichst eine Linie mit den Unterarmen bilden.",
         image: "images/06_beleuchtung_ohne_blendung.png",
         imageAlt:
           "Optimale Beleuchtung und ruhige Arbeitsumgebung",
         answers: [
           {
             text:
-              "Nein, Beleuchtung ist schlecht, Blendung oder Lärm beeinträchtigen mich häufig.",
-            score: 0,
-            severity: 2,
-            problem: "lighting"
-          },
-          {
-            text:
-              "Teilweise, die Bedingungen sind je nach Tageszeit, Wetter oder Lärm unterschiedlich.",
-            score: 1,
-            severity: 1,
-            problem: "lighting"
-          },
-          {
-            text:
-              "Ja, Beleuchtung ist ausreichend, gleichmäßig und ich werde nicht durch Lärm gestört.",
+              "Ja: Das gelingt mir sowohl beim Tippen als auch beim Bedienen der Maus.",
             score: 2,
             severity: 0,
             problem: null
+          },
+          {
+            text:
+              "Teilweise: Bei einem von beiden muss ich weit greifen oder die Handgelenke abknicken.",
+            score: 1,
+            severity: 1,
+            problem: "inputDevices"
+          },
+          {
+            text:
+              "Nein: Das ist sowohl beim Tippen als auch beim Bedienen der Maus schwierig.",
+            score: 0,
+            severity: 2,
+            problem: "inputDevices"
           }
         ]
       },
@@ -1106,37 +1105,37 @@
         category: "equipment",
         categoryLabel: "Arbeitsmittel",
         title:
-          "Nutzt du bei längerer Notebook-Arbeit eine separate Tastatur und Maus oder einen externen Bildschirm?",
+          "Wenn du länger am Laptop arbeitest: Kannst du Bildschirm und Tastatur unabhängig voneinander positionieren?",
         help:
-          "Beim Notebook sind Bildschirm und Tastatur fest verbunden. Bei längerer Arbeit solltest du eine separate Tastatur und Maus oder einen Notebook-Ständer mit externem Monitor nutzen. So lässt sich die Bildschirm- und Handposition unabhängig und ergonomisch anpassen. Arbeite nicht dauerhaft mit hochgestelltem Notebook ohne externe Eingabegeräte.",
+          "Das geht beispielsweise mit separater Tastatur und Maus sowie einem Laptopständer – oder mit einem externen Bildschirm und passend angeordneten Eingabegeräten.",
         image: "images/07_laptop_mit_externen_geraeten.png",
         imageAlt:
           "Laptop mit externen Geräten und Ständer",
         answers: [
           {
             text:
-              "Nein, ich arbeite länger direkt am Notebook ohne geeignete Zusatzgeräte.",
-            score: 0,
-            severity: 2,
+              "Ja: Ich nutze zusätzliche Geräte und kann Bildschirm und Tastatur passend positionieren.",
+            score: 2,
+            severity: 0,
             problem: "laptop"
           },
           {
             text:
-              "Teilweise, Zusatzgeräte stehen nicht immer zur Verfügung.",
+              "Teilweise: Ich nutze zusätzliche Geräte, kann aber noch nicht beides unabhängig passend aufstellen.",
             score: 1,
             severity: 1,
             problem: "laptop"
           },
           {
             text:
-              "Ja, ich nutze eine getrennte Bildschirm- und Eingabeposition.",
-            score: 2,
-            severity: 0,
-            problem: null
+              "Nein: Ich arbeite ausschließlich mit dem eingebauten Bildschirm und der Laptop-Tastatur.",
+            score: 0,
+            severity: 2,
+            problem: "laptop"
           },
           {
             text:
-              "Ich nutze kein Notebook als Hauptarbeitsgerät.",
+              "Betrifft mich nicht: Ich arbeite nicht länger am Laptop.",
             score: 2,
             severity: 0,
             problem: null
@@ -1145,36 +1144,36 @@
       },
 
       {
-        category: "equipment",
-        categoryLabel: "Arbeitsmittel",
+        category: "organisation",
+        categoryLabel: "Organisation und Bewegung",
         title:
-          "Kannst du Tastatur und Maus körpernah mit lockeren Schultern und neutralen Handgelenken bedienen?",
+          "Kannst du an deinem Arbeitsplatz konzentriert arbeiten, ohne häufig durch Lärm gestört zu werden?",
         help:
-          "Tastatur und Maus sollten körpernah liegen, sodass du deine Arme nicht weit nach vorn strecken musst. Deine Schultern sollten locker hängen und deine Handgelenke beim Arbeiten möglichst neutral (gerade) sein. Wähle Eingabegeräte passend zu deiner Handgröße und Nutzungshäufigkeit aus.",
+          "Denke beispielsweise an Gespräche, Telefonate oder andere Geräusche, die dich beim Lesen, Schreiben oder Nachdenken unterbrechen.",
         image: "images/08_tastatur_und_maus_positionierung.png",
         imageAlt:
           "Tastatur und Maus Positionierung",
         answers: [
           {
             text:
-              "Nein, Schultern, Unterarme, Hände oder Handgelenke sind regelmäßig angespannt.",
-            score: 0,
-            severity: 2,
-            problem: "inputDevices"
-          },
-          {
-            text:
-              "Teilweise, die Haltung ist nur zeitweise entspannt.",
-            score: 1,
-            severity: 1,
-            problem: "inputDevices"
-          },
-          {
-            text:
-              "Ja, Tastatur, Maus und Unterarme sind gut positioniert.",
+              "Ja: Ich kann meistens ungestört arbeiten.",
             score: 2,
             severity: 0,
             problem: null
+          },
+          {
+            text:
+              "Teilweise: Geräusche unterbrechen meine Konzentration gelegentlich.",
+            score: 1,
+            severity: 1,
+            problem: "communication"
+          },
+          {
+            text:
+              "Nein: Lärm stört mich häufig beim konzentrierten Arbeiten.",
+            score: 0,
+            severity: 2,
+            problem: "communication"
           }
         ]
       },
@@ -1183,33 +1182,33 @@
         category: "organisation",
         categoryLabel: "Organisation und Bewegung",
         title:
-          "Kannst du telefonieren und an Videokonferenzen teilnehmen, ohne den Hörer einzuklemmen und ohne störenden Lärm?",
+          "Wechselst du im Arbeitsalltag zwischen Sitzen, Stehen und Gehen?",
         help:
-          "Längere Gespräche sollten eine freie und entspannte Kopfhaltung ermöglichen. Nutze ein Headset statt den Telefonhörer zwischen Ohr und Schulter zu klemmen – das führt zu Nackenverspannungen. Die akustische Umgebung sollte störgeräuscharm sein, damit du dich konzentrieren kannst.",
+          "Denke an deinen letzten typischen Arbeitstag: Gab es immer wieder solche Wechsel oder hast du die meiste Zeit durchgehend gesessen?",
         image: "images/09_headset_und_videokonferenz.png",
         imageAlt:
           "Headset und Videokonferenz Setup",
         answers: [
           {
             text:
-              "Nein, ich klemme häufig Telefon oder Smartphone ein oder werde stark durch Lärm gestört.",
-            score: 0,
-            severity: 2,
-            problem: "communication"
-          },
-          {
-            text:
-              "Teilweise, bei längeren Gesprächen oder in lauter Umgebung entstehen Belastungen.",
-            score: 1,
-            severity: 1,
-            problem: "communication"
-          },
-          {
-            text:
-              "Ja, Kommunikation und akustische Bedingungen sind gut organisiert.",
+              "Ja: Ich stehe über den Tag verteilt immer wieder auf und bewege mich.",
             score: 2,
             severity: 0,
             problem: null
+          },
+          {
+            text:
+              "Teilweise: Ich wechsle gelegentlich, sitze aber häufig längere Zeit am Stück.",
+            score: 1,
+            severity: 1,
+            problem: "movement"
+          },
+          {
+            text:
+              "Nein: Ich bleibe fast den gesamten Arbeitstag sitzen.",
+            score: 0,
+            severity: 2,
+            problem: "movement"
           }
         ]
       },
@@ -1218,33 +1217,33 @@
         category: "organisation",
         categoryLabel: "Organisation und Bewegung",
         title:
-          "Unterbrichst du längere Bildschirmphasen regelmäßig durch Pausen und Bewegung?",
+          "Unterbrichst du längere Bildschirmphasen durch kurze Tätigkeiten oder Pausen ohne Bildschirm?",
         help:
-          "Regelmäßige Unterbrechungen sind wichtiger als eine perfekte Haltung. Alle 30-50 Minuten solltest du 5-10 Minuten unterbrechen: Aufgabenwechsel, kurz in die Ferne schauen, aufstehen und gehen. Bewegung und Blickwechsel sind essentiell für Gesundheit und Leistung.",
+          "Zum Beispiel durch ein Gespräch abseits des Monitors, einen kurzen Gang oder einen Blick in die Ferne. Der Wechsel vom Computer zum Smartphone zählt hier nicht dazu.",
         image: "images/10_pausen_und_bewegung.png",
         imageAlt:
           "Pausen und Bewegung während der Bildschirmarbeit",
         answers: [
           {
             text:
-              "Nein, ich arbeite häufig 2+ Stunden ohne Unterbrechung am Bildschirm.",
-            score: 0,
-            severity: 2,
-            problem: "movement"
+              "Ja: Ich unterbreche meine Bildschirmarbeit immer wieder bewusst.",
+            score: 2,
+            severity: 0,
+            problem: null
           },
           {
             text:
-              "Teilweise, ich unterbreche die Bildschirmarbeit noch unregelmäßig (seltener als alle 60 Minuten).",
+              "Teilweise: Das gelingt mir gelegentlich, im Arbeitsfluss vergesse ich es aber oft.",
             score: 1,
             severity: 1,
             problem: "movement"
           },
           {
             text:
-              "Ja, alle 30-50 Minuten wechsle ich Aufgaben, schaue weg oder bewege mich.",
-            score: 2,
-            severity: 0,
-            problem: null
+              "Nein: Ich arbeite meist lange ohne Unterbrechung am Bildschirm.",
+            score: 0,
+            severity: 2,
+            problem: "movement"
           }
         ]
       }
