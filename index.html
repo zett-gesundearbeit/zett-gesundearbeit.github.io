@@ -176,7 +176,7 @@
     .hero {
       position: relative;
       overflow: hidden;
-      padding: 80px 0;
+      padding: 44px 0;
       color: var(--white);
       background:
         linear-gradient(
@@ -210,7 +210,7 @@
       */
       grid-template-columns:
         minmax(0, 1.15fr)
-        minmax(330px, 0.85fr);
+        minmax(280px, 0.85fr);
 
       align-items: center;
       gap: 64px;
@@ -230,16 +230,16 @@
 
     .hero h1 {
       max-width: 760px;
-      margin: 0 0 24px;
-      font-size: clamp(2.6rem, 5.4vw, 4.8rem);
+      margin: 0 0 18px;
+      font-size: clamp(2.6rem, 5.1vw, 4.45rem);
       line-height: 1.04;
       overflow-wrap: break-word;
     }
 
     .hero-text {
       max-width: 700px;
-      margin: 0 0 34px;
-      font-size: 1.17rem;
+      margin: 0 0 24px;
+      font-size: 1.1rem;
     }
 
     .button-group {
@@ -278,6 +278,13 @@
       background: var(--white);
     }
 
+    .button-note {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
     /*
       Das Maskottchen bleibt vollständig in seiner eigenen Spalte.
       Es wird nicht absolut positioniert und kann den Titel deshalb
@@ -294,8 +301,8 @@
 
     .hero-mascot img {
       width: 100%;
-      max-width: 470px;
-      max-height: 600px;
+      max-width: 370px;
+      max-height: 440px;
       object-fit: contain;
       object-position: center;
       border-radius: 24px;
@@ -439,10 +446,15 @@
       gap: 42px;
     }
 
+    .checkup-grid > * {
+      min-width: 0;
+    }
+
     .checkup-grid h2 {
       margin: 0 0 16px;
       font-size: clamp(2.1rem, 4vw, 3.5rem);
       line-height: 1.15;
+      overflow-wrap: break-word;
     }
 
     .checkup-grid p {
@@ -499,7 +511,8 @@
       }
 
       .hero-mascot img {
-        max-width: 390px;
+        max-width: 330px;
+        max-height: 390px;
       }
 
       .steps {
@@ -537,6 +550,10 @@
       .nav-links a:not(.nav-checkup) {
         display: none;
       }
+
+      .nav-links .nav-checkup {
+        display: none;
+      }
     }
 
     @media (max-width: 600px) {
@@ -545,7 +562,7 @@
       }
 
       .hero {
-        padding: 64px 0;
+        padding: 42px 0;
       }
 
       .hero h1 {
@@ -610,29 +627,24 @@
   <main>
     <section class="hero">
       <div class="container hero-grid">
-
-        <!-- Linke Spalte: ausschließlich Überschrift und Text -->
-
         <div class="hero-content">
           <p class="eyebrow">
             ZeTT Gesunde Arbeit
           </p>
 
           <h1>
-            Wie gut ist dein<br>Bildschirm-arbeitsplatz<br>eingerichtet?
+            Wie gut passt dein Arbeitsplatz zu dir?
           </h1>
 
           <p class="hero-text">
-            Prüfe in zehn Fragen deinen Sitzplatz, Bildschirm,
-            Notebook, Tastatur, Maus, Beleuchtung, Kommunikation
-            und deine Arbeitsunterbrechungen. Anschließend erhältst
-            du konkrete Maßnahmen und individuell passende
-            Hilfsmittel aus der ERGOthek.
+            Beantworte zehn Fragen und erhalte konkrete Tipps sowie
+            Hilfsmittel aus der ERGOthek zum Ausprobieren.
           </p>
 
           <div class="button-group">
             <a class="button" href="checkup.html">
-              Bildschirmarbeitsplatz prüfen
+              Check starten
+              <span class="button-note">10 Fragen · Ohne Anmeldung</span>
             </a>
 
             <a class="button button-secondary" href="#ablauf">
@@ -640,8 +652,6 @@
             </a>
           </div>
         </div>
-
-        <!-- Rechte Spalte: ausschließlich das Maskottchen -->
 
         <div class="hero-mascot">
           <img
@@ -664,8 +674,8 @@
           </h2>
 
           <p>
-            Der Check dauert nur wenige Minuten. Die Antworten werden
-            direkt im Browser verarbeitet und nicht gespeichert.
+            Die Antworten werden direkt im Browser verarbeitet und nicht
+            gespeichert.
           </p>
         </div>
 
@@ -684,11 +694,11 @@
           <article class="step">
             <div class="step-number">2</div>
 
-            <h3>Vier Bereichswerte erhalten</h3>
+            <h3>Hinweise zu vier Bereichen erhalten</h3>
 
             <p>
-              Die Auswertung unterscheidet Sitzen, Bildschirm,
-              Arbeitsmittel sowie Organisation und Bewegung.
+              Du siehst, was bereits passt, wo Verbesserungen möglich
+              sind und welche Punkte noch geprüft werden sollten.
             </p>
           </article>
 
@@ -714,7 +724,7 @@
           </p>
 
           <h2>
-            Der gesamte Bildschirmarbeitsplatz im Blick
+            Diese Bereiche schaust du dir an
           </h2>
 
           <p>
@@ -728,11 +738,11 @@
             <div class="topic-icon">1</div>
 
             <div>
-              <h3>Arbeitsplatz und Sitzen</h3>
+              <h3>Sitzen und Armauflage</h3>
 
               <p>
-                Arbeitsfläche, Beinfreiheit, Sitzhöhe,
-                Fußposition und Rückenunterstützung.
+                Sitzposition, bewegliche Rückenlehne und eine bequeme
+                Armauflage mit lockeren Schultern.
               </p>
             </div>
           </article>
@@ -741,11 +751,11 @@
             <div class="topic-icon">2</div>
 
             <div>
-              <h3>Bildschirm und Sehen</h3>
+              <h3>Bildschirm und Licht</h3>
 
               <p>
-                Bildschirmposition, Lesbarkeit, Helligkeit,
-                Beleuchtung und Spiegelungen.
+                Entspannte Kopfhaltung am Hauptbildschirm sowie Licht,
+                Blendung und Spiegelungen.
               </p>
             </div>
           </article>
@@ -754,11 +764,11 @@
             <div class="topic-icon">3</div>
 
             <div>
-              <h3>Arbeitsmittel</h3>
+              <h3>Maus, Tastatur und Laptop</h3>
 
               <p>
-                Notebook, Tastatur, Maus und die Position
-                von Händen und Unterarmen.
+                Körpernahes Tippen und Bedienen der Maus sowie die
+                getrennte Positionierung von Laptopbildschirm und Tastatur.
               </p>
             </div>
           </article>
@@ -767,11 +777,11 @@
             <div class="topic-icon">4</div>
 
             <div>
-              <h3>Organisation und Bewegung</h3>
+              <h3>Konzentration und Bewegung</h3>
 
               <p>
-                Kommunikation, Umgebungslärm, Aufgabenwechsel,
-                Sehpausen und Bewegung.
+                Konzentriertes Arbeiten ohne häufigen Lärm, Wechsel
+                zwischen Sitzen, Stehen und Gehen sowie bildschirmfreie Pausen.
               </p>
             </div>
           </article>
@@ -787,13 +797,14 @@
           </h2>
 
           <p>
-            Finde heraus, welche Bedingungen bereits gut sind und
-            welche Veränderungen zuerst sinnvoll wären.
+            Beantworte zehn Fragen und erhalte konkrete Tipps sowie
+            Hilfsmittel aus der ERGOthek zum Ausprobieren.
           </p>
         </div>
 
         <a class="button" href="checkup.html">
           Check starten
+          <span class="button-note">10 Fragen · Ohne Anmeldung</span>
         </a>
       </div>
     </section>

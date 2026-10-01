@@ -30,6 +30,12 @@
       box-sizing: border-box;
     }
 
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     html {
       scroll-behavior: smooth;
     }
@@ -51,6 +57,12 @@
 
     button {
       font: inherit;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 3px;
     }
 
     img {
@@ -260,16 +272,80 @@
     }
 
     .answer-button:hover,
-    .answer-button:focus-visible {
+    .answer-button.selected {
       border-color: var(--pink);
       background: var(--light-pink);
       transform: translateY(-1px);
-      outline: none;
+    }
+
+    .answer-button.selected::before {
+      content: "✓ ";
+      color: var(--purple);
+      font-weight: 900;
+    }
+
+    .question-help-check {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--purple);
+      border-radius: 8px;
+      background: var(--light-purple);
+      overflow-wrap: anywhere;
+    }
+
+    .question-help-check strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--purple);
+    }
+
+    .conditional-block {
+      min-width: 0;
+      margin-top: 22px;
+      padding-top: 18px;
+      padding-bottom: 0;
+      border: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .conditional-block legend {
+      padding: 0 8px 0 0;
+      color: var(--dark);
+      font-size: 1.04rem;
+      font-weight: 800;
+    }
+
+    .conditional-options {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      gap: 10px;
+    }
+
+    .conditional-option {
+      max-width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 700;
+      text-align: left;
+      white-space: normal;
+      cursor: pointer;
+    }
+
+    .conditional-option[aria-pressed="true"] {
+      border-color: var(--purple);
+      background: var(--light-purple);
+      color: var(--purple);
     }
 
     .navigation {
       display: flex;
-      justify-content: flex-start;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
       margin-top: 30px;
     }
 
@@ -288,6 +364,23 @@
       background: #e7daee;
     }
 
+    .continue-button {
+      margin-left: auto;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 9px;
+      color: #ffffff;
+      background: linear-gradient(90deg, var(--pink), var(--purple));
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .continue-button:disabled {
+      color: #62596a;
+      background: #e8e3eb;
+      cursor: not-allowed;
+    }
+
     .result {
       display: none;
       animation: fade-in 0.35s ease;
@@ -295,35 +388,6 @@
 
     .result.visible {
       display: block;
-    }
-
-    .score-circle {
-      width: 165px;
-      height: 165px;
-      margin: 0 auto 24px;
-      display: grid;
-      place-items: center;
-      border: 13px solid #eee5f1;
-      border-radius: 50%;
-      color: var(--purple);
-      background: #ffffff;
-      box-shadow: 0 10px 30px rgba(77, 35, 111, 0.14);
-    }
-
-    .score-circle strong {
-      display: block;
-      font-size: 2.45rem;
-      line-height: 1;
-      text-align: center;
-    }
-
-    .score-circle span {
-      display: block;
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-align: center;
     }
 
     .result-header {
@@ -357,7 +421,8 @@
       gap: 18px;
     }
 
-    .category-card {
+    .category-card,
+    .area-card {
       padding: 20px;
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -366,9 +431,47 @@
 
     .category-card-header {
       display: flex;
+      align-items: flex-start;
       justify-content: space-between;
+      flex-wrap: wrap;
       gap: 16px;
       margin-bottom: 10px;
+    }
+
+    .area-open,
+    .category-message {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .status-passt {
+      color: var(--good);
+      background: #e9f5ee;
+    }
+
+    .status-verbesserung {
+      color: var(--critical);
+      background: #ffe7ed;
+    }
+
+    .status-pruefen {
+      color: var(--warning);
+      background: #fff4df;
+    }
+
+    .status-nicht-beurteilbar {
+      color: var(--muted);
+      background: #f0edf2;
     }
 
     .category-card h3 {
@@ -426,8 +529,8 @@
     }
 
     .tip-card.urgent {
-      border-left-color: var(--critical);
-      background: #fff8fa;
+      border-left-color: var(--pink);
+      background: var(--light-pink);
     }
 
     .tip-badge {
@@ -443,8 +546,44 @@
     }
 
     .tip-card.urgent .tip-badge {
-      color: var(--critical);
-      background: #ffe7ed;
+      color: var(--purple);
+      background: #f1deeb;
+    }
+
+    .more-tips {
+      margin-top: 14px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--soft);
+    }
+
+    .more-tips summary {
+      color: var(--purple);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    @media print {
+      .more-tips:not([open]) > ul {
+        display: block;
+      }
+    }
+
+    .more-tips ul {
+      display: grid;
+      gap: 14px;
+      margin: 16px 0 0;
+      padding-left: 20px;
+    }
+
+    .more-tips h4 {
+      margin: 0 0 4px;
+      color: var(--dark);
+    }
+
+    .more-tips p {
+      margin: 0;
     }
 
     .tip-card h4 {
@@ -553,6 +692,7 @@
       margin-top: 36px;
     }
 
+    .secondary-button,
     .restart-button,
     .home-button {
       display: inline-block;
@@ -561,6 +701,12 @@
       font-weight: 800;
       text-align: center;
       cursor: pointer;
+    }
+
+    .secondary-button {
+      border: 2px solid var(--purple);
+      color: var(--purple);
+      background: #ffffff;
     }
 
     .restart-button {
@@ -576,12 +722,93 @@
       text-decoration: none;
     }
 
+    .answer-review {
+      display: none;
+      margin-top: 22px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--soft);
+    }
+
+    .answer-review.visible {
+      display: block;
+    }
+
+    .answer-review ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text);
+    }
+
+    .answer-review li + li {
+      margin-top: 12px;
+    }
+
+    .answer-review button {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #ffffff;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .answer-review .summary-qa {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .more-products {
+      display: none;
+      margin-top: 18px;
+    }
+
+    .more-products.visible {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
     .notice {
       margin-top: 32px;
       padding-top: 20px;
       border-top: 1px solid var(--border);
       color: var(--muted);
       font-size: 0.88rem;
+    }
+
+    .foundation {
+      margin-top: 34px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+      background: var(--soft);
+      font-size: 0.92rem;
+    }
+
+    .foundation h3 {
+      margin: 0 0 8px;
+      color: var(--dark);
+      font-size: 1.15rem;
+    }
+
+    .foundation p {
+      margin: 0 0 8px;
+    }
+
+    .foundation ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .foundation a {
+      color: var(--purple);
+      font-weight: 700;
     }
 
     @keyframes fade-in {
@@ -602,7 +829,8 @@
       }
 
       .category-results,
-      .products {
+      .products,
+      .more-products.visible {
         grid-template-columns: 1fr;
       }
     }
@@ -629,9 +857,89 @@
         flex-direction: column;
       }
 
+      .navigation {
+        align-items: stretch;
+        flex-direction: column-reverse;
+      }
+
+      .back-button,
+      .continue-button {
+        width: 100%;
+        margin-left: 0;
+      }
+
       .restart-button,
       .home-button {
         width: 100%;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        color: #000000;
+      }
+
+      .page-header,
+      .intro,
+      #quizArea,
+      .result-actions,
+      #toggleProductsButton,
+      .collection-link {
+        display: none !important;
+      }
+
+      main {
+        width: 100%;
+        margin: 0;
+      }
+
+      .check-card {
+        overflow: visible;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .content {
+        padding: 0;
+      }
+
+      .result,
+      .answer-review,
+      .more-products {
+        display: block !important;
+      }
+
+      .answer-review {
+        padding: 0;
+        border: 0;
+        background: #ffffff;
+      }
+
+      .answer-review button {
+        padding: 0;
+        border: 0;
+        background: #ffffff;
+      }
+
+      .category-results,
+      .products,
+      .more-products.visible {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .area-card,
+      .tip-card,
+      .product-card,
+      .foundation,
+      .answer-review li {
+        break-inside: avoid;
+      }
+
+      a {
+        color: #000000;
+        text-decoration: none;
       }
     }
   </style>
@@ -662,7 +970,7 @@
         </p>
 
         <h1>
-          Wie ergonomisch und gesund ist dein Bildschirmarbeitsplatz?
+          Wie gut passen die geprüften Punkte an deinem Bildschirmarbeitsplatz?
         </h1>
 
         <p>
@@ -674,9 +982,8 @@
 
       <section class="content">
         <div id="quizArea">
-          <div class="progress-info">
+          <div class="progress-info" aria-live="polite" aria-atomic="true">
             <span id="questionCounter">Frage 1 von 10</span>
-            <span id="progressPercent">0 %</span>
           </div>
 
           <div
@@ -700,35 +1007,27 @@
             >
               Vorherige Frage
             </button>
+            <button
+              class="continue-button"
+              type="button"
+              id="continueButton"
+              disabled
+            >
+              Antwort auswählen
+            </button>
           </div>
         </div>
 
         <section class="result" id="result">
-          <div class="score-circle">
-            <div>
-              <strong id="scoreValue">0 %</strong>
-              <span>Gesamtergebnis</span>
-            </div>
-          </div>
-
           <div class="result-header">
-            <h2 id="resultTitle">
+            <h2 id="resultTitle" tabindex="-1">
               Deine Auswertung
             </h2>
 
             <p id="resultText"></p>
           </div>
 
-          <h3 class="section-title">
-            Ergebnisse nach Prüfbereichen
-          </h3>
-
-          <div
-            class="category-results"
-            id="categoryResults"
-          ></div>
-
-          <h3 class="section-title">
+          <h3 class="section-title" id="priorityHeading">
             Was du zuerst verbessern solltest
           </h3>
 
@@ -744,6 +1043,15 @@
             style="margin-top:18px;"
           ></ul>
 
+          <h3 class="section-title">
+            Deine vier Prüfbereiche
+          </h3>
+
+          <div
+            class="category-results"
+            id="categoryResults"
+          ></div>
+
           <div id="productSection">
             <h3 class="section-title">
               Passende Hilfsmittel aus der ERGOthek
@@ -753,6 +1061,20 @@
               class="products"
               id="productsList"
             ></div>
+
+            <div
+              class="more-products"
+              id="moreProducts"
+            ></div>
+
+            <button
+              class="secondary-button"
+              type="button"
+              id="toggleProductsButton"
+              style="margin-top:18px; display:none;"
+            >
+              Weitere Möglichkeiten ansehen
+            </button>
 
             <div class="collection-link">
               <p>
@@ -768,7 +1090,7 @@
             </div>
           </div>
 
-          <div class="result-actions">
+          <div class="result-actions" style="margin-top:28px;">
             <button
               class="restart-button"
               type="button"
@@ -777,10 +1099,50 @@
               Check wiederholen
             </button>
 
+            <button
+              class="secondary-button"
+              type="button"
+              id="showAnswersButton"
+              aria-expanded="false"
+            >
+              Antworten ansehen und ändern
+            </button>
+
+            <button
+              class="secondary-button"
+              type="button"
+              id="printButton"
+            >
+              Als PDF speichern
+            </button>
+
             <a class="home-button" href="index.html">
               Zur Startseite
             </a>
           </div>
+
+          <div class="answer-review" id="answerReview"></div>
+
+          <section class="foundation" aria-labelledby="foundationTitle">
+            <h3 id="foundationTitle">Fachliche Grundlage</h3>
+            <p>
+              Die Fragen dieses Selbstchecks sind aus ergonomischen
+              Empfehlungen abgeleitet und stellen keinen validierten
+              Fragebogen dar.
+            </p>
+            <ul>
+              <li>
+                <a href="https://publikationen.dguv.de/regelwerk/dguv-informationen/409/bildschirm-und-bueroarbeitsplaetze-leitfaden-fuer-die-gestaltung" target="_blank" rel="noopener noreferrer">
+                  DGUV Information 215-410 „Bildschirm- und Büroarbeitsplätze – Leitfaden für die Gestaltung“
+                </a>
+              </li>
+              <li>
+                <a href="https://www.vbg.de/cms/vv-praxisbox/bueroarbeitsplatz" target="_blank" rel="noopener noreferrer">
+                  VBG „Büroarbeitsplatz“
+                </a>
+              </li>
+            </ul>
+          </section>
 
           <p class="notice">
             Der Check ist eine unverbindliche Orientierungshilfe.
@@ -798,1065 +1160,823 @@
     "use strict";
 
     const CATEGORY_DATA = {
-      workplace: {
-        title: "Arbeitsplatz und Sitzen",
+      sittingAndArmSupport: {
+        title: "Sitzen und Armauflage",
         questionCount: 3
       },
-
-      screen: {
-        title: "Bildschirm und Sehen",
+      screenAndLight: {
+        title: "Bildschirm und Licht",
         questionCount: 2
       },
-
-      equipment: {
-        title: "Arbeitsmittel",
+      mouseKeyboardLaptop: {
+        title: "Maus, Tastatur und Laptop",
         questionCount: 2
       },
-
-      organisation: {
-        title: "Organisation und Bewegung",
+      concentrationAndMovement: {
+        title: "Konzentration und Bewegung",
         questionCount: 3
       }
     };
 
     const QUESTIONS = [
       {
-        category: "workplace",
-        categoryLabel: "Arbeitsplatz und Sitzen",
-        title:
-          "Kannst du mit angelehntem Rücken sitzen, während deine Füße vollständig auf dem Boden oder einer Fußstütze stehen?",
-        help:
-          "Rutsche dafür mit dem Becken nach hinten an die Rückenlehne. Die Sitzkante sollte nicht in deine Kniekehlen drücken.",
-        image: "images/01_arbeitsplatz_beinfreiheit.png",
-        imageAlt:
-          "Arbeitsplatz mit ausreichend Fläche und Beinfreiheit",
+        category: "sittingAndArmSupport",
+        categoryLabel: "Sitzen und Armauflage",
+        title: "Kannst du mit angelehntem Rücken sitzen, während deine Füße vollständig auf dem Boden oder einer Fußstütze stehen?",
+        help: "Rutsche dafür mit dem Becken nach hinten an die Rückenlehne. Die Sitzkante sollte nicht in deine Kniekehlen drücken.",
+        unsureHelp: "Setze dich wie beschrieben nach hinten an die Lehne und prüfe gleichzeitig den Kontakt beider Füße zum Boden oder zu einer Fußstütze.",
         answers: [
-          {
-            text:
-              "Ja: Mein Rücken findet Halt und meine Füße stehen vollständig auf.",
-            score: 2,
-            severity: 0,
-            problem: null
-          },
-          {
-            text:
-              "Teilweise: Das gelingt mir nur eingeschränkt.",
-            score: 1,
-            severity: 1,
-            problem: "workspace"
-          },
-          {
-            text:
-              "Nein: Ich kann nicht gleichzeitig angelehnt sitzen und meine Füße vollständig aufstellen.",
-            score: 0,
-            severity: 2,
-            problem: "workspace"
-          }
+          { text: "Ja: Mein Rücken findet Halt und meine Füße stehen vollständig auf.", score: 2, severity: 0, problem: null, type: "rated" },
+          { text: "Teilweise: Das gelingt mir nur eingeschränkt.", score: 1, severity: 1, problem: "seatSupport", type: "rated", followUpType: "footContact" },
+          { text: "Nein: Ich kann nicht gleichzeitig angelehnt sitzen und meine Füße vollständig aufstellen.", score: 0, severity: 2, problem: "seatSupport", type: "rated", followUpType: "footContact" },
+          { text: "Kann ich gerade nicht beurteilen.", score: null, severity: 0, problem: null, type: "unclear" }
         ]
       },
-
       {
-        category: "workplace",
-        categoryLabel: "Arbeitsplatz und Sitzen",
-        title:
-          "Unterstützt dich dein Stuhl auch dann, wenn du deine Sitzhaltung veränderst?",
-        help:
-          "Lehne dich etwas zurück und setze dich wieder aufrechter hin. Die Rückenlehne sollte deine Bewegung mitmachen und dir dabei Halt geben.",
-        image: "images/02_sitzhoehe_armposition.png",
-        imageAlt:
-          "Sitzhöhe und Armposition richtig abstimmen",
+        category: "sittingAndArmSupport",
+        categoryLabel: "Sitzen und Armauflage",
+        title: "Unterstützt dich dein Stuhl auch dann, wenn du deine Sitzhaltung veränderst?",
+        help: "Lehne dich etwas zurück und setze dich wieder aufrechter hin. Die Rückenlehne sollte deine Bewegung mitmachen und dir dabei Halt geben.",
+        unsureHelp: "Wechsle im Sitzen kurz zwischen aufrechter und leicht zurückgelehnter Haltung und achte darauf, ob die Rückenlehne mitgeht und Halt gibt.",
         answers: [
-          {
-            text:
-              "Ja: Die Rückenlehne bewegt sich mit und gibt mir Halt.",
-            score: 2,
-            severity: 0,
-            problem: null
-          },
-          {
-            text:
-              "Teilweise: Ich kann meine Haltung verändern, werde dabei aber nicht durchgehend unterstützt.",
-            score: 1,
-            severity: 1,
-            problem: "dynamicSitting"
-          },
-          {
-            text:
-              "Nein: Die Rückenlehne bleibt starr oder gibt mir beim Bewegen keinen Halt.",
-            score: 0,
-            severity: 2,
-            problem: "dynamicSitting"
-          }
+          { text: "Ja: Die Rückenlehne bewegt sich mit und gibt mir Halt.", score: 2, severity: 0, problem: null, type: "rated" },
+          { text: "Teilweise: Ich kann meine Haltung verändern, werde dabei aber nicht durchgehend unterstützt.", score: 1, severity: 1, problem: "dynamicSitting", type: "rated" },
+          { text: "Nein: Die Rückenlehne bleibt starr oder gibt mir beim Bewegen keinen Halt.", score: 0, severity: 2, problem: "dynamicSitting", type: "rated" },
+          { text: "Kann ich gerade nicht beurteilen.", score: null, severity: 0, problem: null, type: "unclear" }
         ]
       },
-
       {
-        category: "workplace",
-        categoryLabel: "Arbeitsplatz und Sitzen",
-        title:
-          "Kannst du deine Unterarme ablegen, während deine Schultern locker bleiben?",
-        help:
-          "Lege die Unterarme auf den Tisch oder die Armlehnen. Du solltest dafür weder die Schultern hochziehen noch den Oberkörper nach vorne beugen müssen.",
-        image: "images/03_rueckenstuetze_dynamisches_sitzen.png",
-        imageAlt:
-          "Stuhl mit Rückenstütze für dynamisches Sitzen",
+        category: "sittingAndArmSupport",
+        categoryLabel: "Sitzen und Armauflage",
+        title: "Kannst du deine Unterarme ablegen, während deine Schultern locker bleiben?",
+        help: "Lege die Unterarme auf den Tisch oder die Armlehnen. Du solltest dafür weder die Schultern hochziehen noch den Oberkörper nach vorne beugen müssen.",
+        unsureHelp: "Lege beide Unterarme bei deiner üblichen Arbeitshaltung auf und prüfe, ob die Schultern dabei locker bleiben.",
         answers: [
-          {
-            text:
-              "Ja: Ich kann meine Unterarme mit lockeren Schultern ablegen.",
-            score: 2,
-            severity: 0,
-            problem: null
-          },
-          {
-            text:
-              "Teilweise: Das gelingt mir nur auf einer Seite oder mit etwas Ausweichen.",
-            score: 1,
-            severity: 1,
-            problem: "inputDevices"
-          },
-          {
-            text:
-              "Nein: Ich muss die Schultern hochziehen, mich vorbeugen oder die Arme ohne Unterstützung halten.",
-            score: 0,
-            severity: 2,
-            problem: "inputDevices"
-          }
+          { text: "Ja: Ich kann meine Unterarme mit lockeren Schultern ablegen.", score: 2, severity: 0, problem: null, type: "rated" },
+          { text: "Teilweise: Das gelingt mir nur auf einer Seite oder mit etwas Ausweichen.", score: 1, severity: 1, problem: "armSupport", type: "rated" },
+          { text: "Nein: Ich muss die Schultern hochziehen, mich vorbeugen oder die Arme ohne Unterstützung halten.", score: 0, severity: 2, problem: "armSupport", type: "rated" },
+          { text: "Kann ich gerade nicht beurteilen.", score: null, severity: 0, problem: null, type: "unclear" }
         ]
       },
-
       {
-        category: "screen",
-        categoryLabel: "Bildschirm und Sehen",
-        title:
-          "Kannst du auf deinen Hauptbildschirm schauen, ohne den Kopf dauerhaft zu drehen, anzuheben oder stark nach unten zu neigen?",
-        help:
-          "Prüfe das mit einem geöffneten Dokument in deiner üblichen Sitzposition. Ein leicht gesenkter Blick ist in Ordnung.",
-        image: "images/04_bildschirmhoehe_sehabstand.png",
-        imageAlt:
-          "Bildschirmhöhe und flexible Arbeitsplatz-Höhenverstellung",
+        category: "screenAndLight",
+        categoryLabel: "Bildschirm und Licht",
+        title: "Kannst du auf deinen Hauptbildschirm schauen, ohne den Kopf dauerhaft zu drehen, anzuheben oder stark nach unten zu neigen?",
+        help: "Prüfe das mit einem geöffneten Dokument in deiner üblichen Sitzposition. Ein leicht gesenkter Blick ist in Ordnung.",
+        unsureHelp: "Öffne ein häufig genutztes Dokument und beobachte in deiner üblichen Sitzposition, ob du den Kopf längere Zeit drehen, anheben oder stark senken musst.",
         answers: [
-          {
-            text:
-              "Ja: Ich kann mit entspannter Kopfhaltung auf den Bildschirm schauen.",
-            score: 2,
-            severity: 0,
-            problem: null
-          },
-          {
-            text:
-              "Teilweise: Für einen Teil meiner Arbeit muss ich den Kopf ungünstig halten.",
-            score: 1,
-            severity: 1,
-            problem: "monitorPosition"
-          },
-          {
-            text:
-              "Nein: Ich muss den Kopf beim Arbeiten überwiegend drehen, anheben oder stark senken.",
-            score: 0,
-            severity: 2,
-            problem: "monitorPosition"
-          }
+          { text: "Ja: Ich kann mit entspannter Kopfhaltung auf den Bildschirm schauen.", score: 2, severity: 0, problem: null, type: "rated" },
+          { text: "Teilweise: Für einen Teil meiner Arbeit muss ich den Kopf ungünstig halten.", score: 1, severity: 1, problem: "monitorPosition", type: "rated" },
+          { text: "Nein: Ich muss den Kopf beim Arbeiten überwiegend drehen, anheben oder stark senken.", score: 0, severity: 2, problem: "monitorPosition", type: "rated" },
+          { text: "Kann ich gerade nicht beurteilen.", score: null, severity: 0, problem: null, type: "unclear" }
         ]
       },
-
       {
-        category: "screen",
-        categoryLabel: "Bildschirm und Sehen",
-        title:
-          "Kannst du bei deinem üblichen Licht arbeiten, ohne geblendet oder durch Spiegelungen gestört zu werden?",
-        help:
-          "Achte auf Fenster, Lampen und Reflexionen im Bildschirm. Auch Unterlagen auf dem Tisch sollten gut lesbar sein.",
-        image: "images/05_lesbarkeit_kontrast.png",
-        imageAlt:
-          "Lesbarkeit und Kontrast optimieren",
+        category: "screenAndLight",
+        categoryLabel: "Bildschirm und Licht",
+        title: "Kannst du bei deinem üblichen Licht arbeiten, ohne geblendet oder durch Spiegelungen gestört zu werden?",
+        help: "Achte auf Fenster, Lampen und Reflexionen im Bildschirm. Auch Unterlagen auf dem Tisch sollten gut lesbar sein.",
+        unsureHelp: "Prüfe den Bildschirm und deine Unterlagen bei der üblichen Beleuchtung zu der Tageszeit, in der du normalerweise arbeitest.",
         answers: [
-          {
-            text:
-              "Ja: Das Licht passt und ich werde nicht durch Blendung oder Spiegelungen gestört.",
-            score: 2,
-            severity: 0,
-            problem: null
-          },
-          {
-            text:
-              "Teilweise: Zu bestimmten Tageszeiten oder bei einzelnen Aufgaben stört mich das Licht.",
-            score: 1,
-            severity: 1,
-            problem: "lighting"
-          },
-          {
-            text:
-              "Nein: Blendung, Spiegelungen oder zu wenig Licht erschweren meine Arbeit häufig.",
-            score: 0,
-            severity: 2,
-            problem: "lighting"
-          }
+          { text: "Ja: Das Licht passt und ich werde nicht durch Blendung oder Spiegelungen gestört.", score: 2, severity: 0, problem: null, type: "rated" },
+          { text: "Teilweise: Zu bestimmten Tageszeiten oder bei einzelnen Aufgaben stört mich das Licht.", score: 1, severity: 1, problem: "lighting", type: "rated" },
+          { text: "Nein: Blendung, Spiegelungen oder zu wenig Licht erschweren meine Arbeit häufig.", score: 0, severity: 2, problem: "lighting", type: "rated" },
+          { text: "Kann ich gerade nicht beurteilen.", score: null, severity: 0, problem: null, type: "unclear" }
         ]
       },
-
       {
-        category: "equipment",
-        categoryLabel: "Arbeitsmittel",
-        title:
-          "Kannst du tippen und die Maus bedienen, ohne weit greifen oder deine Handgelenke deutlich abknicken zu müssen?",
-        help:
-          "Probiere beides kurz aus. Deine Oberarme sollten nahe am Körper bleiben und deine Hände möglichst eine Linie mit den Unterarmen bilden.",
-        image: "images/06_beleuchtung_ohne_blendung.png",
-        imageAlt:
-          "Optimale Beleuchtung und ruhige Arbeitsumgebung",
+        category: "mouseKeyboardLaptop",
+        categoryLabel: "Maus, Tastatur und Laptop",
+        title: "Kannst du tippen und die Maus bedienen, ohne weit greifen oder deine Handgelenke deutlich abknicken zu müssen?",
+        help: "Probiere beides kurz aus. Deine Oberarme sollten nahe am Körper bleiben und deine Hände möglichst eine Linie mit den Unterarmen bilden.",
+        unsureHelp: "Tippe einen kurzen Satz und bediene die Maus wie üblich. Achte darauf, ob du weit greifen oder deine Handgelenke deutlich abknicken musst.",
         answers: [
-          {
-            text:
-              "Ja: Das gelingt mir sowohl beim Tippen als auch beim Bedienen der Maus.",
-            score: 2,
-            severity: 0,
-            problem: null
-          },
-          {
-            text:
-              "Teilweise: Bei einem von beiden muss ich weit greifen oder die Handgelenke abknicken.",
-            score: 1,
-            severity: 1,
-            problem: "inputDevices"
-          },
-          {
-            text:
-              "Nein: Das ist sowohl beim Tippen als auch beim Bedienen der Maus schwierig.",
-            score: 0,
-            severity: 2,
-            problem: "inputDevices"
-          }
+          { text: "Ja: Das gelingt mir sowohl beim Tippen als auch beim Bedienen der Maus.", score: 2, severity: 0, problem: null, type: "rated" },
+          { text: "Teilweise: Bei einem von beiden muss ich weit greifen oder die Handgelenke abknicken.", score: 1, severity: 1, problem: "inputDevices", type: "rated", followUpType: "mouseKeyboardDifficulty" },
+          { text: "Nein: Das ist sowohl beim Tippen als auch beim Bedienen der Maus schwierig.", score: 0, severity: 2, problem: "inputDevices", type: "rated", followUpType: "mouseKeyboardDifficulty" },
+          { text: "Kann ich gerade nicht beurteilen.", score: null, severity: 0, problem: null, type: "unclear" }
         ]
       },
-
       {
-        category: "equipment",
-        categoryLabel: "Arbeitsmittel",
-        title:
-          "Wenn du länger am Laptop arbeitest: Kannst du Bildschirm und Tastatur unabhängig voneinander positionieren?",
-        help:
-          "Das geht beispielsweise mit separater Tastatur und Maus sowie einem Laptopständer – oder mit einem externen Bildschirm und passend angeordneten Eingabegeräten.",
-        image: "images/07_laptop_mit_externen_geraeten.png",
-        imageAlt:
-          "Laptop mit externen Geräten und Ständer",
+        category: "mouseKeyboardLaptop",
+        categoryLabel: "Maus, Tastatur und Laptop",
+        title: "Wenn du länger am Laptop arbeitest: Kannst du Bildschirm und Tastatur unabhängig voneinander positionieren?",
+        help: "Das geht beispielsweise mit separater Tastatur und Maus sowie einem Laptopständer – oder mit einem externen Bildschirm und passend angeordneten Eingabegeräten.",
+        unsureHelp: "Prüfe bei einer typischen längeren Laptop-Aufgabe, ob Bildschirm und Tastatur getrennt aufgestellt sind. Wenn du nicht länger am Laptop arbeitest, wähle „Betrifft mich nicht“.",
         answers: [
-          {
-            text:
-              "Ja: Ich nutze zusätzliche Geräte und kann Bildschirm und Tastatur passend positionieren.",
-            score: 2,
-            severity: 0,
-            problem: null
-          },
-          {
-            text:
-              "Teilweise: Ich nutze zusätzliche Geräte, kann aber noch nicht beides unabhängig passend aufstellen.",
-            score: 1,
-            severity: 1,
-            problem: "laptop"
-          },
-          {
-            text:
-              "Nein: Ich arbeite ausschließlich mit dem eingebauten Bildschirm und der Laptop-Tastatur.",
-            score: 0,
-            severity: 2,
-            problem: "laptop"
-          },
-          {
-            text:
-              "Betrifft mich nicht: Ich arbeite nicht länger am Laptop.",
-            score: 2,
-            severity: 0,
-            problem: null
-          }
+          { text: "Ja: Ich nutze zusätzliche Geräte und kann Bildschirm und Tastatur passend positionieren.", score: 2, severity: 0, problem: null, type: "rated" },
+          { text: "Teilweise: Ich nutze zusätzliche Geräte, kann aber noch nicht beides unabhängig passend aufstellen.", score: 1, severity: 1, problem: "laptop", type: "rated" },
+          { text: "Nein: Ich arbeite ausschließlich mit dem eingebauten Bildschirm und der Laptop-Tastatur.", score: 0, severity: 2, problem: "laptop", type: "rated" },
+          { text: "Betrifft mich nicht: Ich arbeite nicht länger am Laptop.", score: null, severity: 0, problem: null, type: "not_applicable" },
+          { text: "Kann ich gerade nicht beurteilen.", score: null, severity: 0, problem: null, type: "unclear" }
         ]
       },
-
       {
-        category: "organisation",
-        categoryLabel: "Organisation und Bewegung",
-        title:
-          "Kannst du an deinem Arbeitsplatz konzentriert arbeiten, ohne häufig durch Lärm gestört zu werden?",
-        help:
-          "Denke beispielsweise an Gespräche, Telefonate oder andere Geräusche, die dich beim Lesen, Schreiben oder Nachdenken unterbrechen.",
-        image: "images/08_tastatur_und_maus_positionierung.png",
-        imageAlt:
-          "Tastatur und Maus Positionierung",
+        category: "concentrationAndMovement",
+        categoryLabel: "Konzentration und Bewegung",
+        title: "Kannst du an deinem Arbeitsplatz konzentriert arbeiten, ohne häufig durch Lärm gestört zu werden?",
+        help: "Denke beispielsweise an Gespräche, Telefonate oder andere Geräusche, die dich beim Lesen, Schreiben oder Nachdenken unterbrechen.",
+        unsureHelp: "Denke an eine typische konzentrierte Aufgabe und daran, ob Geräusche dich dabei häufig unterbrechen.",
         answers: [
-          {
-            text:
-              "Ja: Ich kann meistens ungestört arbeiten.",
-            score: 2,
-            severity: 0,
-            problem: null
-          },
-          {
-            text:
-              "Teilweise: Geräusche unterbrechen meine Konzentration gelegentlich.",
-            score: 1,
-            severity: 1,
-            problem: "communication"
-          },
-          {
-            text:
-              "Nein: Lärm stört mich häufig beim konzentrierten Arbeiten.",
-            score: 0,
-            severity: 2,
-            problem: "communication"
-          }
+          { text: "Ja: Ich kann meistens ungestört arbeiten.", score: 2, severity: 0, problem: null, type: "rated" },
+          { text: "Teilweise: Geräusche unterbrechen meine Konzentration gelegentlich.", score: 1, severity: 1, problem: "communication", type: "rated" },
+          { text: "Nein: Lärm stört mich häufig beim konzentrierten Arbeiten.", score: 0, severity: 2, problem: "communication", type: "rated" },
+          { text: "Kann ich gerade nicht beurteilen.", score: null, severity: 0, problem: null, type: "unclear" }
         ]
       },
-
       {
-        category: "organisation",
-        categoryLabel: "Organisation und Bewegung",
-        title:
-          "Wechselst du im Arbeitsalltag zwischen Sitzen, Stehen und Gehen?",
-        help:
-          "Denke an deinen letzten typischen Arbeitstag: Gab es immer wieder solche Wechsel oder hast du die meiste Zeit durchgehend gesessen?",
-        image: "images/09_headset_und_videokonferenz.png",
-        imageAlt:
-          "Headset und Videokonferenz Setup",
+        category: "concentrationAndMovement",
+        categoryLabel: "Konzentration und Bewegung",
+        title: "Wechselst du im Arbeitsalltag zwischen Sitzen, Stehen und Gehen?",
+        help: "Denke an deinen letzten typischen Arbeitstag: Gab es immer wieder solche Wechsel oder hast du die meiste Zeit durchgehend gesessen?",
+        unsureHelp: "Rufe dir einen typischen Arbeitstag in Erinnerung und prüfe, ob und wie oft du zwischen Sitzen, Stehen und Gehen wechselst.",
         answers: [
-          {
-            text:
-              "Ja: Ich stehe über den Tag verteilt immer wieder auf und bewege mich.",
-            score: 2,
-            severity: 0,
-            problem: null
-          },
-          {
-            text:
-              "Teilweise: Ich wechsle gelegentlich, sitze aber häufig längere Zeit am Stück.",
-            score: 1,
-            severity: 1,
-            problem: "movement"
-          },
-          {
-            text:
-              "Nein: Ich bleibe fast den gesamten Arbeitstag sitzen.",
-            score: 0,
-            severity: 2,
-            problem: "movement"
-          }
+          { text: "Ja: Ich stehe über den Tag verteilt immer wieder auf und bewege mich.", score: 2, severity: 0, problem: null, type: "rated" },
+          { text: "Teilweise: Ich wechsle gelegentlich, sitze aber häufig längere Zeit am Stück.", score: 1, severity: 1, problem: "movement", type: "rated", followUpType: "standingWork" },
+          { text: "Nein: Ich bleibe fast den gesamten Arbeitstag sitzen.", score: 0, severity: 2, problem: "movement", type: "rated", followUpType: "standingWork" },
+          { text: "Kann ich gerade nicht beurteilen.", score: null, severity: 0, problem: null, type: "unclear" }
         ]
       },
-
       {
-        category: "organisation",
-        categoryLabel: "Organisation und Bewegung",
-        title:
-          "Unterbrichst du längere Bildschirmphasen durch kurze Tätigkeiten oder Pausen ohne Bildschirm?",
-        help:
-          "Zum Beispiel durch ein Gespräch abseits des Monitors, einen kurzen Gang oder einen Blick in die Ferne. Der Wechsel vom Computer zum Smartphone zählt hier nicht dazu.",
-        image: "images/10_pausen_und_bewegung.png",
-        imageAlt:
-          "Pausen und Bewegung während der Bildschirmarbeit",
+        category: "concentrationAndMovement",
+        categoryLabel: "Konzentration und Bewegung",
+        title: "Unterbrichst du längere Bildschirmphasen durch kurze Tätigkeiten oder Pausen ohne Bildschirm?",
+        help: "Zum Beispiel durch ein Gespräch abseits des Monitors, einen kurzen Gang oder einen Blick in die Ferne. Der Wechsel vom Computer zum Smartphone zählt hier nicht dazu.",
+        unsureHelp: "Denke an längere Bildschirmphasen an einem typischen Arbeitstag und prüfe, ob du sie durch Tätigkeiten oder Pausen ohne Bildschirm unterbrichst.",
         answers: [
-          {
-            text:
-              "Ja: Ich unterbreche meine Bildschirmarbeit immer wieder bewusst.",
-            score: 2,
-            severity: 0,
-            problem: null
-          },
-          {
-            text:
-              "Teilweise: Das gelingt mir gelegentlich, im Arbeitsfluss vergesse ich es aber oft.",
-            score: 1,
-            severity: 1,
-            problem: "movement"
-          },
-          {
-            text:
-              "Nein: Ich arbeite meist lange ohne Unterbrechung am Bildschirm.",
-            score: 0,
-            severity: 2,
-            problem: "movement"
-          }
+          { text: "Ja: Ich unterbreche meine Bildschirmarbeit immer wieder bewusst.", score: 2, severity: 0, problem: null, type: "rated" },
+          { text: "Teilweise: Das gelingt mir gelegentlich, im Arbeitsfluss vergesse ich es aber oft.", score: 1, severity: 1, problem: "movement", type: "rated" },
+          { text: "Nein: Ich arbeite meist lange ohne Unterbrechung am Bildschirm.", score: 0, severity: 2, problem: "movement", type: "rated" },
+          { text: "Kann ich gerade nicht beurteilen.", score: null, severity: 0, problem: null, type: "unclear" }
         ]
       }
     ];
 
+    const FOLLOWUP_OPTIONS = {
+      footContact: [
+        { label: "Ja, trotz passender Sitz- und Arbeitshöhe fehlt der Fußkontakt.", value: "missingFootContact" },
+        { label: "Nein, die Füße stehen nach dem Einstellen vollständig auf.", value: "footContactOK" },
+        { label: "Ich kann Sitz- und Arbeitshöhe noch nicht passend abstimmen.", value: "footContactUnsure" }
+      ],
+      mouseKeyboardDifficulty: [
+        { label: "Maus", value: "mouse" },
+        { label: "Tastatur", value: "keyboard" },
+        { label: "Beides", value: "both" }
+      ],
+      standingWork: [
+        { label: "Ja", value: "yes" },
+        { label: "Nein", value: "no" },
+        { label: "Unsicher", value: "unsure" }
+      ]
+    };
+
     const TIP_DATA = {
-      workspace: {
+      seatSupport: {
         title: "Sitzposition und Fußstützung anpassen",
-        text:
-          "Rutsche mit dem Becken bis an die Rückenlehne. Stelle die Sitzhöhe so ein, dass beide Füße vollständig auf dem Boden stehen. Wenn das nicht möglich ist, nutze eine passende Fußstütze und achte darauf, dass die Sitzkante nicht in die Kniekehlen drückt."
+        text: "Rutsche mit dem Becken bis an die Rückenlehne und prüfe, ob die Sitzhöhe so eingestellt ist, dass die Füße vollständig am Boden oder auf einer passenden Fußstütze stehen. Die Sitzkante sollte nicht in die Kniekehlen drücken."
       },
-
-      seatHeight: {
-        title: "Arbeitshöhe und Armposition abstimmen",
-        text:
-          "Stelle Tisch, Stuhl und Armlehnen so ein, dass du deine Unterarme ablegen kannst, ohne die Schultern hochzuziehen oder dich nach vorn zu beugen."
-      },
-
       dynamicSitting: {
         title: "Bewegliche Rückenlehne nutzen",
-        text:
-          "Prüfe, ob die Rückenlehne beim Zurücklehnen und Aufrichten mitgeht und dir in beiden Positionen Halt gibt. Stelle den Widerstand passend ein und wechsle regelmäßig die Sitzhaltung."
+        text: "Stelle die Rückenlehne so ein, dass sie beim Zurücklehnen und Aufrichten mitgeht und dir dabei Halt bietet. So kannst du häufiger wechseln und dich besser aufrecht halten."
       },
-
+      armSupport: {
+        title: "Arme ablegen und die Schultern lockern",
+        text: "Passe Tisch- und Sitzhöhe so an, dass du die Unterarme ablegen kannst, ohne die Schultern hochzuziehen oder dich nach vorn zu beugen."
+      },
       monitorPosition: {
-        title: "Hauptbildschirm frontal und passend positionieren",
-        text:
-          "Stelle den überwiegend genutzten Bildschirm direkt vor dir auf. Passe Höhe, Neigung, Abstand und Schriftgröße gemeinsam an, sodass du mit weitgehend geradem Kopf und leicht gesenktem Blick arbeiten kannst."
+        title: "Bildschirm frontal und passend aufstellen",
+        text: "Stelle den Hauptbildschirm direkt vor dir auf und passe Höhe, Abstand und Schriftgröße so an, dass dein Kopf entspannt bleibt und du mit leicht gesenktem Blick arbeiten kannst."
       },
-
-      readability: {
-        title: "Darstellung anpassen statt vorzubeugen",
-        text:
-          "Vergrößere Schrift, Symbole und Zoomstufe. Passe Helligkeit und Kontrast an die Umgebung an. Bleiben Sehprobleme oder Beschwerden bestehen, sollte die Sehfähigkeit fachlich geprüft werden."
-      },
-
       lighting: {
-        title: "Blendung und Reflexionen reduzieren",
-        text:
-          "Richte den Bildschirm möglichst so aus, dass Fenster seitlich liegen. Nutze vorhandenen Sonnenschutz und positioniere Leuchten so, dass weder direkte Blendung noch störende Spiegelungen entstehen."
+        title: "Blendung und Spiegelungen reduzieren",
+        text: "Richte Bildschirm und Licht so aus, dass weder direkte Lichtquellen noch Reflexionen auf dem Bildschirm stören. Fenster, Lampen und Arbeitsunterlagen sollten gut abgestimmt sein."
       },
-
       laptop: {
-        title: "Notebook-Arbeitsplatz technisch ergänzen",
-        text:
-          "Nutze bei längerer Arbeit eine separate Tastatur und Maus. Hebe das Notebook mit einem stabilen Ständer an oder nutze einen externen Bildschirm. Arbeite nicht dauerhaft mit hochgestelltem Notebook ohne externe Eingabegeräte."
+        title: "Laptop-Arbeitsplatz mit separaten Geräten ergänzen",
+        text: "Wenn du längere Zeit am Laptop arbeitest, nutze möglichst eine separate Tastatur und Maus und stelle Bildschirm, Tastatur und Maus unabhängig voneinander auf."
       },
-
       inputDevices: {
-        title: "Unterarme, Tastatur und Maus körpernah anordnen",
-        text:
-          "Positioniere Tastatur und Maus so, dass die Oberarme nah am Körper bleiben und die Handgelenke möglichst gerade sind. Lege die Unterarme ab, ohne die Schultern hochzuziehen oder dich vorzubeugen."
+        title: "Handgelenke und Oberarme körpernah positionieren",
+        text: "Achte darauf, dass Tastatur und Maus nahe am Körper liegen und die Handgelenke möglichst gerade bleiben. So kannst du weit greifen und abknicken vermeiden."
       },
-
       communication: {
         title: "Ruhe für konzentriertes Arbeiten schaffen",
-        text:
-          "Reduziere störende Gespräche, Telefonate und andere Geräusche. Nutze bei Bedarf einen ruhigeren Arbeitsplatz, vereinbare störungsarme Zeiten oder verwende eine geeignete Freisprech- beziehungsweise Headset-Lösung."
+        text: "Reduziere störende Geräusche an deinem Arbeitsplatz: vereinbare ruhige Zeiten, schaffe ruhigere Arbeitsbereiche und stelle störende Quellen gezielt ab."
       },
-
       movement: {
-        title: "Bildschirmphasen regelmäßig unterbrechen",
-        text:
-          "Wechsle Aufgaben, schaue regelmäßig in die Ferne, stehe auf und gehe kurze Wege. Nutze Telefonate oder kurze Abstimmungen für Bewegung. Kleine, häufige Unterbrechungen sind praktikabler als ausschließlich eine lange Ausgleichspause."
+        title: "Bildschirmphasen gezielt unterbrechen",
+        text: "Plane kurze Pausen oder kleine Tätigkeiten außerhalb des Bildschirms ein. Ein kurzer Gang, ein Blick in die Ferne oder eine kurze Pause ohne Bildschirm können helfen, länger konzentriert zu arbeiten."
       }
     };
 
     const PRODUCT_DATA = {
-      workspace: [
+      seatSupport: [
         {
-          name: "04. Fußstütze (Ergo-Finland)",
-          description:
-            "Zum Erproben, wenn die Füße trotz passender Sitzhöhe nicht sicher und vollständig auf dem Boden stehen.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/04-fussstutze-ergo-finland"
+          name: "Fußstütze (Ergo-Finland)",
+          why: "Wenn die Füße bei passender Sitzhöhe nicht sicher auf dem Boden oder auf einer passenden Stützfläche ruhen, kann eine Fußstütze helfen.",
+          firstStep: "Prüfe zuerst Sitzhöhe und Arbeitshöhe und nur dann den Einsatz der Fußstütze im Test.",
+          when: "Wenn du nach einer passenden Abstimmung von Sitz- und Arbeitshöhe keinen vollständigen Fußkontakt hast.",
+          url: "https://ergo-thek.booqableshop.com/products/04-fussstutze-ergo-finland"
         }
       ],
-
-      seatHeight: [
-        {
-          name: "04. Fußstütze (Ergo-Finland)",
-          description:
-            "Zum Erproben, wenn die Füße nach passender Einstellung von Stuhl und Arbeitshöhe nicht sicher abgestützt werden können.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/04-fussstutze-ergo-finland"
-        }
-      ],
-
       dynamicSitting: [
         {
-          name: "01. Freischwingender Hocker (Aeris)",
-          description:
-            "Eine zeitweise Alternative für aktiveres, bewegtes Sitzen. Vor dem Einsatz individuell einstellen und praktisch testen.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/01-freischwingender-hocker-aeris"
+          name: "Freischwingender Hocker (Aeris)",
+          why: "Wenn die Rückenlehne bei Haltungwechseln nicht ausreichend mitgeht, kann eine beweglichere Sitzoption helfen, die Wechsel zu unterstützen.",
+          firstStep: "Teste den Hocker zunächst kurz als Ergänzung zu deinem aktuellen Stuhl.",
+          when: "Wenn du häufig zwischen aufrechter und zurückgelehnter Haltung wechselst und die Rückenlehne dabei wenig mitgibt.",
+          url: "https://ergo-thek.booqableshop.com/products/01-freischwingender-hocker-aeris"
         }
       ],
-
+      armSupport: [
+        {
+          name: "Unterarmstütze (IO-Rest)",
+          why: "Wenn Unterarme und Schultern beim Arbeiten nicht bequem abliegen können, kann eine Unterarmstütze je nach Tisch und Tätigkeit eine Option sein.",
+          firstStep: "Prüfe zuerst den Tisch- und Sitzabstand, denn eine gute Armauflage beginnt mit der richtigen Höhe.",
+          when: "Wenn du trotz passender Höhe die Unterarme nicht gut ablegen kannst und die Schultern dabei zusammenziehen.",
+          url: "https://ergo-thek.booqableshop.com/products/07-unterarmstutze-io-rest"
+        }
+      ],
       monitorPosition: [
         {
-          name: "06. Organizer mit Laptopständer (Gustav)",
-          description:
-            "Kann einen Notebook-Bildschirm anheben. Für längere Arbeit nur zusammen mit separater Tastatur und Maus einsetzen.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/06-organizer-mit-laptopstander-gustav"
+          name: "Organizer mit Laptopständer (Gustav)",
+          why: "Wenn der Bildschirm zu niedrig oder zu weit unten positioniert ist, kann ein Laptopständer zusammen mit separater Tastatur und Maus helfen.",
+          firstStep: "Stelle zuerst den Bildschirm gerade vor dich und prüfe, ob die Kopfhaltung dadurch deutlich entspannter wird.",
+          when: "Wenn du mit einem Laptop oder niedrigem Bildschirm arbeiten musst und die Kopfhaltung trotz Anpassen noch ungünstig bleibt.",
+          url: "https://ergo-thek.booqableshop.com/products/06-organizer-mit-laptopstander-gustav"
         }
       ],
-
-      readability: [
-        {
-          name: "05. Desktop-Paket (Microsoft)",
-          description:
-            "Kann eine getrennte und besser anpassbare Bildschirm- und Eingabeposition unterstützen.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/05-desktop-paket-microsoft"
-        }
-      ],
-
       laptop: [
         {
-          name: "06. Organizer mit Laptopständer (Gustav)",
-          description:
-            "Hebt das Notebook an und schafft zusammen mit externen Eingabegeräten eine getrennte Bildschirm- und Handposition.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/06-organizer-mit-laptopstander-gustav"
+          name: "Organizer mit Laptopständer (Gustav)",
+          why: "Ein Laptopständer eignet sich nur dann sinnvoll, wenn du zusätzlich eine separate Tastatur und Maus nutzt und den Bildschirm unabhängig positionieren kannst.",
+          firstStep: "Positioniere Tastatur und Maus separat, damit die Hände nah am Körper bleiben.",
+          when: "Wenn du am Laptop arbeitest und Bildschirm und Tastatur nicht getrennt aufgestellt werden können.",
+          url: "https://ergo-thek.booqableshop.com/products/06-organizer-mit-laptopstander-gustav"
         },
-
         {
-          name: "05. Desktop-Paket (Microsoft)",
-          description:
-            "Ergänzung für eine externe und flexibel positionierbare Arbeitsplatzausstattung.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/05-desktop-paket-microsoft"
+          name: "Desktop-Paket (Microsoft)",
+          why: "Wenn dein Laptop-Arbeitsplatz zu wenig Flexibilität bietet, kann ein externer Bildschirm mit separater Tastatur und Maus helfen.",
+          firstStep: "Teste zuerst eine flexible Anordnung von Bildschirm, Tastatur und Maus am selben Platz.",
+          when: "Wenn du längere Zeit mit dem Laptop arbeitest und unabhängig positionierte Eingabegeräte einsetzen kannst.",
+          url: "https://ergo-thek.booqableshop.com/products/05-desktop-paket-microsoft"
         }
       ],
-
       inputDevices: [
         {
-          name: "09. Ergo-Maus (Cherry)",
-          description:
-            "Geneigte Mausform zum praktischen Vergleich mit einer klassischen Maus.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/09-ergo-maus-medium-cherry"
+          name: "Ergo-Maus (Cherry)",
+          why: "Wenn du weit greifen musst oder die Handgelenke stark abknicken, kann eine andere Mausform im Vergleich helfen.",
+          firstStep: "Teste die Maus kurz in deiner üblichen Arbeit und prüfe, ob Oberarm und Handgelenk näher am Körper bleiben.",
+          when: "Wenn die Schwierigkeit eher bei der Maus liegt oder die Handbewegung beim Arbeiten zu weit wird.",
+          url: "https://ergo-thek.booqableshop.com/products/09-ergo-maus-medium-cherry"
         },
-
         {
-          name: "20. Split Break Tastatur (R-Go)",
-          description:
-            "Geteilte, flache Tastatur zum Erproben einer variableren Hand- und Armposition.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/split-break-tastatur-r-go"
-        },
-
-        {
-          name: "07. Unterarmstütze (IO-Rest)",
-          description:
-            "Kann die Unterarme unterstützen, wenn Tischform, Tätigkeit und Körpermaße dazu passen.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/07-unterarmstutze-io-rest"
+          name: "Split Break Tastatur (R-Go)",
+          why: "Wenn die Tastatur zu weit entfernt oder zu flach positioniert ist, kann eine alternative Tastatur helfen, die Armschulterhaltung angenehmer zu machen.",
+          firstStep: "Teste die Tastatur zusammen mit deiner aktuellen Arbeitsfläche und prüfe die Ellenbogenhaltung.",
+          when: "Wenn die Schwierigkeit eher beim Tippen oder der Tastatur liegt.",
+          url: "https://ergo-thek.booqableshop.com/products/split-break-tastatur-r-go"
         }
       ],
-
       communication: [
         {
-          name: "23. Headset Adapt 660 (Sennheiser Epos)",
-          description:
-            "Für freihändige Telefonie und Videokonferenzen; kann zugleich störende Umgebungsgeräusche reduzieren.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/23-headset-adapt-660-sennheiser-epos"
+          name: "Headset Adapt 660 (Sennheiser Epos)",
+          why: "Für konzentriertes Arbeiten im Lärm kann ein Headset die Geräuschreduzierung unterstützen, wenn du die Lautstärke und den Sitzplatz ruhig gestalten kannst.",
+          firstStep: "Teste zuerst ruhigere Arbeitsbereiche, vereinbarte Ruhezeiten und die Reduktion störender Geräuschquellen.",
+          when: "Wenn der Lärm trotz ruhiger Arbeitsbedingungen weiter stört und du die Geräuschreduzierung für konzentriertes Arbeiten gezielt testen möchtest.",
+          url: "https://ergo-thek.booqableshop.com/products/23-headset-adapt-660-sennheiser-epos"
         }
       ],
-
       movement: [
         {
-          name: "03. Balancierbrett (Gymba)",
-          description:
-            "Zum Erproben kleiner Bewegungen beim Arbeiten im Stehen an einem geeigneten Sitz-Steh-Arbeitsplatz.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/03-balancierbrett-gymba"
+          name: "Balancierbrett (Gymba)",
+          why: "Wenn du im Stehen arbeiten kannst, kann ein Balancierbrett eine Möglichkeit sein, kleine Bewegungen im Arbeitsfluss zu fördern.",
+          firstStep: "Prüfe zuerst, ob du an deinem Arbeitsplatz im Stehen sicher arbeiten kannst und dann nur kurz testen.",
+          when: "Wenn du an einem passenden Sitz-Steh-Arbeitsplatz im Stehen arbeiten kannst und kleine Bewegungswechsel ausprobieren möchtest.",
+          url: "https://ergo-thek.booqableshop.com/products/03-balancierbrett-gymba"
         },
-
         {
-          name: "18. Schreibtischfahrrad (Deskbike)",
-          description:
-            "Ermöglicht leichte Bewegung an einem dafür geeigneten Sitz-Steh-Schreibtisch.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/18-schreibtischfahrrad-deskbike"
+          name: "Stehmatte (Sissel)",
+          why: "Eine Stehmatte kann beim Arbeiten im Stehen für mehr Bewegung und Komfort helfen, wenn der Arbeitsplatz dafür geeignet ist.",
+          firstStep: "Teste zuerst die Funktion deiner Stehposition und prüfe die sichere, ruhige Haltung im Stehen.",
+          when: "Wenn du im Stehen arbeiten kannst und eine weichere, angenehmere Standfläche ausprobieren möchtest.",
+          url: "https://ergo-thek.booqableshop.com/products/stehmatte-sissel"
         },
-
         {
-          name: "19. Übungsmatte (Sissel)",
-          description:
-            "Unterlage für kurze Bewegungs- und Mobilisationseinheiten außerhalb der eigentlichen Bildschirmarbeit.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/ubungsmatte-sissel"
-        },
-
-        {
-          name: "14. Blackbox Standard (Blackroll)",
-          description:
-            "Set für aktive Unterbrechungen, Selbstmassage und funktionelle Übungen.",
-          url:
-            "https://ergo-thek.booqableshop.com/products/12-blackbox-standard-blackroll"
+          name: "Stehhilfe (Ergo)",
+          why: "Eine Stehhilfe kann beim Arbeiten im Stehen eine stabilere und bequemere Stellung unterstützen, wenn dein Arbeitsplatz dafür geeignet ist.",
+          firstStep: "Prüfe, ob du an deinem Arbeitsplatz im Stehen sicher und ohne Unruhe arbeiten kannst.",
+          when: "Wenn du im Stehen arbeiten kannst und die passende Höhe für eine Stehhilfe prüfen möchtest.",
+          url: "https://ergo-thek.booqableshop.com/products/stehhilfe-ergo"
         }
       ]
     };
 
     const quizArea = document.getElementById("quizArea");
-    const questionContainer = document.getElementById(
-      "questionContainer"
-    );
-    const questionCounter = document.getElementById(
-      "questionCounter"
-    );
-    const progressPercent = document.getElementById(
-      "progressPercent"
-    );
-    const progressBar = document.getElementById(
-      "progressBar"
-    );
-    const progressTrack = document.querySelector(
-      ".progress-track"
-    );
-    const backButton = document.getElementById(
-      "backButton"
-    );
+    const questionContainer = document.getElementById("questionContainer");
+    const questionCounter = document.getElementById("questionCounter");
+    const progressBar = document.getElementById("progressBar");
+    const backButton = document.getElementById("backButton");
+    const continueButton = document.getElementById("continueButton");
     const result = document.getElementById("result");
-    const scoreValue = document.getElementById(
-      "scoreValue"
-    );
-    const resultTitle = document.getElementById(
-      "resultTitle"
-    );
-    const resultText = document.getElementById(
-      "resultText"
-    );
-    const categoryResults = document.getElementById(
-      "categoryResults"
-    );
-    const tipsList = document.getElementById(
-      "tipsList"
-    );
-    const productSection = document.getElementById(
-      "productSection"
-    );
-    const productsList = document.getElementById(
-      "productsList"
-    );
-    const restartButton = document.getElementById(
-      "restartButton"
-    );
+    const priorityList = document.getElementById("tipsList");
+    const areaResults = document.getElementById("categoryResults");
+    const productList = document.getElementById("productsList");
+    const moreProducts = document.getElementById("moreProducts");
+    const toggleProductsButton = document.getElementById("toggleProductsButton");
+    const answerReview = document.getElementById("answerReview");
+    const printButton = document.getElementById("printButton");
+    const showAnswersButton = document.getElementById("showAnswersButton");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultText = document.getElementById("resultText");
+    const priorityHeading = document.getElementById("priorityHeading");
+    const restartButton = document.getElementById("restartButton");
+
     let currentQuestion = 0;
     let answers = [];
+    let selectedAnswerIndex = null;
+    let selectedFollowUpValue = null;
+    let isAdvancing = false;
 
     function updateProgress() {
-      const completed = answers.length;
-      const percentage = Math.round(
-        (completed / QUESTIONS.length) * 100
-      );
-
-      questionCounter.textContent =
-        `Frage ${currentQuestion + 1} von ${QUESTIONS.length}`;
-      progressPercent.textContent = `${percentage} %`;
-      progressBar.style.width = `${percentage}%`;
-      progressTrack.setAttribute(
-        "aria-valuenow",
-        String(percentage)
-      );
-
-      backButton.style.display =
-        currentQuestion > 0 ? "inline-block" : "none";
+      const percent = Math.round(((currentQuestion + 1) / QUESTIONS.length) * 100);
+      questionCounter.textContent = `Frage ${currentQuestion + 1} von ${QUESTIONS.length}`;
+      progressBar.style.width = `${percent}%`;
+      const progressTrack = document.querySelector(".progress-track");
+      progressTrack.setAttribute("aria-valuenow", String(percent));
+      progressTrack.setAttribute("aria-valuetext", `Frage ${currentQuestion + 1} von ${QUESTIONS.length}`);
+      backButton.style.display = currentQuestion > 0 ? "inline-block" : "none";
     }
 
-    function renderQuestion() {
-      const question = QUESTIONS[currentQuestion];
+    function getQuestionSelection(index) {
+      return answers[index] || null;
+    }
 
-      const answerMarkup = question.answers
-        .map(
-          (answer, index) => `
-            <button
-              class="answer-button"
-              type="button"
-              data-answer-index="${index}"
-            >
-              ${answer.text}
-            </button>
-          `
-        )
-        .join("");
+    function getConditionalFollowUpForQuestion(answer) {
+      if (!answer || !answer.followUpType) return "";
+
+      const options = FOLLOWUP_OPTIONS[answer.followUpType] || [];
+      if (!options.length) return "";
+
+      const textMap = {
+        footContact: "Haben deine Füße nach passender Abstimmung von Sitz- und Arbeitshöhe weiterhin keinen vollständigen Kontakt?",
+        mouseKeyboardDifficulty: "Wo liegt die Schwierigkeit?",
+        standingWork: "Kannst du an deinem Arbeitsplatz im Stehen arbeiten?"
+      };
+
+      return `
+        <fieldset class="conditional-block">
+          <legend>${textMap[answer.followUpType] || "Bitte prüfe kurz."}</legend>
+          <div class="conditional-options">
+            ${options.map((option) => `
+              <button class="conditional-option" type="button" data-follow-up="${option.value}" aria-pressed="${selectedFollowUpValue === option.value ? "true" : "false"}">
+                ${option.label}
+              </button>
+            `).join("")}
+          </div>
+        </fieldset>
+      `;
+    }
+
+    function renderQuestion(focusHeading = false, restoreSavedSelection = true) {
+      if (restoreSavedSelection) {
+        const saved = getQuestionSelection(currentQuestion);
+        selectedAnswerIndex = saved ? saved.answerIndex : null;
+        selectedFollowUpValue = saved ? saved.followUpValue : null;
+      }
+
+      const question = QUESTIONS[currentQuestion];
+      const selectedAnswer = selectedAnswerIndex === null ? null : question.answers[selectedAnswerIndex];
+      const requiresFollowUp = Boolean(selectedAnswer && selectedAnswer.followUpType);
+      const canContinue = selectedAnswerIndex !== null && (!requiresFollowUp || selectedFollowUpValue !== null);
+      const continueLabel = currentQuestion === QUESTIONS.length - 1 ? "Weiter zum Ergebnis" : "Weiter zur nächsten Frage";
 
       questionContainer.innerHTML = `
-        <div class="question-grid">
+        <div class="question-panel" role="group" aria-labelledby="currentQuestionTitle">
           <div>
-            <span class="category">
-              ${question.categoryLabel}
-            </span>
-
-            <h2 class="question-title">
-              ${question.title}
-            </h2>
-
-            <p class="question-help">
-              ${question.help}
-            </p>
-
-            <div class="answers">
-              ${answerMarkup}
+            <span class="category">${question.categoryLabel}</span>
+            <h2 class="question-title" id="currentQuestionTitle" tabindex="-1">${question.title}</h2>
+            <p class="question-help">${question.help}</p>
+            <div class="answers" role="group" aria-label="Antwortmöglichkeiten">
+              ${question.answers.map((answer, index) => `
+                <button class="answer-button ${selectedAnswerIndex === index ? "selected" : ""}" type="button" data-answer-index="${index}" aria-pressed="${selectedAnswerIndex === index ? "true" : "false"}">
+                  ${answer.text}
+                </button>
+              `).join("")}
             </div>
+            ${selectedAnswer && selectedAnswer.type === "unclear" ? `
+              <div class="question-help-check" role="note" aria-live="polite" aria-atomic="true">
+                <strong>Prüfhilfe</strong>
+                ${question.unsureHelp}
+              </div>
+            ` : ""}
+            ${getConditionalFollowUpForQuestion(selectedAnswer)}
           </div>
         </div>
       `;
 
-      questionContainer
-        .querySelectorAll("[data-answer-index]")
-        .forEach((button) => {
-          button.addEventListener("click", () => {
-            const answerIndex = Number(
-              button.dataset.answerIndex
-            );
-            saveAnswer(answerIndex);
-          });
+      questionContainer.querySelectorAll("[data-answer-index]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const nextAnswerIndex = Number(button.dataset.answerIndex);
+          if (selectedAnswerIndex !== nextAnswerIndex) {
+            selectedFollowUpValue = null;
+          }
+          selectedAnswerIndex = nextAnswerIndex;
+          renderQuestion(false, false);
+          questionContainer.querySelector(`[data-answer-index="${nextAnswerIndex}"]`).focus({ preventScroll: true });
         });
+      });
 
+      questionContainer.querySelectorAll("[data-follow-up]").forEach((button) => {
+        button.addEventListener("click", () => {
+          selectedFollowUpValue = button.dataset.followUp;
+          renderQuestion(false, false);
+          [...questionContainer.querySelectorAll("[data-follow-up]")].find((option) => option.dataset.followUp === selectedFollowUpValue).focus({ preventScroll: true });
+        });
+      });
+
+      continueButton.disabled = !canContinue || isAdvancing;
+      continueButton.textContent = canContinue ? continueLabel : requiresFollowUp && !selectedFollowUpValue
+        ? "Bitte Zusatzfrage beantworten"
+        : "Antwort auswählen";
       updateProgress();
+
+      if (focusHeading) {
+        questionContainer.querySelector("#currentQuestionTitle").focus({ preventScroll: true });
+      }
     }
 
-    function saveAnswer(answerIndex) {
+    function saveAnswer() {
+      if (isAdvancing || selectedAnswerIndex === null) return;
       const question = QUESTIONS[currentQuestion];
-      const selected = question.answers[answerIndex];
+      const answer = question.answers[selectedAnswerIndex];
+      if (answer.followUpType && selectedFollowUpValue === null) return;
 
-      answers[currentQuestion] = {
-        score: selected.score,
-        severity: selected.severity,
-        problem: selected.problem,
+      const record = {
+        questionIndex: currentQuestion,
         category: question.category,
-        questionIndex: currentQuestion
+        answerIndex: selectedAnswerIndex,
+        answer,
+        score: answer.score,
+        severity: answer.severity,
+        problem: answer.problem,
+        type: answer.type,
+        followUpValue: selectedFollowUpValue
       };
 
+      answers = answers.slice(0, currentQuestion);
+      answers[currentQuestion] = record;
+
+      isAdvancing = true;
       if (currentQuestion < QUESTIONS.length - 1) {
         currentQuestion += 1;
-        renderQuestion();
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
+        isAdvancing = false;
+        renderQuestion(true);
       } else {
+        isAdvancing = false;
         showResult();
       }
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function calculateOverall() {
-      const points = answers.reduce(
-        (sum, answer) => sum + answer.score,
-        0
-      );
-
-      return Math.round(
-        (points / (QUESTIONS.length * 2)) * 100
-      );
+    function isRatedAnswer(entry) {
+      return entry && entry.type === "rated" && entry.score !== null;
     }
 
-    function calculateCategories() {
-      const values = {};
+    function getCategoryStatus(categoryKey) {
+      const categoryAnswers = answers.filter((entry) => entry && entry.category === categoryKey && entry.type !== "not_applicable");
+      const ratedAnswers = categoryAnswers.filter((entry) => entry.type === "rated" && entry.score !== null);
+      const unclearAnswers = categoryAnswers.filter((entry) => entry.type === "unclear" || ["footContactUnsure", "unsure"].includes(entry.followUpValue));
 
-      Object.keys(CATEGORY_DATA).forEach((key) => {
-        const categoryAnswers = answers.filter(
-          (answer) => answer.category === key
-        );
+      if (ratedAnswers.length === 0) {
+        return { status: "Noch nicht beurteilbar", hasOpen: false };
+      }
 
-        const points = categoryAnswers.reduce(
-          (sum, answer) => sum + answer.score,
-          0
-        );
+      if (ratedAnswers.every((entry) => entry.score === 2)) {
+        return { status: unclearAnswers.length ? "Noch prüfen" : "Passt bereits", hasOpen: unclearAnswers.length > 0 };
+      }
+      return { status: "Verbesserung möglich", hasOpen: unclearAnswers.length > 0 };
+    }
 
-        const maximum =
-          CATEGORY_DATA[key].questionCount * 2;
-
-        values[key] = Math.round(
-          (points / maximum) * 100
-        );
+    function getOpenQuestions(categoryKey) {
+      return answers.filter((entry) => entry && entry.category === categoryKey && (
+        entry.type === "unclear" || ["footContactUnsure", "unsure"].includes(entry.followUpValue)
+      )).map((entry) => {
+        if (entry.type === "unclear") return QUESTIONS[entry.questionIndex].title;
+        if (entry.followUpValue === "footContactUnsure") return "Sitz- und Arbeitshöhe passend abstimmen und den Fußkontakt erneut prüfen";
+        return "Prüfen, ob Arbeiten im Stehen am Arbeitsplatz möglich und passend ist";
       });
-
-      return values;
     }
 
-    function categoryMessage(value) {
-      if (value < 40) {
-        return "Hier besteht deutlicher Handlungsbedarf.";
+    function getPriorityActions() {
+      const seen = new Set();
+      const actions = [];
+
+      answers.filter((entry) => entry && isRatedAnswer(entry) && entry.score < 2 && entry.problem)
+        .sort((a, b) => b.severity - a.severity || a.questionIndex - b.questionIndex)
+        .forEach((entry) => {
+          if (seen.has(entry.problem)) return;
+          seen.add(entry.problem);
+          const tip = TIP_DATA[entry.problem];
+          if (tip) {
+            actions.push({ problem: entry.problem, title: tip.title, text: tip.text, severity: entry.severity });
+          }
+        });
+
+      return actions;
+    }
+
+    function shouldDisplayProduct(problem, entry, product) {
+      if (!entry || !problem) return false;
+      if (problem === "seatSupport") {
+        const footContact = answers.find((item) => item && item.questionIndex === 0 && item.followUpValue === "missingFootContact");
+        return Boolean(footContact);
       }
-
-      if (value < 70) {
-        return "Mehrere gezielte Verbesserungen sind sinnvoll.";
+      if (problem === "movement") {
+        const standing = answers.find((item) => item && item.questionIndex === 8 && item.followUpValue === "yes");
+        return Boolean(standing);
       }
-
-      if (value < 90) {
-        return "Gute Grundlage mit einzelnen Verbesserungsmöglichkeiten.";
+      if (problem === "laptop") {
+        const laptopAnswer = answers.find((item) => item && item.questionIndex === 6);
+        return Boolean(laptopAnswer && laptopAnswer.score !== null && laptopAnswer.score < 2 && laptopAnswer.type !== "not_applicable");
       }
-
-      return "Dieser Bereich ist bereits sehr gut aufgestellt.";
+      if (problem === "inputDevices") {
+        const difficulty = answers.find((item) => item && item.questionIndex === 5 && item.followUpValue);
+        if (!difficulty || !["mouse", "keyboard", "both"].includes(difficulty.followUpValue)) return false;
+        if (difficulty.followUpValue === "mouse" && product.url.includes("split-break-tastatur")) return false;
+        if (difficulty.followUpValue === "keyboard" && product.url.includes("09-ergo-maus")) return false;
+        return true;
+      }
+      return true;
     }
 
-    function renderCategories(values) {
-      categoryResults.innerHTML = "";
+    function renderPriorityActions() {
+      const actions = getPriorityActions();
+      priorityList.innerHTML = "";
 
-      Object.entries(CATEGORY_DATA).forEach(
-        ([key, category]) => {
-          const value = values[key];
-          const card = document.createElement("article");
-
-          card.className = "category-card";
-          card.innerHTML = `
-            <div class="category-card-header">
-              <h3>${category.title}</h3>
-
-              <span class="category-score">
-                ${value} %
-              </span>
-            </div>
-
-            <div class="category-bar">
-              <div
-                class="category-bar-value"
-                style="width:${value}%"
-              ></div>
-            </div>
-
-            <p class="category-message">
-              ${categoryMessage(value)}
-            </p>
-          `;
-
-          categoryResults.appendChild(card);
-        }
-      );
-    }
-
-    function relevantProblems() {
-      const sorted = answers
-        .filter(
-          (answer) =>
-            answer.problem && answer.severity > 0
-        )
-        .sort(
-          (a, b) =>
-            b.severity - a.severity ||
-            a.questionIndex - b.questionIndex
-        );
-
-      const unique = [];
-
-      sorted.forEach((answer) => {
-        const exists = unique.some(
-          (item) => item.problem === answer.problem
-        );
-
-        if (!exists) {
-          unique.push(answer);
-        }
-      });
-
-      return unique;
-    }
-
-    function renderTips(problemAnswers) {
-      tipsList.innerHTML = "";
-
-      if (problemAnswers.length === 0) {
-        const item = document.createElement("li");
-
-        item.className = "tip-card";
-        item.innerHTML = `
-          <span class="tip-badge">
-            Beibehalten
-          </span>
-
-          <h4>
-            Gute Arbeitsbedingungen regelmäßig überprüfen
-          </h4>
-
-          <p>
-            Deine Antworten zeigen aktuell keinen deutlichen
-            Verbesserungsbedarf. Prüfe Einstellungen und
-            Arbeitsorganisation trotzdem erneut, wenn sich Tätigkeit,
-            Arbeitsplatz oder Beschwerden verändern.
-          </p>
+      if (!actions.length) {
+        priorityList.innerHTML = `
+          <li class="tip-card">
+            <span class="tip-badge">Einordnung</span>
+            <h4>Keine konkrete Maßnahme erkannt</h4>
+            <p>Aus den bewertbaren Antworten ergibt sich derzeit keine konkrete Maßnahme. Nicht beurteilte oder nicht zutreffende Punkte werden nicht als positive Bewertung gezählt.</p>
+          </li>
         `;
-
-        tipsList.appendChild(item);
         return;
       }
 
-      problemAnswers.forEach((answer) => {
-        const tip = TIP_DATA[answer.problem];
-
-        if (!tip) {
-          return;
-        }
-
+      actions.forEach((action, index) => {
         const item = document.createElement("li");
-        const urgent = answer.severity === 2;
-
-        item.className =
-          urgent ? "tip-card urgent" : "tip-card";
-
+        item.className = "tip-card" + (index === 0 ? " urgent" : "");
         item.innerHTML = `
-          <span class="tip-badge">
-            ${urgent ? "Hohe Priorität" : "Verbesserung sinnvoll"}
-          </span>
-
-          <h4>${tip.title}</h4>
-
-          <p>${tip.text}</p>
+          <span class="tip-badge">${index === 0 ? "Zuerst angehen" : `Maßnahme ${index + 1}`}</span>
+          <h4>${action.title}</h4>
+          <p>${action.text}</p>
         `;
+        if (index < 3) {
+          priorityList.appendChild(item);
+        }
+      });
 
-        tipsList.appendChild(item);
+      if (actions.length > 3) {
+        const additionalItem = document.createElement("li");
+        const additional = document.createElement("details");
+        additional.className = "more-tips";
+        const summary = document.createElement("summary");
+        summary.textContent = `Weitere Hinweise (${actions.length - 3})`;
+        const list = document.createElement("ul");
+        actions.slice(3).forEach((action) => {
+          const item = document.createElement("li");
+          item.innerHTML = `<h4>${action.title}</h4><p>${action.text}</p>`;
+          list.appendChild(item);
+        });
+        additional.append(summary, list);
+        additionalItem.appendChild(additional);
+        priorityList.appendChild(additionalItem);
+      }
+    }
+
+    function renderAreas() {
+      areaResults.innerHTML = "";
+      Object.entries(CATEGORY_DATA).forEach(([key, category]) => {
+        const status = getCategoryStatus(key);
+        const openPoints = getOpenQuestions(key);
+        let badgeClass = "status-passt";
+
+        if (status.status === "Verbesserung möglich") badgeClass = "status-verbesserung";
+        else if (status.status === "Noch prüfen") badgeClass = "status-pruefen";
+        else if (status.status === "Noch nicht beurteilbar") badgeClass = "status-nicht-beurteilbar";
+
+        const card = document.createElement("article");
+        card.className = "area-card";
+        card.innerHTML = `
+          <div class="category-card-header">
+            <h3>${category.title}</h3>
+            <span class="status-pill ${badgeClass}">${status.status}</span>
+          </div>
+          <div class="category-score">${category.questionCount} Fragen</div>
+          <div class="area-open">
+            <strong>Offene Punkte:</strong> ${openPoints.length ? openPoints.map((point) => point.replace(/\.$/, "")).join("; ") : "Keine"}
+          </div>
+        `;
+        areaResults.appendChild(card);
       });
     }
 
-    function recommendedProducts(problemAnswers) {
+    function renderProducts() {
+      productList.innerHTML = "";
+      moreProducts.innerHTML = "";
+      moreProducts.classList.remove("visible");
+
+      const activeEntries = answers
+        .filter((entry) => entry && isRatedAnswer(entry) && entry.score < 2 && entry.problem)
+        .sort((a, b) => b.severity - a.severity || a.questionIndex - b.questionIndex);
       const products = [];
 
-      problemAnswers.forEach((answer) => {
-        const matching =
-          PRODUCT_DATA[answer.problem] || [];
-
-        matching.forEach((product) => {
-          const existing = products.find(
-            (item) => item.url === product.url
-          );
-
-          if (existing) {
-            existing.priority = Math.max(
-              existing.priority,
-              answer.severity
-            );
-            return;
+      activeEntries.forEach((entry) => {
+        const list = PRODUCT_DATA[entry.problem] || [];
+        list.forEach((product) => {
+          if (!shouldDisplayProduct(entry.problem, entry, product)) return;
+          if (products.some((item) => item.url === product.url)) return;
+          const recommendation = { ...product, priority: entry.severity };
+          if (entry.problem === "inputDevices") {
+            const difficulty = answers.find((item) => item && item.questionIndex === 5);
+            const device = difficulty && difficulty.followUpValue;
+            recommendation.why = device === "both"
+              ? "Deine Antwort zeigt Schwierigkeiten sowohl bei Maus als auch Tastatur. Dieses Hilfsmittel passt zu einem der genannten Bereiche und kann im Arbeitsalltag ausprobiert werden."
+              : device === "mouse"
+                ? "Du hast die Maus als schwierigen Bereich ausgewählt. Eine andere Mausform kann zum Vergleich ausprobiert werden."
+                : "Du hast die Tastatur als schwierigen Bereich ausgewählt. Eine alternative Tastatur kann zum Vergleich ausprobiert werden.";
           }
-
-          products.push({
-            ...product,
-            priority: answer.severity
-          });
+          products.push(recommendation);
         });
       });
 
-      return products
-        .sort((a, b) => b.priority - a.priority)
-        .slice(0, 6);
-    }
+      const sortedProducts = products.sort((a, b) => b.priority - a.priority);
+      const visible = sortedProducts.slice(0, 3);
+      const extra = sortedProducts.slice(3);
 
-    function renderProducts(problemAnswers) {
-      productsList.innerHTML = "";
-
-      const products =
-        recommendedProducts(problemAnswers);
-
-      if (products.length === 0) {
-        productSection.style.display = "none";
+      if (!visible.length) {
+        productList.innerHTML = `
+          <div class="product-card">
+            <h4>Keine passende Produktkarte nötig</h4>
+            <p>Deine Antworten zeigen keinen klaren Bedarf für ein Hilfsmittel an. Konzentriere dich zuerst auf die Einrichtung, die Pausen und die Arbeitsorganisation.</p>
+          </div>
+        `;
+        toggleProductsButton.style.display = "none";
+        toggleProductsButton.textContent = "Weitere Möglichkeiten ansehen";
+        toggleProductsButton.setAttribute("aria-expanded", "false");
         return;
       }
 
-      productSection.style.display = "block";
+      toggleProductsButton.style.display = extra.length ? "inline-block" : "none";
+      toggleProductsButton.textContent = "Weitere Möglichkeiten ansehen";
+      toggleProductsButton.setAttribute("aria-expanded", "false");
 
-      products.forEach((product) => {
+      visible.forEach((product) => {
         const card = document.createElement("article");
-
         card.className = "product-card";
         card.innerHTML = `
-          <span class="product-label">
-            Passend zu deiner Auswertung
-          </span>
-
+          <span class="product-label">Zum Ausprobieren</span>
           <h4>${product.name}</h4>
-
-          <p>${product.description}</p>
-
-          <a
-            class="product-button"
-            href="${product.url}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Hilfsmittel ansehen
-          </a>
+          <p><strong>Warum vorgeschlagen?</strong> ${product.why}</p>
+          <p><strong>Zuerst ausprobieren:</strong> ${product.firstStep}</p>
+          <p><strong>Wann könnte es passen?</strong> ${product.when}</p>
+          <a class="product-button" href="${product.url}" target="_blank" rel="noopener noreferrer">In der ERGOthek ansehen</a>
         `;
-
-        productsList.appendChild(card);
+        productList.appendChild(card);
       });
+
+      if (extra.length) {
+        moreProducts.innerHTML = extra.map((product) => `
+          <article class="product-card">
+            <span class="product-label">Zum Ausprobieren</span>
+            <h4>${product.name}</h4>
+            <p><strong>Warum vorgeschlagen?</strong> ${product.why}</p>
+            <p><strong>Zuerst ausprobieren:</strong> ${product.firstStep}</p>
+            <p><strong>Wann könnte es passen?</strong> ${product.when}</p>
+            <a class="product-button" href="${product.url}" target="_blank" rel="noopener noreferrer">In der ERGOthek ansehen</a>
+          </article>
+        `).join("");
+      }
     }
 
-    function setOverallText(value) {
-      if (value < 40) {
-        resultTitle.textContent =
-          "Deutlicher Verbesserungsbedarf";
+    function renderAnswerReview() {
+      answerReview.innerHTML = "";
+      const heading = document.createElement("h3");
+      heading.className = "section-title";
+      heading.textContent = "Deine Antworten";
+      const list = document.createElement("ul");
 
-        resultText.textContent =
-          "Mehrere Bedingungen deines Bildschirmarbeitsplatzes " +
-          "sollten zeitnah überprüft werden. Beginne mit den als " +
-          "hohe Priorität markierten Maßnahmen.";
-        return;
-      }
+      QUESTIONS.forEach((question, index) => {
+        const answer = answers[index];
+        const answerText = answer && answer.answer ? answer.answer.text : "Noch keine Antwort";
+        const followUpOptions = answer && answer.answer.followUpType
+          ? FOLLOWUP_OPTIONS[answer.answer.followUpType] || []
+          : [];
+        const followUp = answer && answer.followUpValue
+          ? followUpOptions.find((option) => option.value === answer.followUpValue)
+          : null;
+        const displayedAnswer = answer && answer.answer
+          ? `${answerText}${followUp ? ` Zusatzfrage: ${followUp.label}` : ""}`
+          : answerText;
+        const item = document.createElement("li");
+        item.innerHTML = `
+          <button type="button" data-review-question="${index}">
+            <span>${index + 1}. ${question.title}</span>
+            <span class="summary-qa">${displayedAnswer}</span>
+          </button>
+        `;
+        list.appendChild(item);
+      });
 
-      if (value < 70) {
-        resultTitle.textContent =
-          "Solide Grundlage mit Verbesserungspotenzial";
-
-        resultText.textContent =
-          "Einige Bedingungen passen bereits. In mehreren Bereichen " +
-          "sind jedoch gezielte Anpassungen sinnvoll.";
-        return;
-      }
-
-      if (value < 90) {
-        resultTitle.textContent =
-          "Guter Bildschirmarbeitsplatz";
-
-        resultText.textContent =
-          "Die wesentlichen Grundlagen sind vorhanden. Einzelne " +
-          "Einstellungen oder Gewohnheiten lassen sich noch verbessern.";
-        return;
-      }
-
-      resultTitle.textContent =
-        "Sehr gutes Ergebnis";
-
-      resultText.textContent =
-        "Dein Bildschirmarbeitsplatz ist nach deinen Angaben " +
-        "sehr gut aufgestellt. Behalte die Bedingungen und " +
-        "regelmäßigen Arbeitsunterbrechungen bei.";
+      answerReview.append(heading, list);
+      answerReview.querySelectorAll("[data-review-question]").forEach((button) => {
+        button.addEventListener("click", () => {
+          currentQuestion = Number(button.dataset.reviewQuestion);
+          result.classList.remove("visible");
+          quizArea.style.display = "block";
+          answerReview.classList.remove("visible");
+          showAnswersButton.setAttribute("aria-expanded", "false");
+          renderQuestion(true);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
     }
 
     function showResult() {
-      const overall = calculateOverall();
-      const categories = calculateCategories();
-      const problems = relevantProblems();
+      const actions = getPriorityActions();
+      const rated = answers.filter((entry) => entry && isRatedAnswer(entry));
+      const hasUnratedAnswers = answers.some((entry) => !isRatedAnswer(entry));
+
+      if (actions.length) {
+        resultTitle.textContent = "Deine nächsten Schritte";
+        resultText.textContent = "Die wichtigsten Punkte sind die Handlungen mit dem höchsten Verbesserungsbedarf. Beginne mit den Maßnahmen, die am stärksten zu deinem Alltag passen.";
+        priorityHeading.textContent = "Was du zuerst verbessern solltest";
+      } else if (!rated.length) {
+        resultTitle.textContent = "Deine Auswertung";
+        resultText.textContent = "Mit den beurteilbaren Antworten lässt sich noch keine verlässliche Einschätzung ableiten. Prüfe die offenen Punkte in den Prüfbereichen und bewerte sie bei Gelegenheit erneut.";
+        priorityHeading.textContent = "Einordnung deiner Antworten";
+      } else if (hasUnratedAnswers) {
+        resultTitle.textContent = "Deine Auswertung";
+        resultText.textContent = "Die beurteilbaren Antworten zeigen derzeit keine deutlichen Verbesserungsbedarfe. Einige Punkte konnten nicht bewertet werden oder treffen nicht auf dich zu; sie werden deshalb nicht als positive Bewertung gezählt.";
+        priorityHeading.textContent = "Einordnung deiner Antworten";
+      } else {
+        resultTitle.textContent = "Deine geprüften Punkte passen bereits";
+        resultText.textContent = "Deine Antworten zeigen bei den geprüften Punkten bisher keine deutlichen Verbesserungsbedarfe. Prüfe sie erneut, wenn sich deine Aufgaben, technische Ausstattung oder Sitzposition verändert haben.";
+        priorityHeading.textContent = "Einordnung deiner Antworten";
+      }
+
+      renderPriorityActions();
+      renderAreas();
+      renderProducts();
+      renderAnswerReview();
 
       quizArea.style.display = "none";
       result.classList.add("visible");
-
-      scoreValue.textContent = `${overall} %`;
-      setOverallText(overall);
-      renderCategories(categories);
-      renderTips(problems);
-      renderProducts(problems);
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      resultTitle.focus({ preventScroll: true });
     }
 
     function restart() {
       answers = [];
       currentQuestion = 0;
-
+      selectedAnswerIndex = null;
+      selectedFollowUpValue = null;
+      isAdvancing = false;
       result.classList.remove("visible");
       quizArea.style.display = "block";
-      productSection.style.display = "block";
-
-      renderQuestion();
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      answerReview.classList.remove("visible");
+      showAnswersButton.setAttribute("aria-expanded", "false");
+      renderQuestion(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     backButton.addEventListener("click", () => {
-      if (currentQuestion === 0) {
-        return;
-      }
-
-      answers = answers.slice(0, currentQuestion - 1);
+      if (currentQuestion === 0) return;
       currentQuestion -= 1;
-      renderQuestion();
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      renderQuestion(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
+    printButton.addEventListener("click", () => window.print());
     restartButton.addEventListener("click", restart);
+    continueButton.addEventListener("click", saveAnswer);
+
+    showAnswersButton.addEventListener("click", () => {
+      answerReview.classList.toggle("visible");
+      showAnswersButton.setAttribute("aria-expanded", String(answerReview.classList.contains("visible")));
+      if (answerReview.classList.contains("visible")) {
+        renderAnswerReview();
+      }
+    });
+
+    toggleProductsButton.addEventListener("click", () => {
+      moreProducts.classList.toggle("visible");
+      const expanded = moreProducts.classList.contains("visible");
+      toggleProductsButton.textContent = expanded ? "Weitere Möglichkeiten ausblenden" : "Weitere Möglichkeiten ansehen";
+      toggleProductsButton.setAttribute("aria-expanded", String(expanded));
+    });
 
     renderQuestion();
   </script>
