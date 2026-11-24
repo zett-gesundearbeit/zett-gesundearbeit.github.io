@@ -107,20 +107,20 @@
           assert(app().document.getElementById("continueButton").disabled, "continue must start disabled");
         });
 
-        test("question guidance is collapsed and includes an accessible illustration", () => {
+        test("question guidance is collapsed and text-only", () => {
           const guide = app().document.querySelector(".question-guide");
-          const illustration = guide.querySelector(".question-illustration");
           assert(!guide.open, "guidance should be collapsed by default");
           assert(guide.querySelector("summary").textContent.includes("So prüfst du es"), "collapsed guidance should have a clear label");
-          assert(illustration.getAttribute("role") === "img" && illustration.getAttribute("aria-label"), "illustration should have an accessible description");
-          assert(illustration.querySelectorAll("path, circle, rect").length > 0, "question should include a contextual diagram");
+          assert(guide.querySelector(".question-guide-content p").textContent.length > 0, "guidance should retain its explanatory text");
+          assert(!guide.querySelector("svg, img"), "question guidance should not include graphics");
         });
 
-        test("all ten questions show a contextual diagram", () => {
+        test("all ten questions have text-only guidance", () => {
           reset();
           for (let index = 0; index < 10; index += 1) {
-            const illustration = app().document.querySelector(".question-illustration");
-            assert(illustration && illustration.getAttribute("aria-label"), `question ${index + 1} should have a described illustration`);
+            const guide = app().document.querySelector(".question-guide");
+            assert(guide && guide.querySelector(".question-guide-content p").textContent.length > 0, `question ${index + 1} should have explanatory text`);
+            assert(!guide.querySelector("svg, img"), `question ${index + 1} should not include graphics`);
             answerQuestion(index, 0);
           }
           reset();

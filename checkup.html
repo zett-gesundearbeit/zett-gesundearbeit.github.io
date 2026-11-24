@@ -265,18 +265,7 @@
     }
 
     .question-guide-content {
-      display: grid;
-      grid-template-columns: minmax(90px, 140px) minmax(0, 1fr);
-      align-items: center;
-      gap: 16px;
       padding: 0 16px 16px;
-    }
-
-    .question-illustration {
-      display: block;
-      width: 100%;
-      max-height: 100px;
-      color: var(--purple);
     }
 
     .question-guide-content p {
@@ -286,7 +275,6 @@
     }
 
     .question-guide-content .question-help-check {
-      grid-column: 1 / -1;
       margin: 0;
     }
 
@@ -932,18 +920,6 @@
         flex-direction: column;
       }
 
-      .question-guide-content {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 8px;
-        padding: 0 12px 12px;
-      }
-
-      .question-illustration {
-        width: min(112px, 100%);
-        max-height: 68px;
-        justify-self: center;
-      }
-
       .question-guide summary {
         padding: 11px 12px;
       }
@@ -1269,54 +1245,10 @@
       }
     };
 
-    const QUESTION_ILLUSTRATIONS = {
-      feet: {
-        label: "Sitzhaltung mit Rückenlehne und aufgestellten Füßen",
-        svg: '<svg viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 82H128M40 77V50H65V77M44 50V25M65 77V61H90M90 61V45M90 45H112" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="76" cy="21" r="8" fill="#e5007d"/><path d="M76 30V52L64 61M76 38L92 48M64 61L54 77M64 61L82 77M92 48L103 51" stroke="#e5007d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M48 77H60M76 77H88" stroke="#662483" stroke-width="5" stroke-linecap="round"/></svg>'
-      },
-      chair: {
-        label: "Bewegliche Rückenlehne beim Zurücklehnen",
-        svg: '<svg viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M48 74V48H78L93 65V76H54M48 48V24M56 77L51 89M84 77L89 89" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="80" cy="19" r="8" fill="#e5007d"/><path d="M77 28L68 45L83 55M69 44L54 51M83 55L95 66M68 45L62 71" stroke="#e5007d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M31 38C24 53 28 68 39 76M22 40L31 36L35 45M105 34C117 47 118 62 108 74M117 36L105 32L103 43" stroke="#34358c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-      },
-      arms: {
-        label: "Unterarme auf der Arbeitsfläche bei lockeren Schultern",
-        svg: '<svg viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 58H128M30 61V84M110 61V84M52 82H91" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="70" cy="20" r="9" fill="#e5007d"/><path d="M70 30V50M70 38L52 48L37 55M70 38L88 48L103 55M54 50L50 57M86 50L90 57" stroke="#e5007d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M57 33L52 38M83 33L88 38" stroke="#34358c" stroke-width="3" stroke-linecap="round"/></svg>'
-      },
-      screen: {
-        label: "Bildschirm gerade vor der sitzenden Person",
-        svg: '<svg viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="83" y="16" width="43" height="32" rx="3" stroke="currentColor" stroke-width="4"/><path d="M104 49V58M94 59H114M20 78H127M35 78V52H60M60 52V72" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="47" cy="27" r="8" fill="#e5007d"/><path d="M47 36V54L62 60M47 43L63 47M62 60L71 72" stroke="#e5007d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M64 43H78" stroke="#34358c" stroke-width="3" stroke-linecap="round"/><path d="M74 39L79 43L74 47" stroke="#34358c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-      },
-      light: {
-        label: "Lichtquelle und Spiegelung auf dem Bildschirm prüfen",
-        svg: '<svg viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="65" y="37" width="58" height="39" rx="3" stroke="currentColor" stroke-width="4"/><path d="M94 77V86M82 87H106M20 77H128M23 18V40M12 29H34M15 21L31 37M31 21L15 37" stroke="#e5007d" stroke-width="4" stroke-linecap="round"/><path d="M36 31L59 42M43 18L63 35M42 45L64 49" stroke="#34358c" stroke-width="3" stroke-linecap="round"/><path d="M80 49L107 67M107 49L80 67" stroke="#e5007d" stroke-width="3" stroke-linecap="round"/></svg>'
-      },
-      input: {
-        label: "Tastatur und Maus nah am Körper bedienen",
-        svg: '<svg viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 62H130M24 64V84M116 64V84" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><rect x="37" y="39" width="46" height="18" rx="4" stroke="#34358c" stroke-width="3"/><path d="M44 45H76M49 51H71" stroke="#34358c" stroke-width="2" stroke-linecap="round"/><path d="M103 38C111 38 116 44 116 51V56H91V51C91 44 96 38 103 38Z" stroke="#e5007d" stroke-width="3"/><path d="M103 40V47M52 82L58 68L67 62M96 82L90 68L81 62" stroke="#e5007d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M38 82H52M96 82H110" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>'
-      },
-      laptop: {
-        label: "Laptopbildschirm und separate Tastatur getrennt positionieren",
-        svg: '<svg viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="66" y="15" width="50" height="35" rx="3" stroke="currentColor" stroke-width="4"/><path d="M61 55H121M70 50L62 60M112 50L120 60M19 72H59M24 76V87M54 76V87" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><rect x="22" y="63" width="34" height="10" rx="2" stroke="#34358c" stroke-width="3"/><path d="M38 58V50H58" stroke="#e5007d" stroke-width="3" stroke-linecap="round"/><path d="M52 46L59 50L52 54" stroke="#e5007d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-      },
-      noise: {
-        label: "Gesprächsgeräusche können die Konzentration unterbrechen",
-        svg: '<svg viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="84" cy="46" r="20" stroke="currentColor" stroke-width="4"/><path d="M69 61L55 77M79 69L72 86M95 68L102 84" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M27 27C35 34 35 45 27 52M15 22C28 33 28 47 15 58M116 26C108 33 108 44 116 51" stroke="#e5007d" stroke-width="4" stroke-linecap="round"/><path d="M67 40H101M67 48H101M67 56H93" stroke="#34358c" stroke-width="3" stroke-linecap="round"/></svg>'
-      },
-      movement: {
-        label: "Im Arbeitsalltag zwischen Sitzen, Stehen und Gehen wechseln",
-        svg: '<svg viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 68H43M21 68V50H37V68M20 73V87M38 73V87" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="30" cy="34" r="6" fill="#e5007d"/><path d="M30 41V57M30 47L21 53M30 47L38 53M30 57L24 68M30 57L38 68" stroke="#e5007d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="70" cy="34" r="6" fill="#e5007d"/><path d="M70 41V67M70 48L62 56M70 48L78 56M70 67L64 78M70 67L76 78M59 83H81" stroke="#e5007d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="111" cy="34" r="6" fill="#e5007d"/><path d="M111 41L105 57L114 65M108 49L119 53M105 57L98 67M114 65L123 72" stroke="#e5007d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M47 44H56M53 40L57 44L53 48M87 44H96M93 40L97 44L93 48" stroke="#34358c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-      },
-      break: {
-        label: "Bildschirmarbeit kurz unterbrechen und in die Ferne schauen",
-        svg: '<svg viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="78" y="49" width="44" height="29" rx="3" stroke="currentColor" stroke-width="4"/><path d="M100 79V87M90 88H110M56 27C65 27 72 34 72 43V49H40V43C40 34 47 27 56 27Z" stroke="#e5007d" stroke-width="4"/><path d="M56 29V38M72 40H89M84 36L90 40L84 44" stroke="#34358c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 70L22 59L34 70M16 66V80H30V66M19 73H27" stroke="#34358c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-      }
-    };
-
     const QUESTIONS = [
       {
         category: "sittingAndArmSupport",
         categoryLabel: "Sitzen und Armauflage",
-        illustration: "feet",
         title: "Kannst du mit angelehntem Rücken sitzen, während deine Füße vollständig auf dem Boden oder einer Fußstütze stehen?",
         help: "Rutsche dafür mit dem Becken nach hinten an die Rückenlehne. Die Sitzkante sollte nicht in deine Kniekehlen drücken.",
         unsureHelp: "Setze dich wie beschrieben nach hinten an die Lehne und prüfe gleichzeitig den Kontakt beider Füße zum Boden oder zu einer Fußstütze.",
@@ -1330,7 +1262,6 @@
       {
         category: "sittingAndArmSupport",
         categoryLabel: "Sitzen und Armauflage",
-        illustration: "chair",
         title: "Unterstützt dich dein Stuhl auch dann, wenn du deine Sitzhaltung veränderst?",
         help: "Lehne dich etwas zurück und setze dich wieder aufrechter hin. Die Rückenlehne sollte deine Bewegung mitmachen und dir dabei Halt geben.",
         unsureHelp: "Wechsle im Sitzen kurz zwischen aufrechter und leicht zurückgelehnter Haltung und achte darauf, ob die Rückenlehne mitgeht und Halt gibt.",
@@ -1344,7 +1275,6 @@
       {
         category: "sittingAndArmSupport",
         categoryLabel: "Sitzen und Armauflage",
-        illustration: "arms",
         title: "Kannst du deine Unterarme ablegen, während deine Schultern locker bleiben?",
         help: "Lege die Unterarme auf den Tisch oder die Armlehnen. Du solltest dafür weder die Schultern hochziehen noch den Oberkörper nach vorne beugen müssen.",
         unsureHelp: "Lege beide Unterarme bei deiner üblichen Arbeitshaltung auf und prüfe, ob die Schultern dabei locker bleiben.",
@@ -1358,7 +1288,6 @@
       {
         category: "screenAndLight",
         categoryLabel: "Bildschirm und Licht",
-        illustration: "screen",
         title: "Kannst du auf deinen Hauptbildschirm schauen, ohne den Kopf dauerhaft zu drehen, anzuheben oder stark nach unten zu neigen?",
         help: "Prüfe das mit einem geöffneten Dokument in deiner üblichen Sitzposition. Ein leicht gesenkter Blick ist in Ordnung.",
         unsureHelp: "Öffne ein häufig genutztes Dokument und beobachte in deiner üblichen Sitzposition, ob du den Kopf längere Zeit drehen, anheben oder stark senken musst.",
@@ -1372,7 +1301,6 @@
       {
         category: "screenAndLight",
         categoryLabel: "Bildschirm und Licht",
-        illustration: "light",
         title: "Kannst du bei deinem üblichen Licht arbeiten, ohne geblendet oder durch Spiegelungen gestört zu werden?",
         help: "Achte auf Fenster, Lampen und Reflexionen im Bildschirm. Auch Unterlagen auf dem Tisch sollten gut lesbar sein.",
         unsureHelp: "Prüfe den Bildschirm und deine Unterlagen bei der üblichen Beleuchtung zu der Tageszeit, in der du normalerweise arbeitest.",
@@ -1386,7 +1314,6 @@
       {
         category: "mouseKeyboardLaptop",
         categoryLabel: "Maus, Tastatur und Laptop",
-        illustration: "input",
         title: "Kannst du tippen und die Maus bedienen, ohne weit greifen oder deine Handgelenke deutlich abknicken zu müssen?",
         help: "Probiere beides kurz aus. Deine Oberarme sollten nahe am Körper bleiben und deine Hände möglichst eine Linie mit den Unterarmen bilden.",
         unsureHelp: "Tippe einen kurzen Satz und bediene die Maus wie üblich. Achte darauf, ob du weit greifen oder deine Handgelenke deutlich abknicken musst.",
@@ -1400,7 +1327,6 @@
       {
         category: "mouseKeyboardLaptop",
         categoryLabel: "Maus, Tastatur und Laptop",
-        illustration: "laptop",
         title: "Wenn du länger am Laptop arbeitest: Kannst du Bildschirm und Tastatur unabhängig voneinander positionieren?",
         help: "Das geht beispielsweise mit separater Tastatur und Maus sowie einem Laptopständer – oder mit einem externen Bildschirm und passend angeordneten Eingabegeräten.",
         unsureHelp: "Prüfe bei einer typischen längeren Laptop-Aufgabe, ob Bildschirm und Tastatur getrennt aufgestellt sind. Wenn du nicht länger am Laptop arbeitest, wähle „Betrifft mich nicht“.",
@@ -1415,7 +1341,6 @@
       {
         category: "concentrationAndMovement",
         categoryLabel: "Konzentration und Bewegung",
-        illustration: "noise",
         title: "Kannst du an deinem Arbeitsplatz konzentriert arbeiten, ohne häufig durch Lärm gestört zu werden?",
         help: "Denke beispielsweise an Gespräche, Telefonate oder andere Geräusche, die dich beim Lesen, Schreiben oder Nachdenken unterbrechen.",
         unsureHelp: "Denke an eine typische konzentrierte Aufgabe und daran, ob Geräusche dich dabei häufig unterbrechen.",
@@ -1429,7 +1354,6 @@
       {
         category: "concentrationAndMovement",
         categoryLabel: "Konzentration und Bewegung",
-        illustration: "movement",
         title: "Wechselst du im Arbeitsalltag zwischen Sitzen, Stehen und Gehen?",
         help: "Denke an deinen letzten typischen Arbeitstag: Gab es immer wieder solche Wechsel oder hast du die meiste Zeit durchgehend gesessen?",
         unsureHelp: "Rufe dir einen typischen Arbeitstag in Erinnerung und prüfe, ob und wie oft du zwischen Sitzen, Stehen und Gehen wechselst.",
@@ -1443,7 +1367,6 @@
       {
         category: "concentrationAndMovement",
         categoryLabel: "Konzentration und Bewegung",
-        illustration: "break",
         title: "Unterbrichst du längere Bildschirmphasen durch kurze Tätigkeiten oder Pausen ohne Bildschirm?",
         help: "Zum Beispiel durch ein Gespräch abseits des Monitors, einen kurzen Gang oder einen Blick in die Ferne. Der Wechsel vom Computer zum Smartphone zählt hier nicht dazu.",
         unsureHelp: "Denke an längere Bildschirmphasen an einem typischen Arbeitstag und prüfe, ob du sie durch Tätigkeiten oder Pausen ohne Bildschirm unterbrichst.",
@@ -1703,11 +1626,8 @@
             <details class="question-guide" ${selectedAnswer && selectedAnswer.type === "unclear" ? "open" : ""}>
               <summary>So prüfst du es</summary>
               <div class="question-guide-content">
-                <svg class="question-illustration" viewBox="0 0 140 100" role="img" aria-label="${QUESTION_ILLUSTRATIONS[question.illustration].label}">
-                  ${QUESTION_ILLUSTRATIONS[question.illustration].svg.replace(/^<svg[^>]*>|<\/svg>$/g, "")}
-                </svg>
                 ${selectedAnswer && selectedAnswer.type === "unclear"
-                  ? `<p class="question-help-check" role="note" aria-live="polite" aria-atomic="true"><strong>Prüfhilfe</strong>${question.unsureHelp}</p>`
+                  ? `<p class="question-help-check" role="note" aria-live="polite" aria-atomic="true"><strong>Prüfhilfe</strong> ${question.unsureHelp}</p>`
                   : `<p>${question.help}</p>`}
               </div>
             </details>
