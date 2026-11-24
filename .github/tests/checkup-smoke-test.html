@@ -225,7 +225,19 @@
           finish((index) => index === 7 ? { index: 2 } : { index: 0 });
           assert(app().document.getElementById("tipsList").innerText.includes("Ruhe für konzentriertes Arbeiten"), "quiet measures should be prioritized");
           assert(hasProduct("headset-adapt-660"), "noise-reduction headset should be considered");
+          assert(hasProduct("headset-quietcomfort-bose"), "the new Bose QuietComfort headset should be available for noise-related answers");
           assert(!app().document.body.innerText.includes("Freisprechlösung"), "no hands-free solution should be shown");
+        });
+
+        test("new massage device is optional and not presented as an ergonomic fix", () => {
+          reset();
+          finish((index) => index === 2 ? { index: 2 } : { index: 0 });
+          assert(hasProduct("nacken-massagegerat-donnerberg"), "the new massage device should be available for arm and shoulder support concerns");
+          const card = [...app().document.querySelectorAll("#productsList .product-card, #moreProducts .product-card")]
+            .find((item) => item.innerText.includes("Nacken-Massagegerät"));
+          assert(card && card.textContent.includes("Optional zur Entspannung"), "the massage device should be clearly optional");
+          assert(card.textContent.includes("maximal 15 Minuten täglich"), "the listed use limit should be retained");
+          assert(card.textContent.includes("Es ersetzt keine passende Bildschirm-, Tisch- oder Sitzposition."), "the device should not be framed as an ergonomic correction");
         });
 
         test("products are unique and initially limited to three", () => {

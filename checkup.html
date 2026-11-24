@@ -1462,6 +1462,14 @@
           firstStep: "Prüfe zuerst den Tisch- und Sitzabstand, denn eine gute Armauflage beginnt mit der richtigen Höhe.",
           when: "Wenn du trotz passender Höhe die Unterarme nicht gut ablegen kannst und die Schultern dabei zusammenziehen.",
           url: "https://ergo-thek.booqableshop.com/products/07-unterarmstutze-io-rest"
+        },
+        {
+          name: "Nacken-Massagegerät (Donnerberg)",
+          label: "Optional zur Entspannung",
+          why: "Als Ergänzung kann das Gerät zur Entspannung der Nacken- und Schultermuskulatur ausprobiert werden. Es ersetzt keine passende Bildschirm-, Tisch- oder Sitzposition.",
+          firstStep: "Passe zuerst die Arbeitsplatzposition an. Wenn du das Gerät zusätzlich ausprobierst, beachte die begrenzte Anwendungsdauer.",
+          when: "Als optionale Entspannungsanwendung, nicht als Lösung für die Ursache einer ungünstigen Arbeitshaltung. Laut Produktbeschreibung maximal 15 Minuten täglich verwenden.",
+          url: "https://ergo-thek.booqableshop.com/products/nacken-massagegerat-donnerberg"
         }
       ],
       monitorPosition: [
@@ -1512,6 +1520,13 @@
           firstStep: "Teste zuerst ruhigere Arbeitsbereiche, vereinbarte Ruhezeiten und die Reduktion störender Geräuschquellen.",
           when: "Wenn der Lärm trotz ruhiger Arbeitsbedingungen weiter stört und du die Geräuschreduzierung für konzentriertes Arbeiten gezielt testen möchtest.",
           url: "https://ergo-thek.booqableshop.com/products/23-headset-adapt-660-sennheiser-epos"
+        },
+        {
+          name: "Headset QuietComfort (Bose)",
+          why: "Diese Over-Ear-Kopfhörer bieten aktive Geräuschunterdrückung und können eine Alternative sein, wenn Umgebungsgeräusche deine Konzentration stören.",
+          firstStep: "Teste den Quiet- oder Aware-Modus passend zu deiner Arbeitsumgebung und achte darauf, wichtige Umgebungsgeräusche wahrnehmen zu können.",
+          when: "Wenn du Geräuschunterdrückung beim konzentrierten Arbeiten ausprobieren möchtest.",
+          url: "https://ergo-thek.booqableshop.com/products/headset-quietcomfort-bose"
         }
       ],
       movement: [
@@ -1911,7 +1926,7 @@
         const card = document.createElement("article");
         card.className = "product-card";
         card.innerHTML = `
-          <span class="product-label">Zum Ausprobieren</span>
+          <span class="product-label">${product.label || "Zum Ausprobieren"}</span>
           <h4>${product.name}</h4>
           <p><strong>Warum vorgeschlagen?</strong> ${product.why}</p>
           <p><strong>Zuerst ausprobieren:</strong> ${product.firstStep}</p>
@@ -1924,7 +1939,7 @@
       if (extra.length) {
         moreProducts.innerHTML = extra.map((product) => `
           <article class="product-card">
-            <span class="product-label">Zum Ausprobieren</span>
+            <span class="product-label">${product.label || "Zum Ausprobieren"}</span>
             <h4>${product.name}</h4>
             <p><strong>Warum vorgeschlagen?</strong> ${product.why}</p>
             <p><strong>Zuerst ausprobieren:</strong> ${product.firstStep}</p>
