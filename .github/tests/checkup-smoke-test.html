@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check-up regression tests</title>
+</head>
+<body>
+  <h1>Check-up regression tests</h1>
+  <p>Serve the repository root over HTTP and open this file to run the checks.</p>
+  <pre id="test-results">Tests are running…</pre>
+  <iframe
+    id="checkup"
+    title="Check-up under test"
+    src="../../checkup.html"
+    style="width:320px;height:812px;border:0"
+  ></iframe>
+  <iframe
+    id="home-desktop"
+    title="Homepage at desktop dimensions"
+    src="../../index.html"
+    style="width:1280px;height:800px;border:0"
+  ></iframe>
+  <iframe
+    id="home-mobile"
+    title="Homepage at mobile dimensions"
+    src="../../index.html"
+    style="width:320px;height:812px;border:0"
+  ></iframe>
+  <script>
+    const frame = document.getElementById("checkup");
+    const homeDesktop = document.getElementById("home-desktop");
+    const homeMobile = document.getElementById("home-mobile");
+    const results = [];
+    const app = () => frame.contentWindow;
+
+    function assert(condition, message) {
+      if (!condition) throw new Error(message);
+    }
+
+    function test(name, run) {
+      try {
+        run();
+        results.push(`PASS ${name}`);
+      } catch (error) {
+        results.push(`FAIL ${name}: ${error.message}`);
+      }
+    }
+
+    function answerQuestion(questionIndex, answerIndex, followUp) {
+      assert(app().eval("currentQuestion") === questionIndex, `expected question ${questionIndex + 1}`);
+      app().document.querySelector(`[data-answer-index="${answerIndex}"]`).click();
+      if (followUp) app().document.querySelector(`[data-follow-up="${followUp}"]`).click();
+      app().document.getElementById("continueButton").click();
+    }
+
+    function finish(answerForQuestion) {
+      for (let index = 0; index < 10; index += 1) {
+        const answer = answerForQuestion(index);
+        answerQuestion(index, answer.index, answer.followUp);
+      }
+    }
+
+    function reset() {
+      app().eval("restart()");
+    }
+
+    function statuses() {
+      return [...app().document.querySelectorAll("#categoryResults .status-pill")].map((node) => node.textContent.replace(/^[✓!?–]\s*/, ""));
+    }
+
+    function hasProduct(fragment) {
+      return [...app().document.querySelectorAll("#productsList a, #moreProducts a")]
+        .some((link) => link.href.includes(fragment));
+    }
+
+    function testHomeLayout(frame, label) {
+      const page = frame.contentWindow;
+      const title = page.document.querySelector(".hero h1");
+      const button = page.document.querySelector(".hero-content a.button");
+      const mascot = page.document.querySelector(".hero-mascot img");
+      const titleBounds = title.getBoundingClientRect();
+      const buttonBounds = button.getBoundingClientRect();
+      const overflowing = [...page.document.querySelectorAll("body *")]
+        .filter((element) => element.getBoundingClientRect().right > page.innerWidth + 1)
+        .slice(0, 5)
+        .map((element) => `${element.tagName}.${element.className}`);
+      assert(
+        page.document.documentElement.scrollWidth <= page.innerWidth,
+        `${label} homepage overflow ${page.document.documentElement.scrollWidth}/${page.innerWidth}: ${overflowing.join(", ")}`
+      );
+      assert(titleBounds.top >= 0 && buttonBounds.bottom <= page.innerHeight, `${label} title and start button should fit without scrolling`);
+      assert(button.innerText.includes("10 Fragen") && button.innerText.includes("Ohne Anmeldung"), `${label} start button should show the quiz format`);
+      assert(mascot.getAttribute("src").includes("maskottchen-titel"), `${label} should retain the mascot`);
+    }
+
+    for (const [homeFrame, label] of [[homeDesktop, "desktop"], [homeMobile, "mobile"]]) {
+      homeFrame.addEventListener("load", () => {
+        test(`${label} homepage keeps the start button visible`, () => testHomeLayout(homeFrame, label));
+        document.getElementById("test-results").textContent = results.join("\n");
+      }, { once: true });
+    }
+
+    frame.addEventListener("load", () => {
+      try {
+        test("answers are required before continuing", () => {
+          assert(app().document.getElementById("continueButton").disabled, "continue must start disabled");
+        });
+
+        test("question guidance is collapsed and includes an accessible illustration", () => {
+          const guide = app().document.querySelector(".question-guide");
+          const illustration = guide.querySelector(".question-illustration");
+          assert(!guide.open, "guidance should be collapsed by default");
+          assert(guide.querySelector("summary").textContent.includes("So prüfst du es"), "collapsed guidance should have a clear label");
+          assert(illustration.getAttribute("role") === "img" && illustration.getAttribute("aria-label"), "illustration should have an accessible description");
+          assert(illustration.querySelectorAll("path, circle, rect").length > 0, "question should include a contextual diagram");
+        });
+
+        test("all ten questions show a contextual diagram", () => {
+          reset();
+          for (let index = 0; index < 10; index += 1) {
+            const illustration = app().document.querySelector(".question-illustration");
+            assert(illustration && illustration.getAttribute("aria-label"), `question ${index + 1} should have a described illustration`);
+            answerQuestion(index, 0);
+          }
+          reset();
+        });
+
+        test("all Yes answers show four passing areas", () => {
+          finish(() => ({ index: 0 }));
+          assert(statuses().length === 4 && statuses().every((status) => status === "Passt bereits"), "all areas should pass");
+          assert([...app().document.querySelectorAll("#categoryResults .area-card")].every((card) => card.classList.contains("area-passt")), "passing areas should have a distinct visual state");
+          assert(app().document.getElementById("resultTitle").textContent.includes("geprüften Punkte"), "result must stay limited to checked points");
+          assert(!app().document.body.innerText.includes("%"), "no percentage score should be shown");
+        });
+
+        test("all No answers prioritize improvement", () => {
+          reset();
+          finish((index) => index === 0
+            ? { index: 2, followUp: "missingFootContact" }
+            : index === 5
+              ? { index: 2, followUp: "both" }
+              : index === 8
+                ? { index: 2, followUp: "yes" }
+                : { index: 2 });
+          assert(statuses().every((status) => status === "Verbesserung möglich"), "all areas should show improvement opportunities");
+          assert([...app().document.querySelectorAll("#categoryResults .area-card")].every((card) => card.classList.contains("area-verbesserung")), "improvement areas should have a distinct visual state");
+          assert(app().document.getElementById("resultTitle").textContent === "Deine nächsten Schritte", "No answers should prioritize actions");
+          assert(app().document.querySelector("#tipsList .tip-badge").textContent.includes("Dein nächster Schritt"), "first priority should be labeled as the next step");
+          assert(app().document.querySelectorAll("#tipsList > .tip-card").length === 3, "show at most three priority actions");
+        });
+
+        test("N/A does not improve scores or become an open point", () => {
+          reset();
+          finish((index) => index === 5
+            ? { index: 1, followUp: "mouse" }
+            : index === 6
+              ? { index: 3 }
+              : { index: 0 });
+          assert(statuses()[2] === "Verbesserung möglich", "Partially must remain a concern");
+          assert(app().eval('getOpenQuestions("mouseKeyboardLaptop").length') === 0, "N/A must not be an open point");
+          assert(!hasProduct("organizer-mit-laptopstander"), "N/A must not trigger laptop products");
+        });
+
+        test("all unclear answers remain unassessable", () => {
+          reset();
+          finish((index) => ({ index: index === 6 ? 4 : 3 }));
+          assert(statuses().every((status) => status === "Noch nicht beurteilbar"), "no rated answer must not be treated as a pass");
+          assert([...app().document.querySelectorAll("#categoryResults .area-card")].every((card) => card.classList.contains("area-nicht-beurteilbar")), "unassessed areas should have a distinct visual state");
+          assert(app().document.getElementById("resultTitle").textContent === "Deine Auswertung", "result must not claim success");
+        });
+
+        test("open items remain visible alongside improvement status", () => {
+          reset();
+          finish((index) => index === 0
+            ? { index: 3 }
+            : index === 5
+              ? { index: 1, followUp: "mouse" }
+              : index === 6
+                ? { index: 3 }
+                : { index: 0 });
+          const cards = app().document.querySelectorAll("#categoryResults .area-card");
+          assert(cards[0].querySelector(".status-pill").textContent.replace(/^[✓!?–]\s*/, "") === "Noch prüfen", "rated Yes plus unclear should require review");
+          assert(cards[0].classList.contains("area-pruefen") && cards[0].querySelector(".area-open strong").textContent === "Das kannst du prüfen:", "open items should be visually called out");
+          assert(cards[0].querySelector(".area-open").innerText.includes("Kannst du mit angelehntem Rücken"), "open question should be listed");
+          assert(cards[2].querySelector(".area-open").innerText === "Offene Punkte: Keine", "N/A should not appear as open");
+        });
+
+        test("unclear answer shows a question-specific check", () => {
+          reset();
+          app().document.querySelector('[data-answer-index="3"]').click();
+          assert(app().document.querySelector(".question-help-check").textContent.includes("Prüfhilfe"), "check help should appear");
+          assert(app().document.querySelector(".question-guide").open, "question guide should open for an unclear answer");
+        });
+
+        test("footrest requires confirmed missing contact after adjustment", () => {
+          reset();
+          finish((index) => index === 0 ? { index: 2, followUp: "footContactOK" } : { index: 0 });
+          assert(!hasProduct("fussstutze"), "generic seating issue must not trigger a footrest");
+          reset();
+          finish((index) => index === 0 ? { index: 2, followUp: "missingFootContact" } : { index: 0 });
+          assert(hasProduct("fussstutze"), "confirmed missing foot contact may trigger a footrest");
+        });
+
+        test("standing aids need confirmed standing capability", () => {
+          reset();
+          finish((index) => index === 8 ? { index: 2, followUp: "no" } : { index: 0 });
+          assert(!hasProduct("balancierbrett") && !hasProduct("stehmatte") && !hasProduct("stehhilfe"), "no standing ability must exclude standing aids");
+          reset();
+          finish((index) => index === 8 ? { index: 2, followUp: "unsure" } : { index: 0 });
+          assert(!hasProduct("balancierbrett") && !hasProduct("stehmatte") && !hasProduct("stehhilfe"), "uncertain standing ability must exclude standing aids");
+          reset();
+          finish((index) => index === 8 ? { index: 2, followUp: "yes" } : { index: 0 });
+          assert(hasProduct("balancierbrett") || hasProduct("stehmatte") || hasProduct("stehhilfe"), "confirmed standing may show standing aids");
+        });
+
+        test("mouse-only difficulty shows only a mouse product", () => {
+          reset();
+          finish((index) => index === 5 ? { index: 1, followUp: "mouse" } : { index: 0 });
+          assert(hasProduct("09-ergo-maus") && !hasProduct("split-break-tastatur"), "products must match the selected device");
+        });
+
+        test("noise answer shows quiet measures and the noise-reduction headset", () => {
+          reset();
+          finish((index) => index === 7 ? { index: 2 } : { index: 0 });
+          assert(app().document.getElementById("tipsList").innerText.includes("Ruhe für konzentriertes Arbeiten"), "quiet measures should be prioritized");
+          assert(hasProduct("headset-adapt-660"), "noise-reduction headset should be considered");
+          assert(!app().document.body.innerText.includes("Freisprechlösung"), "no hands-free solution should be shown");
+        });
+
+        test("products are unique and initially limited to three", () => {
+          reset();
+          finish((index) => index === 0
+            ? { index: 2, followUp: "missingFootContact" }
+            : index === 5
+              ? { index: 2, followUp: "both" }
+              : index === 8
+                ? { index: 2, followUp: "yes" }
+                : { index: 2 });
+          const links = [...app().document.querySelectorAll("#productsList a, #moreProducts a")].map((link) => link.href);
+          assert(new Set(links).size === links.length, "product links must not be duplicated");
+          assert(app().document.querySelectorAll("#productsList .product-card a").length <= 3, "show no more than three products initially");
+        });
+
+        test("changing an earlier answer clears stale follow-ups and later answers", () => {
+          reset();
+          answerQuestion(0, 1, "missingFootContact");
+          answerQuestion(1, 0);
+          answerQuestion(2, 0);
+          app().document.getElementById("backButton").click();
+          app().document.getElementById("backButton").click();
+          app().document.getElementById("backButton").click();
+          app().document.querySelector('[data-answer-index="0"]').click();
+          app().document.getElementById("continueButton").click();
+          assert(app().eval("answers.length") === 1, "later answers should be removed");
+          assert(app().eval("answers[0].followUpValue === null"), "obsolete follow-up should be cleared");
+          assert(app().document.activeElement.id === "currentQuestionTitle", "new question should receive focus");
+        });
+
+        test("320px layout has no horizontal overflow and print styles are present", () => {
+          reset();
+          assert(app().document.documentElement.scrollWidth <= app().innerWidth, "mobile view must not scroll horizontally");
+          const styles = app().document.querySelector("style").textContent;
+          assert(styles.includes("@media print") && styles.includes("#toggleProductsButton"), "print styles must hide controls");
+          assert(styles.includes("break-inside: avoid"), "print should avoid splitting cards");
+        });
+
+        test("quiz controls are native, focusable buttons with visible focus styling", () => {
+          reset();
+          const answer = app().document.querySelector("[data-answer-index]");
+          assert(answer.tagName === "BUTTON" && answer.type === "button", "answer should be a native button");
+          assert(answer.tabIndex === 0, "answer should be in the keyboard tab order");
+          const styles = app().document.querySelector("style").textContent;
+          assert(styles.includes("button:focus-visible") && styles.includes("outline: 3px solid var(--pink)"), "keyboard focus should be visible");
+          assert(app().document.querySelector("#currentQuestionTitle").tabIndex === -1, "new question heading should be programmatically focusable");
+        });
+
+        test("home page copy matches the current questions", () => {
+          const request = new XMLHttpRequest();
+          request.open("GET", "../../index.html", false);
+          request.send();
+          assert(request.status === 200, "home page should load");
+          assert(request.responseText.includes("Wie gut passt dein Arbeitsplatz zu dir?"), "requested headline should appear");
+          assert(request.responseText.includes("Diese Bereiche schaust du dir an"), "new section heading should appear");
+          assert(request.responseText.includes("10 Fragen · Ohne Anmeldung"), "start CTA should show the real format");
+          assert(!request.responseText.includes("Vier Bereichswerte") && !request.responseText.includes("Beinfreiheit"), "outdated claims should be removed");
+          for (const area of ["Sitzen und Armauflage", "Bildschirm und Licht", "Maus, Tastatur und Laptop", "Konzentration und Bewegung"]) {
+            assert(request.responseText.includes(area), `missing area ${area}`);
+          }
+        });
+      } catch (error) {
+        results.push(`FAIL test runner: ${error.message}`);
+      } finally {
+        document.getElementById("test-results").textContent = results.join("\n");
+      }
+    }, { once: true });
+  </script>
+</body>
+</html>
